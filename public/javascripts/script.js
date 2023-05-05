@@ -16,6 +16,7 @@ btn.addEventListener('click', function () {
     }
 
 }, false);
+
 btn2.addEventListener('click', function () {
     spany.forEach(function (item) {
         return item.classList.toggle('show-icon');
@@ -28,3 +29,39 @@ btn2.addEventListener('click', function () {
         return item3.classList.toggle('big-font');
     });
 }, false);
+
+
+const contentDiv = document.querySelector('#content');
+
+function contact() {
+    const contact = new XMLHttpRequest();
+    contact.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            contentDiv.innerHTML = this.responseText;
+        }
+    };
+    contact.open("GET", '/contact.ajax', true);
+    contact.send();
+}
+
+function search() {
+    const search = new XMLHttpRequest();
+    search.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            contentDiv.innerHTML = this.responseText;
+        }
+    };
+    search.open("GET", '/search.ajax', true);
+    search.send();
+}
+
+function about() {
+    const about = new XMLHttpRequest();
+    about.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            contentDiv.innerHTML = this.responseText;
+        }
+    };
+    about.open("GET", '/about.ajax', true);
+    about.send();
+}

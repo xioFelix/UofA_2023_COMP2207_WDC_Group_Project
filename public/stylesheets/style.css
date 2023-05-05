@@ -616,3 +616,78 @@ a {
    -ms-transform: rotatey(360deg);
    transition: .5s all;
  }
+
+ /* Home Page */
+ div.borderBottom {
+   border-bottom-style: solid;
+ }
+
+ div.margin {
+   margin: 5%;
+ }
+
+ img.Logorelative {
+   position: relative;
+   top: 80px;
+   height: 120px;
+   width: 120px;
+ }
+
+ .textCenter {
+   text-align: center;
+ }
+
+ .container {
+   display: flex;
+   gap: 16px;
+   overflow: scroll;
+   padding: 60px 0 80px 0;
+   position: relative;
+ }
+
+ * {
+   box-sizing: border-box;
+ }
+
+ body {
+   font-family: Arial, Helvetica, sans-serif;
+ }
+
+ /* Create three equal columns that floats next to each other */
+ .column {
+   float: left;
+   width: 33.33%;
+   padding: 10px;
+ }
+
+ .column2 {
+   float: left;
+   width: 25%;
+   padding: 10px;
+ }
+
+ .columnSpace {
+   float: left;
+   width: 12.5%;
+   padding: 10px;
+ }
+
+ /* Clear floats after the columns */
+ .row:after {
+   content: "";
+   display: table;
+   clear: both;
+ }
+
+ /* Style the footer */
+ .footer {
+   background-color: #d28484;
+   padding: 10px;
+   text-align: center;
+   border-top-style: solid;
+ }
+
+ img.size {
+   height: 100%;
+   width: 100%;
+ }
