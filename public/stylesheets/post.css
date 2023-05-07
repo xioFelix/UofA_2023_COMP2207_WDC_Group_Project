@@ -117,6 +117,43 @@ i {
 }
 
 /* Post Page */
+.Announcement {
+    text-align: left;
+    margin: 1em auto;
+    border-color: #7ba1a8;
+    border-style: solid;
+}
+
+.left {
+    text-align: left;
+    margin: 0 auto;
+}
+
+.middle{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.right {
+    text-align: right;
+    margin: 0 auto;
+}
+
 .formTitle {
-    font-size: 1000em;
+    font-size: 1.5em;
+    /* padding: 2ex; */
+    width: 90%;
+}
+
+.formText{
+    padding: 1ex;
+    width: 95%;
+    text-align: left;
+}
+
+.submitButton{
+    padding: 0.5em;
+    text-align: left;
+    color: white;
+    background-color: #7ba1a8;
 }

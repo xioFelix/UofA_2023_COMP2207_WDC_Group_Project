@@ -17,7 +17,7 @@ button {
   border: 1px solid #7ad1d7;
   border-radius: 5px;
   cursor: pointer;
-  color: #fff;
+  color: white;
   padding: 5px;
   font-family: 'Roboto', sans-serif;
 }
@@ -30,7 +30,7 @@ button {
   align-items: center;
   background-color: #2b396e;
   border-radius: 1rem;
-  color: #fff;
+  color: white;
   transition: all 0.5s;
   overflow: hidden;
 }
@@ -59,7 +59,7 @@ button {
   width: 100%;
   height: 5px;
   display: block;
-  background-color: #fff;
+  background-color: white;
   border-radius: 2px;
   transition: all 0.5s;
 }
@@ -157,7 +157,7 @@ h3.big-font {
 
 .menu a {
   display: none;
-  color: #fff;
+  color: white;
   text-decoration: none;
   font-family: sans-serif;
   text-align: center;
@@ -390,7 +390,7 @@ body {
 h1 {
   font-size: 3em;
   text-align: center;
-  color: #fff;
+  color: white;
   font-weight: 100;
 }
 
@@ -474,7 +474,7 @@ h1 {
 /* login按钮 submit*/
 .login-bottom input[type="submit"] {
   /* font-size: 0.9em; */
-  color: #fff;
+  color: white;
   background: #7ba1a8;
   border: 3px solid #7ba1a8;
   outline: none;
@@ -485,7 +485,7 @@ h1 {
 
 
 .login-bottom input[type="submit"]:hover {
-  background: #fff;
+  background: white;
   color: #7ba1a8;
   border-color: #7ba1a8;
   transition: 0.5s all ease;
@@ -519,7 +519,7 @@ h1 {
 
 /* 上面按钮 */
 .resp-tab-item {
-  color: #fff;
+  color: white;
   font-size: 1.5em;
   cursor: pointer;
   display: inline-block;
@@ -538,13 +538,13 @@ h1 {
 .resp-tab-active {
   text-shadow: none;
   color: #7ba1a8;
-  background: #fff;
+  background: white;
 }
 
 /* 中间白框 */
 .resp-tabs-container {
   padding: 0px;
-  background-color: #fff;
+  background-color: white;
   clear: left;
 }
 
