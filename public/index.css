@@ -40,7 +40,7 @@ img.Titlerelative {
 .column {
     float: left;
     width: 25%;
-    padding: 15px;
+    padding: 1rem;
     font-weight: bolder;
 }
 
@@ -98,8 +98,8 @@ img.Titlerelative {
 /*底部图片*/
 img.LogoBottom {
 
-    max-height: 250px;
-    max-width: 250px;
+    max-height: 12rem;
+    max-width: 12rem;
     float: left;
 
     background-color: #7ba1a8;
