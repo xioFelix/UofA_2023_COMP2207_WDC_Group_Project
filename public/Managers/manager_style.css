@@ -400,7 +400,60 @@ h2.resp-accordion {
     margin-right: 8px;
 }
 
+/* Style the footer */
+.footer {
+    justify-content: space-evenly;
+    align-items: center;
+    display: flex;
+    background-color: #7ba1a8;
+    color: #BFCFD4;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+}
 
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+/*底部图片*/
+img.LogoBottom {
+
+    max-height: 12rem;
+    max-width: 12rem;
+    float: left;
+
+    background-color: #7ba1a8;
+    /* display: inline-block; */
+}
+
+.footertext {
+    flex-direction: row;
+    float: left;
+    position: relative;
+    padding: 30px;
+    /* background-color: #7ba1a8; */
+}
+
+.footerlist {
+    margin-left: 0;
+    list-style-type: none;
+    padding: 0px;
+}
+
+.footerlist li {
+    font-size: large;
+}
+
+/* 底部社交符号*/
+.footer i {
+    color: #BFCFD4;
+    margin: 0 0.5rem 0 0.5rem;
+}
 
 /*--//copyright--*/
 /*---- responsive-design -----*/

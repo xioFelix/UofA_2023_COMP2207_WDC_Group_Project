@@ -1,8 +1,0 @@
-Starting Nmap 7.93 ( https://nmap.org ) at 2023-05-11 23:11 ACST
-Nmap scan report for student-10-201-27-197.wireless.adelaide.edu.au (10.201.27.197)
-Host is up (0.00016s latency).
-Not shown: 3 closed tcp ports (reset)
-PORT     STATE SERVICE
-5500/tcp open  hotline
-
-Nmap done: 512 IP addresses (35 hosts up) scanned in 17.60 seconds
