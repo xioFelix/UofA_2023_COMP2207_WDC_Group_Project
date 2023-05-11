@@ -77,7 +77,7 @@ img.Titlerelative {
 
 /* Style the footer */
 .footer {
-    justify-content:flex-start;
+    justify-content: flex-start;
     display: flex;
     padding: 20px;
     background-color: #7ba1a8;
@@ -111,7 +111,10 @@ img.LogoBottom {
     /* background-color: #7ba1a8; */
 }
 
-.
+.footerlist {
+    margin-left: 0;
+    list-style-type: none;
+}
 
 /* 底部社交符号*/
 i {
