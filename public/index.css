@@ -96,7 +96,7 @@ img.Titlerelative {
 /*底部图片*/
 img.LogoBottom {
     position: absolute;
-
+    max-height: 150px;
     float: left;
     margin: 30px 30px 30px 10px;
 
