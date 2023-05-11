@@ -2,12 +2,21 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
+a{
+    color:#353740;
+        text-decoration: none;
+}
+
+a:hover{
+    font-weight: bold;
+    /* transition: all 0.5s; */
+}
+.footer a {
     color: #BFCFD4;
     text-decoration: none;
 }
 
-a:hover {
+.footer a:hover {
     color: white;
 }
 
