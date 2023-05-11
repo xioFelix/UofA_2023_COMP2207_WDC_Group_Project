@@ -96,7 +96,7 @@ img.LogoBottom {
     position: relative;
     max-height: 150px;
     float: left;
-    margin: 30px;
+    margin: 30px 30px 30px 10px;
 
     background-color: #7ba1a8;
     /* display: inline-block; */
