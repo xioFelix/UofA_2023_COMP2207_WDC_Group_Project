@@ -107,6 +107,7 @@ img.LogoBottom {
 }
 
 .footertext {
+    text-align: center;
     flex-direction: row;
     float: left;
     position: relative;
