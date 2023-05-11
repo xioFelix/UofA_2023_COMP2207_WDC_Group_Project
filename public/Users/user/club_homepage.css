@@ -198,3 +198,12 @@ input:checked~.tab-content {
     display: table;
     clear: both;
 }
+
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}

@@ -336,6 +336,18 @@ h2.resp-accordion {
     margin-right: 8px;
 }
 
+.passwordBox {
+    display: flex;
+    align-items: center;
+}
+
+.eyeBox {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 1rem 1rem;
+    color: #7ba1a8;
+}
+
 /* Style the footer */
 .footer {
     justify-content: space-evenly;
@@ -391,6 +403,14 @@ img.LogoBottom {
     margin: 0 0.5rem 0 0.5rem;
 }
 
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
 /*--//copyright--*/
 /*---- responsive-design -----*/
 /* 适合不同大小的页面 */

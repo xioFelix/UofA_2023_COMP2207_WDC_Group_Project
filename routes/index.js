@@ -21,4 +21,8 @@ router.post('/loginToAdmin', function (req, res) {
   res.redirect('./Admins/Admin/home_page.html');
 });
 
+router.post('/otherLoginToUser', function (req, res) {
+  res.redirect('./Users/user/home_page.html');
+});
+
 module.exports = router;

@@ -60,12 +60,7 @@ img.Logorelative {
 }
 
 /* Footer */
-.footer {
-    display: flex;
-    padding: 20px;
-    background-color: #7ba1a8;
-    color: #BFCFD4;
-}
+
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
@@ -153,10 +148,12 @@ i {
 
 .submitButton {
     padding: 0.5em;
+    border: none;
     text-align: left;
     color: white;
     background-color: #7ba1a8;
 }
+
 /* Style the footer */
 .footer {
     justify-content: space-evenly;
@@ -210,4 +207,13 @@ img.LogoBottom {
 .footer i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
+}
+
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
 }

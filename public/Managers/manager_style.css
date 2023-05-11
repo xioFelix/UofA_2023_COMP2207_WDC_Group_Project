@@ -455,6 +455,15 @@ img.LogoBottom {
     margin: 0 0.5rem 0 0.5rem;
 }
 
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
 /*--//copyright--*/
 /*---- responsive-design -----*/
 /* 适合不同大小的页面 */

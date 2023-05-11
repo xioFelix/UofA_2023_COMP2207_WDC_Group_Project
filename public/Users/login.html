@@ -46,7 +46,7 @@
 										<input type="email" class="email" placeholder="Email" required="" />
 										<div class="loginPw passwordBox">
 											<input type="button" class="passwordBox" :type="passwordFieldType"
-												v-model="password" placeholder="Enter password">
+												v-model="password" placeholder="Password">
 											<div class="eyeBox" @click="switchVisibility"><i
 													class="fa-solid fa-eye-slash"></i></div>
 										</div>
@@ -82,16 +82,17 @@
 									<form>
 										<input type="text" class="name active" placeholder="Full Name" required="" />
 										<input type="text" class="name active" placeholder="User Name" required="" />
-										<input type="text" class="email" placeholder="Email" required="" />
+										<input type="email" class="email" placeholder="Email" required="" />
 										<div class="signUpPw passwordBox">
 											<input type="password" class="passwordBox" :type="passwordFieldType"
-												v-model="password" placeholder="Enter password">
+												v-model="password" placeholder="Password">
 											<div class="eyeBox" @click="switchVisibility"><i
 													class="fa-solid fa-eye-slash"></i></div>
 										</div>
-									</form>
 
 									<script src="index.js"></script>
+								</form>
+
 
 									<div class="login-bottom">
 										<ul>

@@ -79,11 +79,11 @@ img.Logorelative {
 
 /*底部图片*/
 img.LogoBottom {
-
-    max-height: 12rem;
-    max-width: 12rem;
+    position: relative;
+    max-height: 150px;
     float: left;
-
+    margin-right: 50px;
+    margin-top: 10px;
     background-color: #7ba1a8;
     /* display: inline-block; */
 }
@@ -112,6 +112,15 @@ img.LogoBottom {
     margin: 0 0.5rem 0 0.5rem;
 }
 
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
     .topnav a {
@@ -120,16 +129,6 @@ img.LogoBottom {
     }
 }
 
-/*底部图片*/
-img.LogoBottom {
-    position: relative;
-    max-height: 150px;
-    float: left;
-    margin-right: 50px;
-    margin-top: 10px;
-    background-color: #7ba1a8;
-    /* display: inline-block; */
-}
 
 .footercolumn {
     float: left;

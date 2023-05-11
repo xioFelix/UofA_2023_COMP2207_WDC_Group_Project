@@ -112,6 +112,15 @@ img.LogoBottom {
     margin: 0 0.5rem 0 0.5rem;
 }
 
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
 @media screen and (max-width: 400px) {
     .topnav a {

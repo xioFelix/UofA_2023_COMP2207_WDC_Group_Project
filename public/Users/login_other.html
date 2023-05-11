@@ -1,51 +1,65 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Users</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Tab Widget Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
-<link href="style_other.css" rel="stylesheet" type="text/css" media="all" />
-<!--js-->
-<script src="jquery.min.js"></script>
-<script src="easyResponsiveTabs.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#horizontalTab').easyResponsiveTabs({
-				type: 'default',
-				width: 'auto',
-				fit: true
+	<head>
+		<title>Users</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords"
+			content="Tab Widget Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+		<link href="style_other.css" rel="stylesheet" type="text/css" media="all" />
+		<!--js-->
+		<script src="jquery.min.js"></script>
+		<script src="easyResponsiveTabs.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$('#horizontalTab').easyResponsiveTabs({
+					type: 'default',
+					width: 'auto',
+					fit: true
+				});
 			});
-		});
-	   </script>
-<!--//js-->
-</head>
-<body>
-	<!-- main -->
-	<div class="main">
-		<h1> Users </h1>
-		<div class="main-information">
-			<!-- <div class="sap_tabs"> -->
+		</script>
+		<!--//js-->
+	</head>
+
+	<body>
+		<!-- main -->
+		<div class="main">
+			<h1> Users </h1>
+			<div class="main-information">
+				<!-- <div class="sap_tabs"> -->
 				<!--第一行login 和 register-->
 				<div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
 					<ul class="resp-tabs-list">
 						<li class="resp-tab-item" aria-controls="tab_item-0" role="tab">
-							<h2><span>Login</span></h2></li>
+							<h2><span>Login</span></h2>
+						</li>
 					</ul>
 					<div class="resp-tabs-container">
 						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 							<div class="login-top">
+								<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 								<form>
-									<input type="text" class="username" placeholder="Username" required=""/>
-									<input type="password" class="password" placeholder="Password" required=""/>
+									<input type="text" class="username" placeholder="Username" required="" />
+									<script src="https://kit.fontawesome.com/94cf77f898.js"
+										crossorigin="anonymous"></script>
+									<div class="loginPw passwordBox">
+										<input type="password" class="passwordBox" :type="passwordFieldType"
+											v-model="password" placeholder="Password">
+										<div class="eyeBox" @click="switchVisibility"><i
+												class="fa-solid fa-eye-slash"></i></div>
+									</div>
+
+									<script src="index.js"></script>
 								</form>
 								<div class="login-bottom">
 									<ul>
 										<li>
-											<form action="./user/home_page.html" method="post">
+											<form action="/otherLoginToUser" method="post">
 												<!-- login 转跳到homepage——user -->
-												<input type="submit" value="LOGIN"/>
+												<input type="submit" value="LOGIN" />
 											</form>
 										</li>
 									</ul>
@@ -56,5 +70,6 @@
 				</div>
 			</div>
 		</div>
-</body>
+	</body>
+
 </html>
