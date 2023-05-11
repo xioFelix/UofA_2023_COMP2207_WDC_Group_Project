@@ -152,17 +152,6 @@ img.LogoBottom {
     background-position: center 0;
 } */
 
-/*底部图片*/
-img.LogoBottom {
-    position: relative;
-    max-height: 150px;
-    float: left;
-    margin-right: 50px;
-    margin-top: 10px;
-    background-color: #7ba1a8;
-    /* display: inline-block; */
-}
-
 .footercolumn {
     float: left;
     position: relative;
