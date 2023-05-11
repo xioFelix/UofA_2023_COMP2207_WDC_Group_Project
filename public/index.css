@@ -120,6 +120,8 @@ img.LogoBottom {
     padding: 0px;
 }
 
+.footerlist li{}
+
 /* 底部社交符号*/
 i {
     color: #BFCFD4;
