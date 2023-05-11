@@ -434,6 +434,17 @@ h2.resp-accordion {
     transition: .5s all;
 }
 
+.passwordBox {
+    display: flex;
+    align-items: center;
+}
+
+.eyeBox {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 1rem 1rem;
+    color: #7ba1a8;
+}
 
 /*--//copyright--*/
 /*---- responsive-design -----*/
