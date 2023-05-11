@@ -129,7 +129,7 @@ i {
     margin: 0 auto;
 }
 
-.middle{
+.middle {
     text-align: center;
     margin: 0 auto;
 }
@@ -145,13 +145,13 @@ i {
     width: 90%;
 }
 
-.formText{
+.formText {
     padding: 1ex;
     width: 100%;
     text-align: left;
 }
 
-.submitButton{
+.submitButton {
     padding: 0.5em;
     text-align: left;
     color: white;

@@ -9,7 +9,7 @@ body {
 }
 
 /*顶部图片*/
-img.Logorelative{
+img.Logorelative {
     position: relative;
     height: 100%;
     width: 100%;
@@ -65,7 +65,7 @@ img.Logorelative{
 
 /* Footer */
 .footer {
-    display:flex;
+    display: flex;
     padding: 20px;
     background-color: #7ba1a8;
     color: #BFCFD4;
@@ -96,7 +96,7 @@ img.Logorelative{
 } */
 
 /*底部图片*/
-img.LogoBottom{
+img.LogoBottom {
     position: relative;
     max-height: 150px;
     float: left;
@@ -106,7 +106,7 @@ img.LogoBottom{
     /* display: inline-block; */
 }
 
-.footercolumn{
+.footercolumn {
     float: left;
     position: relative;
     padding-right: 30px;

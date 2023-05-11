@@ -2,6 +2,12 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
 div.borderBottom{
     border-bottom-style: solid;
 }
@@ -10,23 +16,12 @@ div.margin{
     margin: 5%;
 }
 
-img.Logorelative{
+img.Titlerelative{
     position: relative;
     height: 100%;
     width: 100%;
 }
-.columnAboveleft {
-    float: left;
-    width: 15%;
-    font-weight: bolder;
-}
-.columnAboveRight {
-    float: right;
-    display: flex;
-    justify-content: center;
-    width: 85%;
-    font-weight: bolder;
-}
+
 .size{
     height: 100%;
     width: 100%;

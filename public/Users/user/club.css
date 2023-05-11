@@ -9,7 +9,7 @@ body {
 }
 
 /*顶部图片*/
-img.Logorelative{
+img.Logorelative {
     position: relative;
     height: 100%;
     width: 100%;
@@ -65,7 +65,7 @@ img.Logorelative{
 
 /* Footer */
 .footer {
-    display:flex;
+    display: flex;
     padding: 20px;
     background-color: #7ba1a8;
     color: #BFCFD4;
@@ -96,7 +96,7 @@ img.Logorelative{
 } */
 
 /*底部图片*/
-img.LogoBottom{
+img.LogoBottom {
     position: relative;
     max-height: 150px;
     float: left;
@@ -106,7 +106,7 @@ img.LogoBottom{
     /* display: inline-block; */
 }
 
-.footercolumn{
+.footercolumn {
     float: left;
     position: relative;
     padding-right: 30px;
@@ -121,8 +121,9 @@ i {
 }
 
 .button {
-    width:49.5%;
-    background-color: #99b555; /* Green */
+    width: 49.5%;
+    background-color: #99b555;
+    /* Green */
     border: none;
     color: white;
     padding: 16px 32px;
@@ -136,8 +137,8 @@ i {
 }
 
 .button1 {
-    background-color: white; 
-    color: #1b512c; 
+    background-color: white;
+    color: #1b512c;
     border: 2px solid #99b555;
 }
 
@@ -147,8 +148,8 @@ i {
 }
 
 .button2 {
-    background-color: white; 
-    color: #1b512c; 
+    background-color: white;
+    color: #1b512c;
     border: 2px solid #99b555;
 }
 
@@ -157,8 +158,8 @@ i {
     color: white;
 }
 
-div.margin{
-    margin:3%;
+div.margin {
+    margin: 3%;
 }
 
 /* Accordion styles */
@@ -173,6 +174,7 @@ div.margin{
     color: white;
     overflow: hidden;
 }
+
 .tab-label {
     display: flex;
     justify-content: space-between;
@@ -182,9 +184,11 @@ div.margin{
     cursor: pointer;
     /* Icon */
 }
+
 .tab-label:hover {
     background: #7ba1a8;
 }
+
 .tab-label::after {
     content: "❯";
     width: 1em;
@@ -192,6 +196,7 @@ div.margin{
     text-align: center;
     transition: all 0.35s;
 }
+
 .tab-content {
     max-height: 0;
     padding: 0 1em;
@@ -199,6 +204,7 @@ div.margin{
     background: white;
     transition: all 0.35s;
 }
+
 .tab-close {
     display: flex;
     justify-content: flex-end;
@@ -207,6 +213,7 @@ div.margin{
     background: #7ba1a8;
     cursor: pointer;
 }
+
 .tab-close:hover {
     background: #374e53;
 }
@@ -217,13 +224,15 @@ input {
     z-index: -1;
 }
 
-input:checked + .tab-label {
+input:checked+.tab-label {
     background: #7ba1a8;
 }
-input:checked + .tab-label::after {
+
+input:checked+.tab-label::after {
     transform: rotate(90deg);
 }
-input:checked ~ .tab-content {
+
+input:checked~.tab-content {
     max-height: 100vh;
     padding: 1em;
 }

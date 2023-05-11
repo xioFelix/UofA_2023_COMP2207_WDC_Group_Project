@@ -8,12 +8,3 @@ anniu.addEventListener('click', function () {
         password.setAttribute('type', 'password');
     }
 });
-
-function openClubUser() {
-    window.location.href = 'clubs_user.html';
-
-}
-
-function openClubAll() {
-
-}
