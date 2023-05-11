@@ -77,7 +77,7 @@ img.Titlerelative {
 
 /* Style the footer */
 .footer {
-    justify-content:space-a;
+    justify-content:space-around;
     display: flex;
     padding: 20px;
     background-color: #7ba1a8;
