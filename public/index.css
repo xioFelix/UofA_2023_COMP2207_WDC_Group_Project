@@ -82,6 +82,7 @@ img.Titlerelative {
     padding: 20px;
     background-color: #7ba1a8;
     color: #BFCFD4;
+    align-items: center
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
