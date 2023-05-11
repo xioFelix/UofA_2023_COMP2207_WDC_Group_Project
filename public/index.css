@@ -115,7 +115,7 @@ img.LogoBottom {
 .footerlist {
     margin-left: 0;
     list-style-type: none;
-    padding-left: 0px;
+    padding: 0px;
 }
 
 /* 底部社交符号*/
