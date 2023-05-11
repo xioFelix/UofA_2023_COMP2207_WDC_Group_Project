@@ -77,12 +77,15 @@ img.Titlerelative {
 
 /* Style the footer */
 .footer {
-    justify-content:space-around;
+    justify-content: space-around;
     display: flex;
     padding: 20px;
     background-color: #7ba1a8;
     color: #BFCFD4;
-    align-items: center
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 1rem;
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
