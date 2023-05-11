@@ -2,13 +2,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a{
-    color:#BFCFD4;
+a {
+    color: #BFCFD4;
     text-decoration: none;
 }
 
-a:hover{
-    color:white;
+a:hover {
+    color: white;
 }
 
 .header {
@@ -129,7 +129,7 @@ img.LogoBottom {
     padding: 0px;
 }
 
-.footerlist li{
+.footerlist li {
     font-size: large;
 }
 

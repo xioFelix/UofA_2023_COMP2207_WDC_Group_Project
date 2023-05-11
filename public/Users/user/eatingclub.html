@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
-        <title>clubs_user</title>
-        <link href="club.css" rel="stylesheet">
+        <title>Eating Club</title>
+        <link href="club_homepage.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/bf9fc0347d.js" crossorigin="anonymous"></script>
     </head>
-
     <body>
         <!--header-->
-        <div>
-            <img alt="Logo" src="./img/3.jpg" class="Logorelative">
+        <div class="borderBottom">
+            <img src="./img/3.jpg" alt="img3" class="Logorelative">
         </div>
         <!--end of header-->
 
@@ -20,36 +18,47 @@
             <a href="./home_page.html">Home</a>
             <a href="./clubs_user.html">Clubs</a>
             <a href="./setting.html">Setting</a>
+        <!--end of nav bar-->
 
         </div>
 
         <br>
         <div class="row">
             <div class="column">
-                <button type="button" class="button button1">Your club</button>
+                <img src="./img/eating.jpg" alt="Eatingclub" class="Logorelative">
             </div>
             <div class="column">
-                <button type="button" class="button button2" onclick="openClubAll()">All club</button>
+                <h1>Eating Club</h1>
+                <br>
+                <p>Some introduction</p>
             </div>
         </div>
+
         <br>
-        <div class="clubMargin">
-            <a href="./eatingclub.html">Eating club</a>
-            <br>
-            <a href="./sleepingclub.html">sleeping club</a>
-            <br>
-            <a href="./frisbee.html">Frisbee club</a>
-            <br>
-            <a href="./webclub.html">Web club</a>
+
+        <div>
+            <h2>Announcement:</h2>
+            <div class="margin">
+                <div class="tabs">
+                    <div class="tab">
+                        <input type="checkbox" id="chck1">
+                        <label class="tab-label" for="chck1">Eating Club</label>
+                        <div class="tab-content">
+                            Something about eating club ...
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
         <br>
 
         <!--footer-->
         <div class="footer">
             <div>
-                <img alt="Logo" src="./img/WechatIMG501.png" class="LogoBottom">
+            <img src="./img/WechatIMG501.png" class="LogoBottom">
                 <div class="footercolumn">
-                    <h4>Contact us</h4>
+                    <h4>Contact us</h4>            
                     <h5>email: survival.outlook</h5>
                     <h5>phone number: 0424000000</h5>
                 </div>
@@ -64,8 +73,5 @@
             </div>
         </div>
         <!--end of footer-->
-        <script src="setting.js"></script>
-
     </body>
-
 </html>

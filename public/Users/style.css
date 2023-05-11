@@ -229,6 +229,7 @@ h1 {
 
 /* 虚线 text password */
 .login-top input[type="text"],
+.login-top input[type="email"],
 .login-top input[type="password"] {
     outline: none;
     font-size: 1em;
@@ -352,7 +353,6 @@ h1 {
     color: #fff;
     font-size: 1.5em;
     cursor: pointer;
-    display: inline-block;
     margin: 0;
     outline: none;
     -webkit-transition: all 0.3s ease-out;

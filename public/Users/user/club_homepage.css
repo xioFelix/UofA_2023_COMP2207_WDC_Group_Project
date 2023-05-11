@@ -8,8 +8,7 @@ body {
     background: #f1f1f1;
 }
 
-/*顶部图片*/
-img.Logorelative {
+img.Logorelative{
     position: relative;
     height: 100%;
     width: 100%;
@@ -65,7 +64,7 @@ img.Logorelative {
 
 /* Footer */
 .footer {
-    display: flex;
+    display:flex;
     padding: 20px;
     background-color: #7ba1a8;
     color: #BFCFD4;
@@ -79,24 +78,7 @@ img.Logorelative {
     }
 }
 
-/*背景图片平铺*/
-/* img.Logorelative{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    min-width: 1000px;
-    z-index:-1;
-    zoom: 1;
-    background-color: #fff;background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-background-size: cover;-o-background-size: cover;
-    background-position: center 0;
-} */
-
-/*底部图片*/
-img.LogoBottom {
+img.LogoBottom{
     position: relative;
     max-height: 150px;
     float: left;
@@ -106,7 +88,7 @@ img.LogoBottom {
     /* display: inline-block; */
 }
 
-.footercolumn {
+.footercolumn{
     float: left;
     position: relative;
     padding-right: 30px;
@@ -114,55 +96,20 @@ img.LogoBottom {
     /* background-color: #7ba1a8; */
 }
 
-/* 底部社交符号*/
 i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
 }
 
-.button {
-    width: 100%;
-    background-color: #99b555;
-    /* Green */
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 22px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
+.Announcement_bording{
+    border: 1px solid;
 }
 
-.button1 {
-    background-color: white;
-    color: #1b512c;
-    border: 2px solid #99b555;
+.Announcement_margin{
+    margin: 2%;
 }
 
-.button1:hover {
-    background-color: #99b555;
-    color: white;
-}
-
-.button2 {
-    background-color: white;
-    color: #1b512c;
-    border: 2px solid #99b555;
-}
-
-.button2:hover {
-    background-color: #99b555;
-    color: white;
-}
-
-div.margin {
-    margin: 3%;
-}
-
-/* Accordion styles */
+/* tsbs */
 .tabs {
     border-radius: 8px;
     overflow: hidden;
@@ -237,7 +184,7 @@ input:checked~.tab-content {
     padding: 1em;
 }
 
-/* column */
+/* Create three equal columns that floats next to each other */
 .column {
     float: left;
     width: 50%;
@@ -250,8 +197,4 @@ input:checked~.tab-content {
     content: "";
     display: table;
     clear: both;
-}
-
-.clubMargin{
-    padding-left: 5%;
 }

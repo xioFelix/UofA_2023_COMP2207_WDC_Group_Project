@@ -1,1 +1,395 @@
 Starting Nmap 7.93 ( https://nmap.org ) at 2023-05-11 20:15 ACST
+Nmap scan report for 10.201.17.11
+Host is up (0.59s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+
+Nmap scan report for 10.201.17.14
+Host is up (0.22s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.23
+Host is up (0.19s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.45
+Host is up (0.56s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.49
+Host is up (0.010s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.55
+Host is up (0.067s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+
+Nmap scan report for 10.201.17.107
+Host is up (0.041s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.119
+Host is up (0.12s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.211
+Host is up (0.16s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.212
+Host is up (0.16s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.227
+Host is up (0.39s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.245
+Host is up (0.0020s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+
+Nmap scan report for 10.201.17.248
+Host is up (0.65s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+
+Nmap scan report for 10.201.17.250
+Host is up (0.40s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+
+Nmap scan report for 10.201.17.253
+Host is up (0.0034s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.17.254
+Host is up (0.0029s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap scan report for 10.201.27.0
+Host is up (0.0100s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: AA:E5:12:DF:1F:21 (Unknown)
+
+Nmap scan report for 10.201.27.25
+Host is up (0.050s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 86:2B:2F:F1:B9:EA (Unknown)
+
+Nmap scan report for 10.201.27.36
+Host is up (0.0020s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 16:68:8A:3B:D7:0B (Unknown)
+
+Nmap scan report for 10.201.27.50
+Host is up (0.0034s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: B0:BE:83:22:F5:6E (Apple)
+
+Nmap scan report for 10.201.27.89
+Host is up (0.011s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 5E:92:A0:7B:94:FC (Unknown)
+
+Nmap scan report for 10.201.27.94
+Host is up (0.0091s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 12:AE:DA:D3:DA:B1 (Unknown)
+
+Nmap scan report for 10.201.27.112
+Host is up (0.073s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 66:56:24:83:E9:77 (Unknown)
+
+Nmap scan report for 10.201.27.115
+Host is up (0.11s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 3C:6A:A7:13:40:34 (Intel Corporate)
+
+Nmap scan report for 10.201.27.121
+Host is up (0.11s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 38:F9:D3:5D:98:45 (Apple)
+
+Nmap scan report for 10.201.27.128
+Host is up (0.11s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: C4:9D:ED:27:DE:9D (Microsoft)
+
+Nmap scan report for 10.201.27.148
+Host is up (0.070s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: B0:BE:83:18:21:95 (Apple)
+
+Nmap scan report for 10.201.27.150
+Host is up (0.069s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: A4:83:E7:49:6C:6E (Apple)
+
+Nmap scan report for 10.201.27.160
+Host is up (0.0019s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 26:F7:6E:F2:4E:6B (Unknown)
+
+Nmap scan report for 10.201.27.165
+Host is up (0.025s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: D4:57:63:D3:69:9E (Apple)
+
+Nmap scan report for 10.201.27.190
+Host is up (0.023s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: D4:25:8B:97:F2:9D (Intel Corporate)
+
+Nmap scan report for 10.201.27.211
+Host is up (0.012s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: B4:8C:9D:83:A2:C5 (AzureWave Technology)
+
+Nmap scan report for 10.201.27.213
+Host is up (0.012s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 3C:A6:F6:22:A1:82 (Apple)
+
+Nmap scan report for 10.201.27.239
+Host is up (0.012s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: F8:FF:C2:17:D9:0A (Apple)
+
+Nmap scan report for 10.201.27.245
+Host is up (0.017s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp closed   http-proxy
+MAC Address: 10:05:CA:BF:43:2D (Cisco Systems)
+
+Nmap scan report for 10.201.27.248
+Host is up (0.0039s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 88:43:E1:61:CD:AF (Cisco Systems)
+
+Nmap scan report for 10.201.27.250
+Host is up (0.0036s latency).
+
+PORT     STATE    SERVICE
+80/tcp   filtered http
+5500/tcp filtered hotline
+8000/tcp filtered http-alt
+8080/tcp filtered http-proxy
+MAC Address: 64:00:F1:F1:91:AF (Cisco Systems)
+
+Nmap scan report for 10.201.27.252
+Host is up (0.011s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 58:97:BD:7A:57:80 (Cisco Systems)
+
+Nmap scan report for 10.201.27.253
+Host is up (0.0067s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 58:97:BD:7A:57:40 (Cisco Systems)
+
+Nmap scan report for 10.201.27.254
+Host is up (0.0083s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp closed hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+MAC Address: 00:07:B4:00:2F:01 (Cisco Systems)
+
+Nmap scan report for 10.201.27.197
+Host is up (0.00016s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+5500/tcp open   hotline
+8000/tcp closed http-alt
+8080/tcp closed http-proxy
+
+Nmap done: 512 IP addresses (41 hosts up) scanned in 40.48 seconds

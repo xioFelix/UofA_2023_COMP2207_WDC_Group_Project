@@ -11,9 +11,8 @@ anniu.addEventListener('click', function () {
 
 function openClubUser() {
     window.location.href = 'clubs_user.html';
-
 }
 
 function openClubAll() {
-
+    window.location.href = 'club_all.html';
 }

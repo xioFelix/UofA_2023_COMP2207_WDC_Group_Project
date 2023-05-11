@@ -232,6 +232,7 @@ h1 {
 
 /* 虚线 text password */
 .login-top input[type="text"],
+.login-top input[type="email"],
 .login-top input[type="password"] {
     outline: none;
     font-size: 1em;
