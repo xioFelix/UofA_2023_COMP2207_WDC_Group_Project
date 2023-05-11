@@ -103,7 +103,7 @@ img.LogoBottom{
 }
 
 .footercolumn{
-    
+    flex-direction:row;
     float: left;
     position: relative;
     padding-right: 30px;
