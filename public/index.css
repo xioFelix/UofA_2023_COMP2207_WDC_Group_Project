@@ -103,7 +103,7 @@ img.LogoBottom {
     /* display: inline-block; */
 }
 
-.footercolumn {
+.footertext {
     flex-direction: row;
     float: left;
     position: relative;
