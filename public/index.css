@@ -108,7 +108,7 @@ img.LogoBottom {
     flex-direction: row;
     float: left;
     position: relative;
-    padding-right: 30px;
+    padding: 30px;
     /* background-color: #7ba1a8; */
 }
 
