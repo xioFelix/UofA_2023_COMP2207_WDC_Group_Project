@@ -90,14 +90,6 @@ img.LogoBottom {
     /* display: inline-block; */
 }
 
-.footercolumn {
-    float: left;
-    position: relative;
-    padding-right: 30px;
-    font-size: 100%;
-    /* background-color: #7ba1a8; */
-}
-
 /* 底部社交符号*/
 i {
     color: #BFCFD4;
