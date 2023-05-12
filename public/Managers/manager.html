@@ -7,10 +7,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords"
 			content="Tab Widget Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
 		<link href="manager_style.css" rel="stylesheet" type="text/css" media="all" />
 		<!--js-->
 		<script src="jquery.min.js"></script>
+		<script src="https://kit.fontawesome.com/94cf77f898.js" crossorigin="anonymous"></script>
 		<script src="easyResponsiveTabs.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(document).ready(function () {
@@ -45,8 +45,12 @@
 							<div class="login-top">
 								<form>
 									<input type="email" class="email" placeholder="Email" required="" />
-									<input type="password" class="password" placeholder="Password" required="" />
-									<input type="checkbox" id="brand" value="">
+									<div class="loginPw passwordBox">
+										<input type="password" class="passwordBox" :type="passwordFieldType"
+											v-model="password" placeholder="Password">
+										<div class="eyeBox" @click="switchVisibility"><i
+												class="fa-solid fa-eye-slash"></i></div>
+									</div>
 								</form>
 								<div class="login-bottom">
 									<ul>
@@ -66,7 +70,13 @@
 									<input type="text" class="name active" placeholder="Full Name" required="" />
 									<input type="text" class="name active" placeholder="User Name" required="" />
 									<input type="email" class="email" placeholder="Email" required="" />
-									<input type="password" class="password" placeholder="Password" required="" />
+									<div class="signUpPw passwordBox">
+										<input type="password" class="passwordBox" :type="passwordFieldType"
+											v-model="password" placeholder="Password">
+										<div class="eyeBox" @click="switchVisibility"><i
+												class="fa-solid fa-eye-slash"></i></div>
+									</div>
+								<script src="index.js"></script>
 								</form>
 								<div class="login-bottom">
 									<ul>

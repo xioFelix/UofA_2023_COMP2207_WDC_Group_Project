@@ -10,6 +10,7 @@
 
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 		<!--js-->
+		<script src="https://kit.fontawesome.com/94cf77f898.js" crossorigin="anonymous"></script>
 		<script src="js/jquery.min.js"></script>
 		<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
 		<script type="text/javascript">
@@ -42,7 +43,13 @@
 							<div class="login-top">
 								<form>
 									<input type="email" class="email" placeholder="Email" required="" />
-									<input type="password" class="password" placeholder="Password" required="" />
+									<div class="signUpPw passwordBox">
+										<input type="password" class="passwordBox" :type="passwordFieldType"
+											v-model="password" placeholder="Password">
+										<div class="eyeBox" @click="switchVisibility"><i
+												class="fa-solid fa-eye-slash"></i></div>
+									</div>
+								<script src="js/index.js"></script>
 								</form>
 								<div class="login-bottom">
 									<ul>

@@ -266,10 +266,9 @@ h1 {
 
 /* login按钮 submit*/
 .login-bottom input[type="submit"] {
-
     color: #fff;
     background: #7ba1a8;
-    border: 3px solid;
+    border: 3px solid #7ba1a8;
     outline: none;
     cursor: pointer;
     padding: 7px 20px;

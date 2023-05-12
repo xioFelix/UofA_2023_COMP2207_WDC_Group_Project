@@ -80,7 +80,7 @@ img.Logorelative {
 /*底部图片*/
 img.LogoBottom {
     position: relative;
-    max-height: 150px;
+    max-height: 12rem;
     float: left;
     margin-right: 50px;
     margin-top: 10px;
@@ -128,7 +128,6 @@ img.LogoBottom {
         width: 100%;
     }
 }
-
 
 .footercolumn {
     float: left;
