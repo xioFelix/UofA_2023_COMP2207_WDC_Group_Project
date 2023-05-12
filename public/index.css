@@ -11,14 +11,6 @@ a:hover{
     font-weight: bold;
     /* transition: all 0.5s; */
 }
-.footer a {
-    color: #BFCFD4;
-    text-decoration: none;
-}
-
-.footer a:hover {
-    color: white;
-}
 
 .header {
     background-color: #f1f1f1;
