@@ -43,13 +43,12 @@
 							<div class="login-top">
 								<form>
 									<input type="email" class="email" placeholder="Email" required="" />
-									<div class="signUpPw passwordBox">
+									<div class="passwordBox" id="ifShowPw1" >
 										<input type="password" class="passwordBox" :type="passwordFieldType"
 											v-model="password" placeholder="Password">
 										<div class="eyeBox" @click="switchVisibility"><i
 												class="fa-solid fa-eye-slash"></i></div>
 									</div>
-								<script src="js/index.js"></script>
 								</form>
 								<div class="login-bottom">
 									<ul>
@@ -66,6 +65,8 @@
 				</div>
 			</div>
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+		<script src="../ifShowPw_Vue.js"></script>
 	</body>
 
 </html>

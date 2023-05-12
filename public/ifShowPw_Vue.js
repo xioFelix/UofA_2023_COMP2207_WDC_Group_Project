@@ -1,36 +1,36 @@
-new Vue({
-    el: '.loginPw',
+const Pw1 = new Vue({
     data: {
         password: '',
-        showPassword: false,
+        showPassword: false
     },
     computed: {
         passwordFieldType() {
-            return this.showPassword ? 'text' : 'password'
-        },
+            return this.showPassword ? 'text' : 'password';
+        }
     },
     methods: {
         switchVisibility() {
             this.showPassword = !this.showPassword;
         }
     }
-})
+});
 
-new Vue({
-    el: '.signUpPw',
+const Pw2 = new Vue({
     data: {
         password: '',
-        showPassword: false,
+        showPassword: false
     },
     computed: {
         passwordFieldType() {
-            return this.showPassword ? 'text' : 'password'
-        },
+            return this.showPassword ? 'text' : 'password';
+        }
     },
     methods: {
         switchVisibility() {
             this.showPassword = !this.showPassword;
         }
     }
-})
+});
 
+Pw1.$mount('#ifShowPw1');
+Pw2.$mount('#ifShowPw2');

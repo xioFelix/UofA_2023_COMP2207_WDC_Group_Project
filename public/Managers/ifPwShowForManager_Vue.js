@@ -1,5 +1,5 @@
 new Vue({
-    el: '.loginPw',
+    el: '.managerLoginPw',
     data: {
         password: '',
         showPassword: false,
@@ -17,7 +17,7 @@ new Vue({
 })
 
 new Vue({
-    el: '.signUpPw',
+    el: '.managerSignUpPw',
     data: {
         password: '',
         showPassword: false,
@@ -33,4 +33,3 @@ new Vue({
         }
     }
 })
-

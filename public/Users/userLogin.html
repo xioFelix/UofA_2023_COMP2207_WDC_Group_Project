@@ -44,7 +44,7 @@
 								<div class="login-top">
 									<form>
 										<input type="email" class="email" placeholder="Email" required="" />
-										<div class="loginPw passwordBox">
+										<div class="passwordBox" id="ifShowPw1" >
 											<input type="password" class="passwordBox" :type="passwordFieldType"
 												v-model="password" placeholder="Password">
 											<div class="eyeBox" @click="switchVisibility"><i
@@ -55,7 +55,8 @@
 										<ul>
 											<li>
 												<form action="/loginToUser" method="post">
-													<!-- login 转跳到homepage——user -->
+
+													<!-- login redirect to homepage——user -->
 													<input type="submit" value="LOGIN" />
 												</form>
 											</li>
@@ -68,7 +69,8 @@
 
 								<div class="social-icons">
 									<ul>
-										<li class="pin"><a href="login_other.html"><span class="icons"></span>Login with
+										<li class="pin"><a href="userLogin_other.html"><span class="icons"></span>Login
+												with
 												account<span class="text">
 												</span></a></li>
 
@@ -78,19 +80,17 @@
 							</div>
 							<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
 								<div class="login-top sign-top">
-									<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 									<form>
 										<input type="text" class="name active" placeholder="Full Name" required="" />
 										<input type="text" class="name active" placeholder="User Name" required="" />
 										<input type="email" class="email" placeholder="Email" required="" />
-										<div class="signUpPw passwordBox">
+										<div class="passwordBox" id="ifShowPw2">
 											<input type="password" class="passwordBox" :type="passwordFieldType"
 												v-model="password" placeholder="Password">
 											<div class="eyeBox" @click="switchVisibility"><i
 													class="fa-solid fa-eye-slash"></i></div>
 										</div>
-									<script src="index.js"></script>
-								</form>
+									</form>
 
 
 									<div class="login-bottom">
@@ -103,23 +103,11 @@
 										</ul>
 										<div class="clear"></div>
 									</div>
-
-
 								</div>
 							</div>
-
-
-
 						</div>
-
-
-
-
 					</div>
-
-
 				</div>
-
 				<div class="clear"> </div>
 			</div>
 			<!-- <div class="social-icons">
@@ -130,6 +118,8 @@
 				</ul>
 			</div> -->
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+		<script src="../ifShowPw_Vue.js"></script>
 	</body>
 
 </html>
