@@ -62,33 +62,6 @@ img.Logorelative{
     clear: both;
 }
 
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-    .topnav a {
-        float: none;
-        width: 100%;
-    }
-}
-
-img.LogoBottom{
-    position: relative;
-    max-height: 150px;
-    float: left;
-    margin-right: 50px;
-    margin-top: 10px;
-    background-color: #7ba1a8;
-    /* display: inline-block; */
-}
-
-.footercolumn{
-    float: left;
-    position: relative;
-    padding-right: 30px;
-    font-size: 100%;
-    /* background-color: #7ba1a8; */
-}
-
 i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
