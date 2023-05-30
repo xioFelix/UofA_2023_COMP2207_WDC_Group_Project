@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const Pw1 = new Vue({
     data: {
         password: '',
@@ -15,6 +16,7 @@ const Pw1 = new Vue({
     }
 });
 
+// eslint-disable-next-line no-undef
 const Pw2 = new Vue({
     data: {
         password: '',

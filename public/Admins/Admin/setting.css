@@ -3,7 +3,7 @@
 }
 
 body {
-    font-family: Arial;
+    font-family: Arial, serif;
     padding: 10px;
     background: #f1f1f1;
 }
@@ -64,7 +64,6 @@ img.Logorelative {
     display: flex;
     background-color: #7ba1a8;
     color: #BFCFD4;
-    align-items: center;
     margin-right: auto;
     margin-left: auto;
 }
@@ -88,7 +87,7 @@ img.Logorelative {
 .footerlist {
     margin-left: 0;
     list-style-type: none;
-    padding: 0px;
+    padding: 0;
 }
 
 .footerlist li {
@@ -203,5 +202,4 @@ input[type=submit] {
     font-weight: bold;
     font-size: large;
     margin: 20px;
-    padding-left: 20px;
 }

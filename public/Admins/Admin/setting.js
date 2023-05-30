@@ -1,5 +1,5 @@
-var password = document.getElementById('password');
-var anniu = document.getElementById('conceal');
+const password = document.getElementById('password');
+const anniu = document.getElementById('conceal');
 anniu.addEventListener('click', function () {
     if (password.type === 'password') {
         password.setAttribute('type', 'text');

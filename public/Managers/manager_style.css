@@ -82,7 +82,6 @@ video {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
     font: inherit;
     vertical-align: baseline;
 }
@@ -104,8 +103,8 @@ section {
 ol,
 ul {
     list-style: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 blockquote,
@@ -117,7 +116,6 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-    content: '';
     content: none;
 }
 
@@ -199,9 +197,8 @@ img {
 
 /* 背景 */
 body {
-    font-family: Verdana;
-    background: #a0e0e0 0px 0px;
-    background-attachment: fixed;
+    font-family: Verdana, serif;
+    background: #a0e0e0 fixed 0 0;
 }
 
 h1 {
@@ -237,11 +234,10 @@ h1 {
     font-size: 1em;
     color: #999;
     padding: 10px 30px 10px 10px;
-    margin: 0;
     width: 89.87%;
     border: none;
     border-bottom: 2px dashed #7ba1a8;
-    margin-bottom: 2em;
+    margin: 0 0 2em;
 
 }
 
@@ -334,7 +330,7 @@ h1 {
 .eyeBox {
     display: flex;
     align-items: center;
-    padding: 1rem 0rem 1rem 1rem;
+    padding: 1rem 0 1rem 1rem;
     color: #7ba1a8;
 }
 
@@ -385,7 +381,7 @@ h1 {
 
 /* 中间白框 */
 .resp-tabs-container {
-    padding: 0px;
+    padding: 0;
     background-color: #fff;
     clear: left;
 }
@@ -416,7 +412,6 @@ h2.resp-accordion {
     display: flex;
     background-color: #7ba1a8;
     color: #BFCFD4;
-    align-items: center;
     margin-right: auto;
     margin-left: auto;
 }
@@ -451,7 +446,7 @@ img.LogoBottom {
 .footerlist {
     margin-left: 0;
     list-style-type: none;
-    padding: 0px;
+    padding: 0;
 }
 
 .footerlist li {
