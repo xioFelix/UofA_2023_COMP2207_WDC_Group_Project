@@ -22,6 +22,11 @@ router.get('/', function (req, res, next) {
 //   }
 // });
 
+let users = {
+  bob: { password: 'password', email: 'example1@example.com' },
+  alice: { password: 'foobar', email: 'example2@example.com' }
+};
+
 router.post('/loginToUser', async function (req, res, next) {
 
   const ticket = await client.verifyIdToken({
