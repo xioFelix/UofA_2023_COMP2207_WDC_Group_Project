@@ -23,15 +23,49 @@ router.get('/', function (req, res, next) {
 // });
 router.post('/loginToUser', async function (req, res, next) {
 
-  const ticket = await client.verifyIdToken({
-    idToken: req.body.credential,
-    audience: CLIENT_ID
-  });
-  const payload = ticket.getPayload();
-  //console.log(payload['sub']);
-  console.log(payload['email']);
-  // If request specified a G Suite domain:
-  // const domain = payload['hd'];
+  // This code handles a Google login via an AJAX request to the regular login route
+  if ('client_id' in req.body && 'credential' in req.body) {
+
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.credential,
+      audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+    });
+    const payload = ticket.getPayload();
+    //console.log(payload['sub']);
+    console.log(payload['email']);
+    // If request specified a G Suite domain:
+    // const domain = payload['hd'];
+
+    // Search for user by email
+    for (let id in users) {
+      if (users[id].email === payload['email']) {
+        req.session.user = users[id];
+        res.json(req.session.user);
+        return;
+      }
+    }
+
+    // No user
+    res.sendStatus(401);
+
+
+  } else if ('username' in req.body && 'password' in req.body) {
+
+    if (req.body.username in users && users[req.body.username].password === req.body.password) {
+      // There is a user
+      req.session.user = users[req.body.username];
+      console.log(req.body.username);
+      res.json(req.session.user);
+    } else {
+      // No user
+      res.sendStatus(401);
+    }
+
+  } else {
+    res.sendStatus(401);
+  }
 
   // Redirect the user to the desired page after login. e.g. user's profile page.
   res.redirect('./Users/user/home_page.html');
