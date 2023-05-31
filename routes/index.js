@@ -9,14 +9,14 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// 判断登陆中间件
-app.use((req, res, next) => {
-  if (!req.session.user && req.url !== '/login') {
-    res.redirect('/login');
-  } else {
-    next();
-  }
-});
+// // 判断登陆中间件
+// app.use((req, res, next) => {
+//   if (!req.session.user && req.url !== '/login') {
+//     res.redirect('/login');
+//   } else {
+//     next();
+//   }
+// });
 
 router.post('/loginToUser', function (req, res) {
   res.redirect('./Users/user/home_page.html');

@@ -1,6 +1,6 @@
-function jQuery() {
+// function jQuery() {
 
-}
+// }
 
 (function ($) {
     $.fn.extend({
@@ -64,9 +64,31 @@ function jQuery() {
                 let count = 0;
                 let $tabContent;
                 $respTabs.find('.resp-tab-item').each(function () {
-                    // eslint-disable-next-line no-undef,no-unused-vars
-                    $(this);
-// Assigning the 'aria-labelledby' attr to tab-content
+//                     // eslint-disable-next-line no-undef,no-unused-vars
+//                     $(this);
+// // Assigning the 'aria-labelledby' attr to tab-content
+//                     let tabcount = 0;
+//                     $respTabs.find('.resp-tab-content').each(function () {
+//                         $tabContent = $(this);
+//                         $tabContent.attr('aria-labelledby', 'tab_item-' + (tabcount));
+//                         tabcount++;
+//                     });
+//                     count++;
+//                 });
+                    /* --begin- */
+                    // eslint-disable-next-line no-undef
+                    $tabItem = $(this);
+                    // eslint-disable-next-line no-undef
+                    $tabItem.attr('aria-controls', 'tab_item-' + (count));
+                    // eslint-disable-next-line no-undef
+                    $tabItem.attr('role', 'tab');
+
+                    // First active tab
+                    $respTabs.find('.resp-tab-item').first().addClass('resp-tab-active');
+                    $respTabs.find('.resp-accordion').first().addClass('resp-tab-active');
+                    $respTabs.find('.resp-tab-content').first().addClass('resp-tab-content-active').attr('style', 'display:block');
+
+                    // Assigning the 'aria-labelledby' attr to tab-content
                     let tabcount = 0;
                     $respTabs.find('.resp-tab-content').each(function () {
                         $tabContent = $(this);
@@ -75,15 +97,52 @@ function jQuery() {
                     });
                     count++;
                 });
+                /* --end-- */
 
+//                 // Tab Click action function
+//                 $respTabs.find("[role=tab]").each(function () {
+//                     const $currentTab = $(this);
+//                     // eslint-disable-next-line consistent-return
+//                     $currentTab.click(function () {
+
+//                         // eslint-disable-next-line no-unused-vars
+//                         $currentTab.attr('aria-controls');
+//                     });
+//                     // Window resize function
+//                     $(window).resize(function () {
+//                         $respTabs.find('.resp-accordion-closed').removeAttr('style');
+//                     });
+//                 });
+//             });
+//         }
+//     });
+// }(jQuery));
+                /* --begin-- */
                 // Tab Click action function
                 $respTabs.find("[role=tab]").each(function () {
                     const $currentTab = $(this);
                     // eslint-disable-next-line consistent-return
                     $currentTab.click(function () {
 
-                        // eslint-disable-next-line no-unused-vars
-                        $currentTab.attr('aria-controls');
+                        const $tabAria = $currentTab.attr('aria-controls');
+
+                        if ($currentTab.hasClass('resp-accordion') && $currentTab.hasClass('resp-tab-active')) {
+                            $respTabs.find('.resp-tab-content-active').slideUp('', function () { $(this).addClass('resp-accordion-closed'); });
+                            $currentTab.removeClass('resp-tab-active');
+                            return false;
+                        }
+                        if (!$currentTab.hasClass('resp-tab-active') && $currentTab.hasClass('resp-accordion')) {
+                            $respTabs.find('.resp-tab-active').removeClass('resp-tab-active');
+                            $respTabs.find('.resp-tab-content-active').slideUp().removeClass('resp-tab-content-active resp-accordion-closed');
+                            $respTabs.find("[aria-controls=" + $tabAria + "]").addClass('resp-tab-active');
+
+                            $respTabs.find('.resp-tab-content[aria-labelledby = ' + $tabAria + ']').slideDown().addClass('resp-tab-content-active');
+                        } else {
+                            $respTabs.find('.resp-tab-active').removeClass('resp-tab-active');
+                            $respTabs.find('.resp-tab-content-active').removeAttr('style').removeClass('resp-tab-content-active').removeClass('resp-accordion-closed');
+                            $respTabs.find("[aria-controls=" + $tabAria + "]").addClass('resp-tab-active');
+                            $respTabs.find('.resp-tab-content[aria-labelledby = ' + $tabAria + ']').addClass('resp-tab-content-active').attr('style', 'display:block');
+                        }
                     });
                     // Window resize function
                     $(window).resize(function () {
@@ -94,4 +153,4 @@ function jQuery() {
         }
     });
 }(jQuery));
-
+/* --end-- */

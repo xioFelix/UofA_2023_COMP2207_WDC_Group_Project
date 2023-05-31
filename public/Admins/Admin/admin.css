@@ -8,8 +8,8 @@ body {
     background: #f1f1f1;
 }
 
-/*顶部图片*/
-img.Logorelative {
+/*TOP*/
+img.Logorelative{
     position: relative;
     height: 100%;
     width: 100%;
@@ -30,11 +30,11 @@ img.Logorelative {
 .topnav {
     overflow: hidden;
     background-color: #7ba1a8;
+    font-size: 150%;
 }
 
 /* Style the topnav links */
 .topnav a {
-    font-size: 150%;
     float: left;
     display: block;
     color: #fff;
@@ -43,20 +43,29 @@ img.Logorelative {
     text-decoration: none;
 }
 
-/* Clear floats after the columns */
-.row::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 /* Change color on hover */
 .topnav a:hover {
     background-color: #ddd;
     color: black;
 }
 
-/* Footer */
+/* Add a card effect for articles */
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
+
+
+/* BOTTOM */
 /* Style the footer */
 .footer {
     justify-content: space-evenly;
@@ -68,23 +77,12 @@ img.Logorelative {
     margin-left: auto;
 }
 
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-    .topnav a {
-        float: none;
-        width: 100%;
-    }
-}
-
-/*底部图片*/
+/*footer img*/
 img.LogoBottom {
-    position: relative;
     max-height: 12rem;
+    max-width: 12rem;
     float: left;
-    margin-right: 50px;
-    margin-top: 10px;
     background-color: #7ba1a8;
-    /* display: inline-block; */
 }
 
 .footertext {
@@ -92,7 +90,6 @@ img.LogoBottom {
     float: left;
     position: relative;
     padding: 30px;
-    /* background-color: #7ba1a8; */
 }
 
 .footerlist {
@@ -105,7 +102,7 @@ img.LogoBottom {
     font-size: large;
 }
 
-/* 底部社交符号*/
+/* footer icon*/
 .footer i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
@@ -120,32 +117,10 @@ img.LogoBottom {
     color: white;
 }
 
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-    .topnav a {
-        float: none;
-        width: 100%;
-    }
-}
 
-.footercolumn {
-    float: left;
-    position: relative;
-    padding-right: 30px;
-    font-size: 100%;
-    /* background-color: #7ba1a8; */
-}
-
-/* 底部社交符号*/
-i {
-    color: #BFCFD4;
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-/* club-members */
+/* ADMINS */
 h1 {
     font-size: 150%;
-    margin-left: 5%;
 }
 
 .in_left {
@@ -166,6 +141,10 @@ input[type=button] {
     font-weight: bold;
     font-size: large;
     margin: 20px;
+}
+
+.title {
+    margin: 10px 30px 30px 30px;
 }
 
 .information {

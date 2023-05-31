@@ -195,7 +195,7 @@ img {
 
 /*--end reset--*/
 
-/* 背景 */
+/* background */
 body {
     font-family: Verdana, serif;
     background: #a0e0e0 fixed 0 0;
@@ -218,13 +218,12 @@ h1 {
     margin: 3em auto;
 }
 
-
 /*--//main--*/
 .login-top {
     padding: 2em 3em;
 }
 
-/* 虚线 text password */
+/* dotted line - text password */
 .login-top input[type="text"],
 .login-top input[type="email"],
 .login-top input[type="password"] {
@@ -243,18 +242,16 @@ h1 {
     border-bottom-style: solid;
 }
 
-/* 按钮字体 */
+/* button font */
 .login-top input[type="text"]:hover,
 .login-top input[type="password"]:hover {
     border-bottom-color: #7ba1a8;
 }
 
-
-/*--checkbox--*/
+/* checkbox */
 .login-top input[type="checkbox"] {
     display: none;
 }
-
 
 /* remember me */
 .login-top input[type="checkbox"]+label {
@@ -268,26 +265,23 @@ h1 {
     cursor: pointer;
 }
 
-
 /* remember me 前面括号 */
-.login-top input[type="checkbox"]+label span:first-child {
+/* .login-top input[type="checkbox"]+label span:first-child {
     width: 14px;
     height: 14px;
     border: 2px solid #C8C8C8;
     position: absolute;
     left: 0;
     top: 3px;
-}
+} */
 
-
-/* forget和login/signup在同一行 */
+/* forget & login/signup in one line */
 .login-bottom li {
     display: inline-block;
 
 }
 
-
-/* forget的字体颜色 */
+/* forget - font/color */
 .login-bottom a {
     font-size: 1em;
     color: #999;
@@ -297,7 +291,7 @@ h1 {
 }
 
 
-/* login按钮 submit*/
+/* login button: submit*/
 .login-bottom input[type="submit"] {
     /* font-size: 0.9em; */
     color: #fff;
@@ -322,9 +316,8 @@ h1 {
     float: right;
 }
 
-
 /******** SAP ************/
-/* login和register剧中 */
+/* login & register at the centre */
 .sap_tabs {
     clear: both;
 }
@@ -343,7 +336,7 @@ h1 {
     text-align: center;
 }
 
-/* 上面按钮 */
+/* header button change */
 .resp-tab-item {
     color: #fff;
     font-size: 1.5em;
