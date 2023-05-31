@@ -19,7 +19,14 @@ router.get('/', function (req, res, next) {
 // });
 
 router.post('/loginToUser', function (req, res, next) {
-if ('client_id')
+  if ('client_id' in req.body) { /* empty */ }
+  else if (req.body.username in users && req.body.password === users[req.body.username].password) {
+    req.session.username = req.body.username;
+    console.log(req.body.username);
+    req.end();
+  } else {
+    res.sendStatus(401);
+  }
 
   res.redirect('./Users/user/home_page.html');
 });
