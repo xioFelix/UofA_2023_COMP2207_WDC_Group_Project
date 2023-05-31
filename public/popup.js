@@ -43,7 +43,7 @@ span3.onclick = function() {
     modal3.style.display = "none";
 };
 window.onclick = function(event) {
-    if (event.target == modal3) {
+    if (event.target === modal3) {
         modal3.style.display = "none";
     }
 };
