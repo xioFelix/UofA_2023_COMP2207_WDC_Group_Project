@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 //   }
 // });
 
-router.post('/loginToUser', function (req, res) {
+router.post('/loginToUser', function (req, res, next) {
 
 
   res.redirect('./Users/user/home_page.html');
