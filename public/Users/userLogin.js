@@ -23,3 +23,20 @@ function do_google_login(response) {
     req.send(JSON.stringify(response));
 
 }
+
+function logout() {
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = function () {
+        if (req.readyState == 4 && req.status == 200) {
+            alert('Logged Out');
+        } else if (req.readyState == 4 && req.status == 403) {
+            alert('Not logged in');
+        }
+    };
+
+    req.open('POST', '/logout');
+    req.send();
+
+}
