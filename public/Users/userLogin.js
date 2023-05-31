@@ -154,7 +154,7 @@ function login() {
         }
     };
 
-    req.open('POST', '/login');
+    req.open('POST', '/loginToUser');
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify(logindata));
 

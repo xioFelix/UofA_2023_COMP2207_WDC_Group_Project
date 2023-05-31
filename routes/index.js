@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 
-const CLIENT_ID = 'MY-CLIENT-ID.apps.googleusercontent.com';
+const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(CLIENT_ID);
 
@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 // });
 
 let users = {
-  bob: { password: 'password', email: 'example1@example.com' },
+  bob: { password: 'password', email: 'xiofelix725@gmail.com' },
   alice: { password: 'foobar', email: 'example2@example.com' }
 };
 
@@ -64,17 +64,16 @@ router.post('/loginToUser', async function (req, res, next) {
       req.session.user = users[req.body.username];
       console.log(req.body.username);
       res.json(req.session.user);
+        // Redirect the user to the desired page after login. e.g. user's profile page.
+      res.redirect('./Users/user/home_page.html');
     } else {
       // No user
       res.sendStatus(401);
     }
 
-  } else {
-    res.sendStatus(401);
   }
 
-  // Redirect the user to the desired page after login. e.g. user's profile page.
-  res.redirect('./Users/user/home_page.html');
+
 });
 
 router.post('/loginToManager', function (req, res) {
