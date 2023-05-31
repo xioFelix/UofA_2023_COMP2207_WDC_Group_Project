@@ -125,8 +125,8 @@ Responsive layout - makes the three columns stack on top of each other instead o
 /*底部图片*/
 img.LogoBottom {
 
-    max-height: 12rem;
-    max-width: 12rem;
+    max-height: 16rem;
+    max-width: 16rem;
     float: left;
 
     /* background-color: #7ba1a8; */
