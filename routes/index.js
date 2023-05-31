@@ -35,7 +35,6 @@ router.post('/loginToUser', async function (req, res, next) {
   // const domain = payload['hd'];
 
   // Redirect the user to the desired page after login. e.g. user's profile page.
-
   res.redirect('./Users/user/home_page.html');
 });
 
