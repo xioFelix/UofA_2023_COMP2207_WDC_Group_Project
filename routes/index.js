@@ -21,6 +21,12 @@ router.get('/', function (req, res, next) {
 //     next();
 //   }
 // });
+
+let users = {
+  bob: { password: 'password', email: 'example1@example.com' },
+  alice: { password: 'foobar', email: 'example2@example.com' }
+};
+
 router.post('/loginToUser', async function (req, res, next) {
 
   // This code handles a Google login via an AJAX request to the regular login route
