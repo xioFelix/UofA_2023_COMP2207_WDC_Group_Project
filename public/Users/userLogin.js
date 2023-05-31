@@ -226,7 +226,7 @@ function do_google_login(response) {
     };
 
     // Open requst
-    req.open('POST', '/login');
+    req.open('POST', '/user_login');
     req.setRequestHeader('Content-Type', 'application/json');
     // Send the login token
     req.send(JSON.stringify(response));
