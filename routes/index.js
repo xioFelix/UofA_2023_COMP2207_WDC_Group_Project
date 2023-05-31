@@ -40,13 +40,13 @@ router.post('/loginToUser', async function (req, res, next) {
     });
     const payload = ticket.getPayload();
     //console.log(payload['sub']);
-    console.log(payload['email']);
+    console.log(payload.email);
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
 
     // Search for user by email
     for (let id in users) {
-      if (users[id].email === payload['email']) {
+      if (users[id].email === payload.email) {
         req.session.user = users[id];
         res.json(req.session.user);
         return;
