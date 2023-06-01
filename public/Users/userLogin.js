@@ -10,24 +10,24 @@ $(document).ready(function () {
 
 function renderPost(post_data) {
 
-    /*
-    We're trying to create HTML that looks like:
+    // /*
+    // We're trying to create HTML that looks like:
 
-    <div class="post">
+    // <div class="post">
 
-                <div class="votes">
-                    <button type="button">+</button>
-                    <p><span class="count">123</span><br />votes</p>
-                    <button type="button">-</button>
-                </div>
-                <div class="content">
-                    <h3><a href="post">This is a post</a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus, lorem non varius consequat, ipsum magna vestibulum lectus, et fringilla tellus augue id nisl. Donec tempus est a hendrerit ornare. Phasellus blandit est in malesuada interdum. Mauris finibus vehicula turpis vel lobortis. Phasellus tempor elit massa. Morbi vulputate leo a neque mollis varius. Donec ultricies aliquam vulputate. Nunc dapibus lectus a risus rutrum pulvinar.</p>
-                    <div class="tags"><span class="tag">Tag1</span><span class="tag">Tag2</span><span class="date">Date blah</span></div>
-                </div>
+    //             <div class="votes">
+    //                 <button type="button">+</button>
+    //                 <p><span class="count">123</span><br />votes</p>
+    //                 <button type="button">-</button>
+    //             </div>
+    //             <div class="content">
+    //                 <h3><a href="post">This is a post</a></h3>
+    //                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus, lorem non varius consequat, ipsum magna vestibulum lectus, et fringilla tellus augue id nisl. Donec tempus est a hendrerit ornare. Phasellus blandit est in malesuada interdum. Mauris finibus vehicula turpis vel lobortis. Phasellus tempor elit massa. Morbi vulputate leo a neque mollis varius. Donec ultricies aliquam vulputate. Nunc dapibus lectus a risus rutrum pulvinar.</p>
+    //                 <div class="tags"><span class="tag">Tag1</span><span class="tag">Tag2</span><span class="date">Date blah</span></div>
+    //             </div>
 
-            </div>
-    */
+    //         </div>
+    // */
 
     // Start by creating elements
     let post_div = document.createElement('DIV');
