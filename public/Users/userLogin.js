@@ -202,9 +202,9 @@ function logout() {
     let req = new XMLHttpRequest();
 
     req.onreadystatechange = function () {
-        if (req.readyState == 4 && req.status == 200) {
+        if (req.readyState == 4 && req.status === 200) {
             alert('Logged Out');
-        } else if (req.readyState == 4 && req.status == 403) {
+        } else if (req.readyState == 4 && req.status === 403) {
             alert('Not logged in');
         }
     };
