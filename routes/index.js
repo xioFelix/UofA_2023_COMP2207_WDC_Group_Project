@@ -36,7 +36,7 @@ router.post('/loginToUser', async function (req, res, next) {
 
     const ticket = await client.verifyIdToken({
       idToken: req.body.credential,
-      audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+      audience: CLIENT_ID // Specify the CLIENT_ID of the app that accesses the backend
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
