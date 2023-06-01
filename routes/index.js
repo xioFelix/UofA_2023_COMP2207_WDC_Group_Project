@@ -23,8 +23,10 @@ router.get('/', function (req, res, next) {
 // });
 
 let users = {
-  bob: { password: 'password', email: 'xiofelix725@gmail.com' },
-  alice: { password: 'foobar', email: 'example2@example.com' }
+  Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
+  Emily: { password: 'password', email: 'cyqqazmlp@gmail.com' },
+  Lily: { password: 'password', email: 'wangqianying2022@gmail.com' },
+  Jancy: { password: 'password', email: '1317858648@qq.com' }
 };
 
 router.post('/loginToUser', async function (req, res, next) {
@@ -72,8 +74,6 @@ router.post('/loginToUser', async function (req, res, next) {
     }
 
   }
-
-
 });
 
 router.post('/loginToManager', function (req, res) {
