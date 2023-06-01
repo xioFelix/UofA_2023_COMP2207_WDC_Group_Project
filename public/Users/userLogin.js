@@ -158,7 +158,7 @@ function login() {
     req.onreadystatechange = function () {
         if (req.readyState === 4 && req.status === 200) {
             alert('Logged In successfully');
-        } else if (req.readyState == 4 && req.status === 401) {
+        } else if (req.readyState === 4 && req.status === 401) {
             alert('Login FAILED');
         }
     };
