@@ -43,7 +43,8 @@ router.post('/loginToUser', async function (req, res, next) {
     const payload = ticket.getPayload();
     // console.log(payload['sub']);
     console.log(payload.email);
-    console.log(payload);
+    console.log(payload.given_name);
+    // res.redirect('./Users/user/home_page.html');
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
 
@@ -68,7 +69,7 @@ router.post('/loginToUser', async function (req, res, next) {
       console.log(req.body.username);
       res.json(req.session.user);
       // Redirect the user to the desired page after login.
-      res.redirect('./Users/user/home_page.html');
+      // res.redirect('./Users/user/home_page.html');
     } else {
       // No user
       res.sendStatus(401);
