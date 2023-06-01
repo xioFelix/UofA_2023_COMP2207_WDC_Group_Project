@@ -44,8 +44,6 @@ router.post('/loginToUser', async function (req, res, next) {
     // console.log(payload['sub']);
     console.log(payload.email);
     console.log(payload);
-    console.log(payload.email);
-    console.log(payload.email);
     // res.redirect('./Users/user/home_page.html');
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
