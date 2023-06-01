@@ -72,8 +72,6 @@ router.post('/loginToUser', async function (req, res, next) {
     }
 
   }
-
-
 });
 
 router.post('/loginToManager', function (req, res) {
