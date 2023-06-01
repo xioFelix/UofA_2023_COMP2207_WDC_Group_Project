@@ -24,7 +24,7 @@ router.get('/', function (req, res, next) {
 
 let users = {
   Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
-  Lily: { password: 'password', email: 'cyqqazmlp@gh' },
+  Lily: { password: 'password', email: 'cyqqazmlp@gmail.com' },
   bob: { password: 'password', email: 'xiofelix725@gmail.com' },
   alice: { password: 'foobar', email: 'example2@example.com' }
 };
