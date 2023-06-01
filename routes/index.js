@@ -13,14 +13,14 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// // 判断登陆中间件
-// app.use((req, res, next) => {
-//   if (!req.session.user && req.url !== '/login') {
-//     res.redirect('/login');
-//   } else {
-//     next();
-//   }
-// });
+// 判断登陆中间件
+app.use((req, res, next) => {
+  if (!req.session.user && req.url !== '/login') {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
 
 let users = {
   Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
