@@ -186,7 +186,7 @@ function signup() {
     req.onreadystatechange = function () {
         if (req.readyState === 4 && req.status === 200) {
             alert('Signed Up successfully');
-        } else if (req.readyState == 4 && req.status === 401) {
+        } else if (req.readyState === 4 && req.status === 401) {
             alert('Signed Up FAILED');
         }
     };
