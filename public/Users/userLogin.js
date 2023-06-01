@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    $('#horizontalTab').easyResponsiveTabs({
+        type: 'default',
+        width: 'auto',
+        fit: true
+    });
+});
+
 
 function renderPost(post_data) {
 
