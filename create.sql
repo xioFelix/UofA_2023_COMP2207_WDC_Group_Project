@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS survival;
 USE survival;
 
 CREATE TABLE activity (
-  activity_id INT AUTO_INCREMENT PRIMARY KEY,
+  activity_id INT PRIMARY KEY,
   club_id INT NOT NULL,
   announcement_title VARCHAR(100) NOT NULL,
   announcement_content VARCHAR(2000) NOT NULL,
