@@ -240,22 +240,4 @@ function do_google_login(response) {
     // Send the login token
     req.send(JSON.stringify(response));
 
-}
-
-// Assuming you're using a browser-based JavaScript environment
-
-fetch('/loginToUser', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ username: 'Felix', password: 'password' })
-})
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data); // View the JSON response in the browser console
-    })
-    .catch((error) => {
-        console.log('Error:', error);
-    });
-
+};
