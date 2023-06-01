@@ -26,7 +26,7 @@ let users = {
   Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
   Emily: { password: 'password', email: 'cyqqazmlp@gmail.com' },
   Lily: { password: 'password', email: 'wangqianying2022@gmail.com' },
-  alice: { password: 'foobar', email: 'example2@example.com' }
+  Jancy: { password: 'foobar', email: 'example2@example.com' }
 };
 
 router.post('/loginToUser', async function (req, res, next) {
