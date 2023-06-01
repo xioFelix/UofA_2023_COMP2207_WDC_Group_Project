@@ -43,6 +43,7 @@ router.post('/loginToUser', async function (req, res, next) {
     const payload = ticket.getPayload();
     // console.log(payload['sub']);
     console.log(payload.email);
+    console.log(payload);
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
 
