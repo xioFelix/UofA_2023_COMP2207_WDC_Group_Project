@@ -73,6 +73,8 @@ router.post('/loginToUser', async function (req, res, next) {
       res.sendStatus(401);
     }
 
+  } else {
+    res.sendStatus(401);
   }
 });
 
