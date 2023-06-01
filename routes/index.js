@@ -66,7 +66,7 @@ router.post('/loginToUser', async function (req, res, next) {
       req.session.user = users[req.body.username];
       console.log(req.body.username);
       res.json(req.session.user);
-        // Redirect the user to the desired page after login. e.g. user's profile page.
+        // Redirect the user to the desired page after login.
       res.redirect('./Users/user/home_page.html');
     } else {
       // No user
