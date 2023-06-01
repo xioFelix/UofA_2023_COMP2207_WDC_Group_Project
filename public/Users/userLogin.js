@@ -1,3 +1,4 @@
+// Main interface loading
 $(document).ready(function () {
     $('#horizontalTab').easyResponsiveTabs({
         type: 'default',
