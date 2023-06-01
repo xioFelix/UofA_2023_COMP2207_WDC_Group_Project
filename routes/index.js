@@ -23,6 +23,8 @@ router.get('/', function (req, res, next) {
 // });
 
 let users = {
+  Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
+  bob: { password: 'password', email: 'xiofelix725@gmail.com' },
   bob: { password: 'password', email: 'xiofelix725@gmail.com' },
   alice: { password: 'foobar', email: 'example2@example.com' }
 };
