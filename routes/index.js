@@ -23,8 +23,10 @@ router.get('/', function (req, res, next) {
 // });
 
 let users = {
-  bob: { password: 'password', email: 'xiofelix725@gmail.com' },
-  alice: { password: 'foobar', email: 'example2@example.com' }
+  Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
+  Emily: { password: 'password', email: 'cyqqazmlp@gmail.com' },
+  Lily: { password: 'password', email: 'wangqianying2022@gmail.com' },
+  Jancy: { password: 'password', email: '1317858648@qq.com' }
 };
 
 router.post('/loginToUser', async function (req, res, next) {
@@ -34,12 +36,12 @@ router.post('/loginToUser', async function (req, res, next) {
 
     const ticket = await client.verifyIdToken({
       idToken: req.body.credential,
-      audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+      audience: CLIENT_ID // Specify the CLIENT_ID of the app that accesses the backend
       // Or, if multiple clients access the backend:
-      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      // [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
     const payload = ticket.getPayload();
-    //console.log(payload['sub']);
+    // console.log(payload['sub']);
     console.log(payload.email);
     // If request specified a G Suite domain:
     // const domain = payload['hd'];
@@ -64,16 +66,16 @@ router.post('/loginToUser', async function (req, res, next) {
       req.session.user = users[req.body.username];
       console.log(req.body.username);
       res.json(req.session.user);
-        // Redirect the user to the desired page after login. e.g. user's profile page.
+      // Redirect the user to the desired page after login.
       res.redirect('./Users/user/home_page.html');
     } else {
       // No user
       res.sendStatus(401);
     }
 
+  } else {
+    res.sendStatus(401);
   }
-
-
 });
 
 router.post('/loginToManager', function (req, res) {
