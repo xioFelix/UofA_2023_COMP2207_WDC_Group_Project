@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const bodyParser = require('body-parser');
 
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
@@ -9,7 +9,7 @@ const client = new OAuth2Client(CLIENT_ID);
 router.use(bodyParser.urlencoded({ extended: true }));
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
 });
 
@@ -29,7 +29,7 @@ let users = {
   Jancy: { password: 'password', email: '1317858648@qq.com' }
 };
 
-router.post('/loginToUser', async function (req, res, next) {
+router.post('/loginToUser', async function (req, res) {
 
   // This code handles a Google login via an AJAX request to the regular login route
   if ('client_id' in req.body && 'credential' in req.body) {
@@ -42,7 +42,9 @@ router.post('/loginToUser', async function (req, res, next) {
     });
     const payload = ticket.getPayload();
     // console.log(payload['sub']);
+    // eslint-disable-next-line no-console
     console.log(payload.email);
+    // eslint-disable-next-line
     console.log(payload.given_name);
     // res.redirect('./Users/user/home_page.html');
     // If request specified a G Suite domain:
@@ -66,6 +68,7 @@ router.post('/loginToUser', async function (req, res, next) {
     if (req.body.username in users && users[req.body.username].password === req.body.password) {
       // There is a user
       req.session.user = users[req.body.username];
+      // eslint-disable-next-line no-console
       console.log(req.body.username);
       res.json(req.session.user);
       // Redirect the user to the desired page after login.
@@ -105,7 +108,7 @@ router.post('/otherLoginToUser', function (req, res) {
 // });
 
 // // 退出登录功能 待实现
-router.post('/logout', function (req, res, next) {
+router.post('/logout', function (req, res) {
 
   if ('username' in req.session) {
     delete req.session.username;
