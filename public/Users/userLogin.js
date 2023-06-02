@@ -240,4 +240,4 @@ function do_google_login(response) {
     // Send the login token
     req.send(JSON.stringify(response));
 
-};
+}
