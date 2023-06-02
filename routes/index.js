@@ -13,6 +13,27 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/actors', function (req, res) {
+
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    const query = "SELECT * FROM actor;";
+    // eslint-disable-next-line no-shadow
+    connection.query(query, function (err, rows) {
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
 // // 判断登陆中间件
 // app.use((req, res, next) => {
 //   if (!req.session.user && req.url !== '/login') {
