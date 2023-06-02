@@ -21,7 +21,7 @@ router.get('/describe_user', function (req, res) {
       res.sendStatus(500);
       return;
     }
-    const query = "DESCRIBE user;";
+    const query = "SELECT * FROM club;";
     // eslint-disable-next-line no-shadow
     connection.query(query, function (err, rows) {
       connection.release(); // release connection

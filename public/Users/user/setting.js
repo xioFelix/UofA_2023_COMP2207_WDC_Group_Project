@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 data.forEach((survival) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${survival.Field}</td><td>${survival.Type}</td>`;
+                    row.innerHTML = `<td>${survival.club_name}</td><td>${survival.manager_id}</td>`;
                     tableBody.appendChild(row);
                 });
             });
