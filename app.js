@@ -18,7 +18,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const mysql = require('mysql2');
-const { use } = require("../app");
 
 // create a 'pool' (group) of connections to be used for connecting with our SQL server
 const dbConnectionPool = mysql.createPool({
@@ -26,9 +25,8 @@ const dbConnectionPool = mysql.createPool({
     database: 'survival'
 });
 
-
 // Connect to the database
-use(function (req, res, next) {
+app.use(function (req, res, next) {
     req.pool = dbConnectionPool;
     // eslint-disable-next-line no-console
     console.log("Successful connected to the database");
