@@ -22,7 +22,7 @@ function openClubAll() {
 // databsases
 document.addEventListener('DOMContentLoaded', () => {
     function fetchActors() {
-        fetch('/actors')
+        fetch('/describe_user')
             .then((response) => response.json())
             .then((data) => {
                 const tableBody = document.querySelector('table tbody');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 data.forEach((survival) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${survival.Field}</td><td>${survival.last_name}</td>`;
+                    row.innerHTML = `<td>${survival.Field}</td><td>${survival.Type}</td>`;
                     tableBody.appendChild(row);
                 });
             });
