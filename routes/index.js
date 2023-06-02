@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
+const {get} = require("../app");
 const client = new OAuth2Client(CLIENT_ID);
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -11,6 +12,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 /* GET home page. */
 router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
+  // eslint-disable-next-line no-console
+  console.log("Cookies :  ", req.cookies);
 });
 
 router.get('/describe_user', function (req, res) {
@@ -116,6 +119,10 @@ router.post('/otherLoginToUser', function (req, res) {
   res.redirect('./Users/user/home_page.html');
 });
 
+router.get('/cookie',function(req, res){
+  res.cookie(cookie_name , 'cookie_value', { expire: new Date() + 9000000 }).send('Cookie is set');
+});
+
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
 //   if (result.length > 0) {
@@ -129,15 +136,9 @@ router.post('/otherLoginToUser', function (req, res) {
 // });
 
 // // 退出登录功能 待实现
-router.post('/logout', function (req, res) {
-
-  if ('username' in req.session) {
-    delete req.session.username;
-    res.end();
-  } else {
-    res.sendStatus(403);
-  }
-
+router.get('/clearcookie', function(req,res){
+  clearCookie('cookie_name');
+  res.send('Cookie deleted');
 });
 
 // // 跳到登录页

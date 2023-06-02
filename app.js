@@ -5,7 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const session = require("expre ss-session");
+const session = require("express-session");
 
 
 const app = express();
