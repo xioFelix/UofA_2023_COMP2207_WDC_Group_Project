@@ -5,7 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const session = require("express-session");
+const session = require("expre ss-session");
 
 
 const app = express();
@@ -38,8 +38,8 @@ app.use(function (req, res, next) {
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'super secret string',
-    secure: false
+    secret: 'survival',
+    cookie: { secure: false }
 }));
 
 app.use(function(req,res,next){
