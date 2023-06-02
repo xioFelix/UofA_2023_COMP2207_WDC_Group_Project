@@ -136,15 +136,9 @@ router.get('/cookie',function(req, res){
 // });
 
 // // 退出登录功能 待实现
-router.post('/logout', function (req, res) {
-
-  if ('username' in req.session) {
-    delete req.session.username;
-    res.end();
-  } else {
-    res.sendStatus(403);
-  }
-
+router.get('/clearcookie', function(req,res){
+  clearCookie('cookie_name');
+  res.send('Cookie deleted');
 });
 
 // // 跳到登录页
