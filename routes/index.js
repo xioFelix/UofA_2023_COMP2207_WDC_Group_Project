@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/actors', function (req, res) {
+router.get('/describe_user', function (req, res) {
 
   // Connect to the database
   req.pool.getConnection(function (err, connection) {
@@ -21,7 +21,7 @@ router.get('/actors', function (req, res) {
       res.sendStatus(500);
       return;
     }
-    const query = "SELECT * FROM actor;";
+    const query = "DESCRIBE user;";
     // eslint-disable-next-line no-shadow
     connection.query(query, function (err, rows) {
       connection.release(); // release connection
