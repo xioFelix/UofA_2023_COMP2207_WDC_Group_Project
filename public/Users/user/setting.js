@@ -21,7 +21,7 @@ function openClubAll() {
 
 // databsases
 document.addEventListener('DOMContentLoaded', () => {
-    function fetchActors() {
+    function describeUsers() {
         fetch('/describe_user')
             .then((response) => response.json())
             .then((data) => {
@@ -36,38 +36,38 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    fetchActors();
+    describeUsers();
 
-    const addActorForm = document.querySelector('form');
-
-    // eslint-disable-next-line no-shadow
-    addActorForm.addEventListener('submit', (addActorForm) => {
-        addActorForm.preventDefault();
-
-        const firstNameInput = document.querySelector('#actor-first-name');
-        const lastNameInput = document.querySelector('#actor-last-name');
-
-        const actor = {
-            first_name: firstNameInput.value,
-            last_name: lastNameInput.value
-        };
-
-        fetch('/actors', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(actor)
-        })
-            .then((response) => response.json())
-            .then((data) => {
-
-                // eslint-disable-next-line no-console
-                console.log(data);
-            });
-
-        firstNameInput.value = '';
-        lastNameInput.value = '';
-        fetchActors();
-    });
+    // const addActorForm = document.querySelector('form');
+    //
+    // // eslint-disable-next-line no-shadow
+    // addActorForm.addEventListener('submit', (addActorForm) => {
+    //     addActorForm.preventDefault();
+    //
+    //     const firstNameInput = document.querySelector('#actor-first-name');
+    //     const lastNameInput = document.querySelector('#actor-last-name');
+    //
+    //     const actor = {
+    //         first_name: firstNameInput.value,
+    //         last_name: lastNameInput.value
+    //     };
+    //
+    //     fetch('/actors', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(actor)
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //
+    //             // eslint-disable-next-line no-console
+    //             console.log(data);
+    //         });
+    //
+    //     firstNameInput.value = '';
+    //     lastNameInput.value = '';
+    //     describeUsers();
+    // });
 });
