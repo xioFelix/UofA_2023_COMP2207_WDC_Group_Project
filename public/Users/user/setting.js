@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tableBody = document.querySelector('table tbody');
                 tableBody.innerHTML = '';
 
-                data.forEach((actor) => {
+                data.forEach((survival) => {
                     const row = document.createElement('tr');
-                    row.innerHTML = `<td>${actor.first_name}</td><td>${actor.last_name}</td>`;
+                    row.innerHTML = `<td>${survival.Field}</td><td>${survival.last_name}</td>`;
                     tableBody.appendChild(row);
                 });
             });
