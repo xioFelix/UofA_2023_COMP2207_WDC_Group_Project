@@ -155,20 +155,64 @@ function login() {
 
     let req = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
             alert('Logged In successfully');
-        } else if (req.readyState === 4 && req.status === 401) {
+        } else if(req.readyState == 4 && req.status == 401){
             alert('Login FAILED');
         }
     };
 
-    req.open('POST', '/loginToUser');
-    req.setRequestHeader('Content-Type', 'application/json');
+    req.open('POST','/login');
+    req.setRequestHeader('Content-Type','application/json');
     req.send(JSON.stringify(logindata));
 
 }
 
+function signup() {
+
+    let logindata = {
+        username: document.getElementById('signup-user').value,
+        password: document.getElementById('signup-pass').value
+    };
+
+    if(document.getElementById('signup-pass').value !== document.getElementById('signup-confirm').value){
+        alert("Passwords don't match");
+        return;
+    }
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
+            alert('Signed Up successfully');
+        } else if(req.readyState == 4 && req.status == 401){
+            alert('Signed Up FAILED');
+        }
+    };
+
+    req.open('POST','/signup');
+    req.setRequestHeader('Content-Type','application/json');
+    req.send(JSON.stringify(logindata));
+
+}
+
+function logout() {
+
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
+            alert('Logged Out');
+        } else if(req.readyState == 4 && req.status == 403){
+            alert('Not logged in');
+        }
+    };
+
+    req.open('POST','/logout');
+    req.send();
+
+}
 function signup() {
 
     let logindata = {
@@ -225,17 +269,18 @@ function do_google_login(response) {
     // Setup AJAX request
     let req = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
+    req.onreadystatechange = function (){
         // Handle response from our server
         if (req.readyState === 4 && req.status === 200) {
             alert('Logged In with Google successfully');
+            window.location.href = '/Users/user/home_page.html';
         } else if (req.readyState === 4 && req.status === 401) {
             alert('Login FAILED');
         }
     };
 
     // Open requst
-    req.open('POST', '/loginToUser');
+    req.open('POST', '/login_to_user');
     req.setRequestHeader('Content-Type', 'application/json');
     // Send the login token
     req.send(JSON.stringify(response));

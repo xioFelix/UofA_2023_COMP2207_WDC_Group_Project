@@ -276,13 +276,13 @@ h1 {
 } */
 
 /* forget & login/signup in one line */
-.login-bottom li {
+.login-top li {
     display: inline-block;
 
 }
 
 /* forget - font/color */
-.login-bottom a {
+.login-top a {
     font-size: 1em;
     color: #999;
     vertical-align: middle;
@@ -292,7 +292,7 @@ h1 {
 
 
 /* login button: submit*/
-.login-bottom input[type="submit"] {
+.login-top button{
     /* font-size: 0.9em; */
     color: #fff;
     background: #7ba1a8;
@@ -304,7 +304,7 @@ h1 {
 }
 
 
-.login-bottom input[type="submit"]:hover {
+#login_button:hover button{
     background: #fff;
     color: #7ba1a8;
     border-color: #7ba1a8;
