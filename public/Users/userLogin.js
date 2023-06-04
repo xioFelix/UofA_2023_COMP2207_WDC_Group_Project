@@ -229,6 +229,7 @@ function do_google_login(response) {
         // Handle response from our server
         if (req.readyState === 4 && req.status === 200) {
             alert('Logged In with Google successfully');
+            window.location.href = '/Users/user/home_page.html'
         } else if (req.readyState === 4 && req.status === 401) {
             alert('Login FAILED');
         }

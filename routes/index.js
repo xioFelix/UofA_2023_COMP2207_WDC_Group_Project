@@ -78,6 +78,8 @@ router.post('/loginToUser', async function (req, res) {
     for (let id in users) {
       if (users[id].email === payload.email) {
         req.session.user = users[id];
+        res.cookie("email",payload.email);
+        // res.redirect('/Users/user/home_page.html');
         res.json(req.session.user);
         return;
       }
