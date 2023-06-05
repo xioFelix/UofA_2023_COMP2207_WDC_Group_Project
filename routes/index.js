@@ -44,6 +44,7 @@ router.post('/login', async function(req, res, next) {
         return;
       }
 
+      // eslint-disable-next-line no-shadow
       connection.query(query, [req.body.username,req.body.password], function(err, results) {
         connection.release(); // 释放连接
 
