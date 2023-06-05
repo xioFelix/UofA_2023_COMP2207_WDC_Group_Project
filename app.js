@@ -64,8 +64,7 @@ app.use((req, res, next) => {
         domain: 'localhost:8080', // 设置作用域为example.com
         path: '/workspaces/23S1_WDC_UG025_survival', // 设置路径为/mypath
         secure: false, // 仅在HTTPS连接下发送cookie
-        httpOnly: true, // 标记为"HttpOnly"
-        sameSite: 'strict' // 设置SameSite属性为"strict"
+        httpOnly: true // 标记为"HttpOnly"
     });
     next();
 });
