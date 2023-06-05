@@ -69,6 +69,16 @@ app.use(function(req,res,next){
     next();
 });
 
+// 自定义会话验证中间件
+function requireSession(req, res, next) {
+    if (req.session && req.session.username) {
+        // 用户会话存在，继续处理请求
+        next();
+    } else {
+        // 用户会话不存在，重定向到登录页或其他处理方式
+        res.redirect('/login');
+    }
+}
 
 // 设置cookie
 app.get('/set_google_cookie', (req, res) => {
