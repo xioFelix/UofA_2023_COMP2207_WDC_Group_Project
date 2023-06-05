@@ -62,7 +62,6 @@ app.use((req, res, next) => {
     res.cookie('myCookie', 'Hello, Cookie!', {
         maxAge: 3600000, // 设置过期时间为1小时后
         domain: 'localhost:8080', // 设置作用域为example.com
-        path: '/workspaces/23S1_WDC_UG025_survival', // 设置路径为/mypath
         secure: false, // 仅在HTTPS连接下发送cookie
         httpOnly: true // 标记为"HttpOnly"
     });
