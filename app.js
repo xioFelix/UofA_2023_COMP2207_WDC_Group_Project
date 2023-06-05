@@ -22,10 +22,6 @@ const db = mysql.createPool({
     database: 'survival'
 });
 
-
-
-
-
 // Connect to the database
 app.use(function (req, res, next) {
     req.pool = db;
