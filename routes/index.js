@@ -1,57 +1,144 @@
+const mysql = require('mysql');
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const session = require('express-session');
+
+const app = express(); // Create an instance of the Express application
 
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
+const { get } = require("../app");
 const client = new OAuth2Client(CLIENT_ID);
 
-router.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const db = mysql.createPool({
+  host: 'localhost',
+  database: 'survival'
+});
 
 /* GET home page. */
 router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
+  // eslint-disable-next-line no-console
+  console.log("Cookies :  ", req.cookies);
 });
 
-router.get('/describe_user', function (req, res) {
+// ... 省略其余路由处理程序 ...
 
-  // Connect to the database
-  req.pool.getConnection(function (err, connection) {
-    if (err) {
-      res.sendStatus(500);
+router.post('/login', async function(req, res, next) {
+  try {
+    // 验证请求体中的数据是否为空
+    if (!req.body.username || !req.body.password) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
       return;
     }
-    const query = "SELECT * FROM club;";
-    // eslint-disable-next-line no-shadow
-    connection.query(query, function (err, rows) {
-      connection.release(); // release connection
+
+    // 在数据库中查找匹配的用户
+    const query = 'SELECT * FROM user WHERE user_name = ? AND user_password = ?';
+    db.getConnection(function(err, connection) {
       if (err) {
-        res.sendStatus(500);
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
         return;
       }
-      res.json(rows); // send response
+
+      // eslint-disable-next-line no-shadow
+      connection.query(query, [req.body.username,req.body.password], function(err, results) {
+        connection.release(); // 释放连接
+
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
+
+        const user = results[0];
+
+        if (user && user.user_password === req.body.password) {
+          req.session.username = user.user_name;
+          console.log(user.user_name);
+          res.end();
+        } else {
+          res.sendStatus(401); // 用户名或密码不正确，返回未授权状态码
+        }
+      });
     });
-  });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
 });
 
-// // 判断登陆中间件
-// app.use((req, res, next) => {
-//   if (!req.session.user && req.url !== '/login') {
-//     res.redirect('/login');
-//   } else {
-//     next();
-//   }
-// });
 
-let users = {
-  Felix: { password: 'password', email: 'xiofelix725@gmail.com' },
-  Emily: { password: 'password', email: 'cyqqazmlp@gmail.com' },
-  Lily: { password: 'password', email: 'wangqianying2022@gmail.com' },
-  Jancy: { password: 'password', email: '1317858648@qq.com' }
-};
+router.post('/signup', function(req, res, next) {
+  try {
+    // 验证请求体中的数据是否为空
+    if (!req.body.username || !req.body.email || !req.body.password) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      return;
+    }
 
-router.post('/loginToUser', async function (req, res) {
+    // 在数据库中查找是否存在相同的用户名
+    const query = 'SELECT * FROM user WHERE user_name = ?';
+    db.getConnection(function(err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
 
+      connection.query(query, [req.body.username], function(err, results) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
+
+        if (results.length > 0) {
+          res.sendStatus(401); // 用户名已存在，返回未授权状态码
+        } else {
+          // 将新用户插入到数据库中
+          const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err) {
+            connection.release(); // 释放连接
+
+            if (err) {
+              console.error(err);
+              res.sendStatus(500); // 处理错误时返回服务器错误状态码
+              return;
+            }
+
+            req.session.username = req.body.username;
+            console.log(req.body.username);
+            res.end();
+          });
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
+});
+
+
+
+
+router.post('/logout', function(req,res,next){
+
+  if ('username' in req.session){
+    delete req.session.username;
+    res.end();
+  } else {
+    res.sendStatus(403);
+  }
+
+});
+
+
+router.post('/login_to_user_by_google', async function (req, res) {
   // This code handles a Google login via an AJAX request to the regular login route
   if ('client_id' in req.body && 'credential' in req.body) {
 
@@ -65,6 +152,7 @@ router.post('/loginToUser', async function (req, res) {
     // console.log(payload['sub']);
     // eslint-disable-next-line no-console
     console.log(payload.email);
+    req.cookies.set("email", payload.email);
     // eslint-disable-next-line
     console.log(payload.given_name);
     // res.redirect('./Users/user/home_page.html');
@@ -75,6 +163,9 @@ router.post('/loginToUser', async function (req, res) {
     for (let id in users) {
       if (users[id].email === payload.email) {
         req.session.user = users[id];
+        res.cookie("auth",true);
+        console.log("Login in by user name successfully");
+        res.redirect('/Users/user/home_page.html');
         res.json(req.session.user);
         return;
       }
@@ -116,6 +207,10 @@ router.post('/otherLoginToUser', function (req, res) {
   res.redirect('./Users/user/home_page.html');
 });
 
+router.get('/cookie',function(req, res){
+  res.cookie(cookie_name , 'cookie_value', { expire: new Date() + 9000000 }).send('Cookie is set');
+});
+
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
 //   if (result.length > 0) {
@@ -129,18 +224,13 @@ router.post('/otherLoginToUser', function (req, res) {
 // });
 
 // // 退出登录功能 待实现
-router.post('/logout', function (req, res) {
-
-  if ('username' in req.session) {
-    delete req.session.username;
-    res.end();
-  } else {
-    res.sendStatus(403);
-  }
-
+router.get('/clearcookie', function(req,res){
+  clearCookie('cookie_name');
+  res.send('Cookie deleted');
+  // 跳到登录页
+  res.redirect('/login');
 });
 
-// // 跳到登录页
-// res.redirect('/login');
+
 
 module.exports = router;

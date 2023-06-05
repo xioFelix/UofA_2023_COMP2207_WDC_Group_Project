@@ -9,11 +9,17 @@
 			content="Tab Widget Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 		<link href="style.css" rel="stylesheet" type="text/css" media="all" />
 		<!--js-->
+			<!-- 引入样式 -->
+			<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+			<!-- 引入组件库 -->
+			<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 		<script src="jquery.min.js"></script>
 		<script src="https://kit.fontawesome.com/94cf77f898.js" crossorigin="anonymous"></script>
 		<script src="easyResponsiveTabs.js" type="text/javascript"></script>
 		<script src="https://accounts.google.com/gsi/client" async defer></script>
 		<script src="userLogin.js" async defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js" async defer></script>
+		<script src="../ifShowPw_Vue.js" async defer></script>
 		<!-- <script type="text/javascript">
 			$(document).ready(function () {
 				$('#horizontalTab').easyResponsiveTabs({
@@ -50,26 +56,19 @@
 					<div class="resp-tabs-container">
 						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 							<div class="login-top">
-								<form>
-									<input type="email" class="email" placeholder="Email" required="" />
+								<section>
+									<form>
+										<input type="text" id="login-user" placeholder="Email"/><br />
 									<div class="passwordBox" id="ifShowPw1">
-										<input type="password" class="passwordBox" :type="passwordFieldType"
-											v-model="password" placeholder="Password">
-										<div class="eyeBox" @click="switchVisibility"><i
-												class="fa-solid fa-eye-slash"></i>
-										</div>
+										<input type="password" class="passwordBox" id="login-pass" :type="passwordFieldType"
+										v-model="password" placeholder="Password">
+									<div class="eyeBox" @click="switchVisibility"><i class="fa-solid fa-eye-slash"></i>
 									</div>
-								</form>
-								<div class="login-bottom">
-									<ul>
-										<li>
-											<form action="/loginToUser" method="post">
-												<!-- login redirect to homepage——user -->
-												<input type="submit" value="LOGIN" />
-											</form>
-										</li>
-									</ul>
-								</div>
+										</div>
+										<button id="login_button" type="button" onclick="login();">Login</button>
+									</form>
+								</section>
+
 
 								<!--userName login-->
 								<div class="social-icons">
@@ -80,58 +79,39 @@
 												</span></a></li>
 									</ul>
 
-
+									<!--google login-->
 									<div id="g_id_onload"
 										data-client_id="646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com"
 										data-context="signin" data-ux_mode="popup" data-callback="do_google_login"
 										data-auto_prompt="false">
 									</div>
-
 									<div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline"
 										data-text="signin_with" data-size="large" data-logo_alignment="middle">
 									</div>
-
-
 								</div>
-
-
-
 							</div>
 						</div>
+					</div>
 
-						<!-- Register -->
-						<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
-							<div class="login-top sign-top">
-								<form>
-									<input type="text" class="name active" placeholder="Full Name" required="" />
-									<input type="text" class="name active" placeholder="User Name" required="" />
-									<input type="email" class="email" placeholder="Email" required="" />
-									<div class="passwordBox" id="ifShowPw2">
-										<input type="password" class="passwordBox" :type="passwordFieldType"
-											v-model="password" placeholder="Password">
-										<div class="eyeBox" @click="switchVisibility"><i
-												class="fa-solid fa-eye-slash"></i>
-										</div>
-									</div>
-								</form>
-
-								<div class="login-bottom">
-									<ul>
-										<li>
-											<form>
-												<input type="submit" value="SIGN UP" />
-											</form>
-										</li>
-									</ul>
-								</div>
-							</div>
+					<!-- Register -->
+					<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+						<div class="login-top">
+                            <section id="signup-form">
+                                <form>
+                                    <label for="signup-user">Username</label>
+                                    <input type="text" id="signup-user" /><br>
+                                    <label for="signup-email">Email</label>
+                                    <input type="email" id="signup-email" /><br>
+                                    <label for="signup-pass">Password</label>
+                                    <input type="password" id="signup-pass" /><br>
+                                    <button type="button" onclick="signup();">Sign Up</button>
+                                </form>
+                            </section>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
-		<script src="../ifShowPw_Vue.js"></script>
 	</body>
 
 </html>

@@ -155,66 +155,74 @@ function login() {
 
     let req = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
             alert('Logged In successfully');
-        } else if (req.readyState === 4 && req.status === 401) {
+        } else if(req.readyState == 4 && req.status == 401){
             alert('Login FAILED');
         }
     };
 
-    req.open('POST', '/loginToUser');
-    req.setRequestHeader('Content-Type', 'application/json');
+    req.open('POST','/login');
+    req.setRequestHeader('Content-Type','application/json');
     req.send(JSON.stringify(logindata));
 
 }
 
+// JavaScript function to handle signup
 function signup() {
+  var username = document.getElementById('signup-user').value;
+  var email = document.getElementById('signup-email').value;
+  var password = document.getElementById('signup-pass').value;
 
-    let logindata = {
-        username: document.getElementById('signup-user').value,
-        password: document.getElementById('signup-pass').value
-    };
+  // Create a new XMLHttpRequest object
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/signup', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-    if (document.getElementById('signup-pass').value !== document.getElementById('signup-confirm').value) {
-        alert("Passwords don't match");
-        return;
+  // Set up a callback function to handle the response
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log('Signup successful');
+      // Show a success message in a popup or any other desired action
+      alert('Signup successful!');
+    } else if (xhr.status === 401) {
+      console.log('Username already exists');
+      // Show an error message indicating that the username already exists
+      alert('Username already exists. Please choose a different username.');
+    } else {
+      console.log('Signup failed');
+      // Show an error message indicating that the signup process failed
+      alert('Signup failed. Please try again later.');
     }
+  };
 
-    let req = new XMLHttpRequest();
+  // Create a data object with the form values
+  var data = JSON.stringify({ username: username, email: email, password: password, user: "user" });
 
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
-            alert('Signed Up successfully');
-        } else if (req.readyState === 4 && req.status === 401) {
-            alert('Signed Up FAILED');
-        }
-    };
-
-    req.open('POST', '/signup');
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify(logindata));
-
+  // Send the POST request
+  xhr.send(data);
 }
+
+
+
 
 function logout() {
 
     let req = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
-        if (req.readyState === 4 && req.status === 200) {
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
             alert('Logged Out');
-        } else if (req.readyState === 4 && req.status === 403) {
+        } else if(req.readyState == 4 && req.status == 403){
             alert('Not logged in');
         }
     };
 
-    req.open('POST', '/logout');
+    req.open('POST','/logout');
     req.send();
 
 }
-
-
 
 function do_google_login(response) {
 
@@ -225,17 +233,18 @@ function do_google_login(response) {
     // Setup AJAX request
     let req = new XMLHttpRequest();
 
-    req.onreadystatechange = function () {
+    req.onreadystatechange = function (){
         // Handle response from our server
         if (req.readyState === 4 && req.status === 200) {
             alert('Logged In with Google successfully');
+            window.location.href = '/Users/user/home_page.html';
         } else if (req.readyState === 4 && req.status === 401) {
             alert('Login FAILED');
         }
     };
 
     // Open requst
-    req.open('POST', '/loginToUser');
+    req.open('POST', '/login_to_user');
     req.setRequestHeader('Content-Type', 'application/json');
     // Send the login token
     req.send(JSON.stringify(response));
