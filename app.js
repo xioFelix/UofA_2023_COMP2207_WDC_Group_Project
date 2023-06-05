@@ -55,18 +55,6 @@ app.use(cookieParser());
 //         next();
 //     }
 // });
-
-
-// 设置全局的cookie属性
-app.use((req, res, next) => {
-    res.cookie('myCookie', 'Hello, Cookie!', {
-        maxAge: 3600000, // 设置过期时间为1小时后
-        secure: false, // 仅在HTTPS连接下发送cookie
-        httpOnly: true // 标记为"HttpOnly"
-    });
-    next();
-});
-
 // 引入cookies模块
 const Cookies = require("cookies");
 
