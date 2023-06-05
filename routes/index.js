@@ -208,7 +208,6 @@ router.post('/login_to_user', async function (req, res) {
       // No user
       res.sendStatus(401);
     }
-
   } else {
     res.sendStatus(401);
   }
