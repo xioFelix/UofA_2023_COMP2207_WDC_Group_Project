@@ -44,6 +44,7 @@ router.post('/login', async function(req, res, next) {
         return;
       }
 
+      // eslint-disable-next-line no-shadow
       connection.query(query, [req.body.username,req.body.password], function(err, results) {
         connection.release(); // 释放连接
 
@@ -71,18 +72,59 @@ router.post('/login', async function(req, res, next) {
 });
 
 
-router.post('/signup', function(req,res,next){
+router.post('/signup', function(req, res, next) {
+  try {
+    // 验证请求体中的数据是否为空
+    if (!req.body.username || !req.body.email || !req.body.password) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      return;
+    }
 
-  if (req.body.username in users){
-    res.sendStatus(401);
-  } else {
-    req.session.username = req.body.username;
-    users[req.body.username] = { password: req.body.password };
-    console.log(req.body.username);
-    res.end();
+    // 在数据库中查找是否存在相同的用户名
+    const query = 'SELECT * FROM user WHERE user_name = ?';
+    db.getConnection(function(err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
+
+      connection.query(query, [req.body.username], function(err, results) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
+
+        if (results.length > 0) {
+          res.sendStatus(401); // 用户名已存在，返回未授权状态码
+        } else {
+          // 将新用户插入到数据库中
+          const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err) {
+            connection.release(); // 释放连接
+
+            if (err) {
+              console.error(err);
+              res.sendStatus(500); // 处理错误时返回服务器错误状态码
+              return;
+            }
+
+            req.session.username = req.body.username;
+            console.log(req.body.username);
+            res.end();
+          });
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
   }
-
 });
+
+
+
 
 router.post('/logout', function(req,res,next){
 
