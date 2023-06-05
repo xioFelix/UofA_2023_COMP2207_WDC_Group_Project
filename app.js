@@ -7,6 +7,7 @@ const usersRouter = require('./routes/users');
 const session = require("express-session");
 const mysql = require('mysql2');
 const { Sequelize, DataTypes } = require('sequelize');
+var flash = require('connect-flash');
 
 const app = express();
 
@@ -20,6 +21,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 const db = mysql.createPool({
     host: 'localhost',
     database: 'survival'
+});
+
+// cookies配置
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'super secret string',
+    secure: false
+}));
+app.use(flash());
+
+app.use(function(req,res,next){
+    console.log("The current user is:"+req.session.username);
+    next();
 });
 
 // Connect to the database
@@ -55,15 +70,6 @@ app.use(cookieParser());
 //         next();
 //     }
 // });
-
-// cookies配置
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'super secret string',
-    secure: false
-}));
-
 app.use(function(req,res,next){
     console.log("The current user is:"+req.session.username);
     next();
@@ -80,11 +86,21 @@ function requireSession(req, res, next) {
     }
 }
 
+
+app.use(function(req,res,next){
+    console.log("The current user is:"+req.session.username);
+    next();
+});
+
 // 用于处理 "/Users/user/home_page.html" 的路由
 app.get('/Users/user/home_page.html', requireSession, function (req, res) {
-    // 在这里处理验证通过的请求
-    // ...
-    res.sendFile(`${__dirname}/public/Users/user/home_page.html`);
+    const cookieValue = req.session.username;
+    if (cookieValue !== null && cookieValue !== undefined && cookieValue !== '') {
+        res.redirect('http://localhost:8080/Users/userLogin.html');
+    } else {
+        // The cookie is not valid, redirect to another page or handle the error
+        res.redirect('/Users/userLogin.html');
+    }
 });
 
 // 设置cookie

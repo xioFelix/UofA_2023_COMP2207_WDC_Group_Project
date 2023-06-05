@@ -3,6 +3,10 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const session = require('express-session');
+var flash = require('connect-flash');
+
+const cookieParser = require('cookie-parser');
+
 
 const app = express(); // Create an instance of the Express application
 
@@ -25,7 +29,13 @@ router.get('/', function (req, res) {
   console.log("Cookies :  ", req.cookies);
 });
 
-// ... 省略其余路由处理程序 ...
+router.get('/login', function (req, res) {
+    if (!req.session.username) {
+    req.flash('info', 'Please Login First!');
+    res.redirect('http://localhost:8080/Users/userLogin.html');
+  }
+});
+
 
 router.post('/login', async function(req, res, next) {
   try {
@@ -123,7 +133,16 @@ router.post('/signup', function(req, res, next) {
   }
 });
 
-
+// 自定义会话验证中间件
+function requireSession(req, res, next) {
+    if (req.session && req.session.username && req.cookies.auth) {
+        // 用户会话和 cookie 都存在，继续处理请求
+        next();
+    } else {
+        // 用户会话或 cookie 不存在，重定向到登录页或其他处理方式
+        res.redirect('/login');
+    }
+}
 
 
 router.post('/logout', function(req,res,next){
@@ -138,7 +157,7 @@ router.post('/logout', function(req,res,next){
 });
 
 
-router.post('/login_to_user_by_google', async function (req, res) {
+router.post('/login_to_user', async function (req, res) {
   // This code handles a Google login via an AJAX request to the regular login route
   if ('client_id' in req.body && 'credential' in req.body) {
 
@@ -222,15 +241,6 @@ router.get('/cookie',function(req, res){
 //     res.redirect('/login');
 //   }
 // });
-
-// // 退出登录功能 待实现
-router.get('/clearcookie', function(req,res){
-  clearCookie('cookie_name');
-  res.send('Cookie deleted');
-  // 跳到登录页
-  res.redirect('/login');
-});
-
 
 
 module.exports = router;
