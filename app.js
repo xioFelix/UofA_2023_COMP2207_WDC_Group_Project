@@ -55,8 +55,6 @@ app.use(cookieParser());
 //         next();
 //     }
 // });
-// 引入cookies模块
-const Cookies = require("cookies");
 
 // cookies配置
 app.use(session({
