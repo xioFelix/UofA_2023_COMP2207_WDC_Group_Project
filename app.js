@@ -80,6 +80,13 @@ function requireSession(req, res, next) {
     }
 }
 
+// 用于处理 "/Users/user/home_page.html" 的路由
+app.get('/Users/user/home_page.html', requireSession, function (req, res) {
+    // 在这里处理验证通过的请求
+    // ...
+    res.sendFile(`${__dirname}/public/Users/user/home_page.html`); // 返回所需的页面
+});
+
 // 设置cookie
 app.get('/set_google_cookie', (req, res) => {
     // 使用res.cookie()方法设置cookie
