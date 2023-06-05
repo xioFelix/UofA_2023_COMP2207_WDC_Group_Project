@@ -30,15 +30,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// 创建 Sequelize 实例
-const sequelize = new Sequelize({
-  dialect: 'mysql',
-  dialectModule: mysql,
-  dialectOptions: {
-    connection: db
-  }
-});
-
 // 使用cookieParser中间件
 app.use(cookieParser());
 
