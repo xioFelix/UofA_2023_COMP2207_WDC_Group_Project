@@ -30,6 +30,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
+  console.log(req.session.username);
     if (!req.session.username) {
     req.flash('info', 'Please Login First!');
     res.redirect('http://localhost:8080/Users/userLogin.html');
@@ -68,7 +69,7 @@ router.post('/login', async function(req, res, next) {
 
         if (user && user.user_password === req.body.password) {
           req.session.username = user.user_name;
-          console.log(user.user_name);
+          console.log("The current user is:"+req.session.username);
           res.end();
         } else {
           res.sendStatus(401); // 用户名或密码不正确，返回未授权状态码
@@ -80,7 +81,6 @@ router.post('/login', async function(req, res, next) {
     res.sendStatus(500); // 处理错误时返回服务器错误状态码
   }
 });
-
 
 router.post('/signup', function(req, res, next) {
   try {
@@ -145,16 +145,17 @@ function requireSession(req, res, next) {
 }
 
 
-router.post('/logout', function(req,res,next){
-
-  if ('username' in req.session){
+router.get('/logout', function(req, res, next) {
+  if ('username' in req.session) {
     delete req.session.username;
-    res.end();
+    res.redirect('./Users/userLogin.html')
+    console.log("The current user is:"+req.session.username);
   } else {
     res.sendStatus(403);
+    console.log("The current user is:"+req.session.username);
   }
-
 });
+
 
 
 router.post('/google_login', async function (req, res) {

@@ -32,11 +32,6 @@ app.use(session({
 }));
 app.use(flash());
 
-app.use(function(req,res,next){
-    console.log("The current user is:"+req.session.username);
-    next();
-});
-
 // Connect to the database
 app.use(function (req, res, next) {
     req.pool = db;
