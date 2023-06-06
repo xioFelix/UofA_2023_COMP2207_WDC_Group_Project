@@ -9,6 +9,38 @@
     </head>
 
     <body>
+
+  <script>
+      // Function to check if the user is logged in
+      function isLoggedIn() {
+        // Get the session value from the 'connect.sid' cookie
+        const cookies = document.cookie;
+        console.log(document.cookie);
+        const sessionCookie = cookies
+        console.log(cookies);
+          .split(';')
+          .map(cookie => cookie.trim())
+          .find(cookie => cookie.startsWith('connect.sid='));
+        let sessionValue = null;
+        console.log(sessionCookie);
+        if (sessionCookie) {
+          sessionValue = decodeURIComponent(sessionCookie.split('=')[1]);
+        }
+
+        // Return true if session value is not empty, false otherwise
+        return sessionValue !== null && sessionValue !== '';
+      }
+
+      // Check if the user is logged in
+      if (!isLoggedIn()) {
+        // Redirect to the login page if not logged in
+        window.location.href = '../userLogin.html';
+      }
+    </script>
+
+
+
+
         <!--header picture-->
         <img src="./img/3.jpg" alt="" class="Logorelative">
         <!--end of header-->

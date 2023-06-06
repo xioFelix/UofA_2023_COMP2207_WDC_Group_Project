@@ -158,6 +158,7 @@ function login() {
     req.onreadystatechange = function(){
         if(req.readyState == 4 && req.status == 200){
             alert('Logged In successfully');
+            window.location.href = 'http://localhost:8080/Users/user/home_page.html';
         } else if(req.readyState == 4 && req.status == 401){
             alert('Login FAILED');
         }
@@ -171,13 +172,13 @@ function login() {
 
 // JavaScript function to handle signup
 function signup() {
-  var username = document.getElementById('signup-user').value;
-  var email = document.getElementById('signup-email').value;
-  var password = document.getElementById('signup-pass').value;
+    const username = document.getElementById('signup-user').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-pass').value;
 
-  // Create a new XMLHttpRequest object
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/signup', true);
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/signup', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   // Set up a callback function to handle the response
@@ -198,9 +199,9 @@ function signup() {
   };
 
   // Create a data object with the form values
-  var data = JSON.stringify({ username: username, email: email, password: password, user: "user" });
+    const data = JSON.stringify({username: username, email: email, password: password, user: "user"});
 
-  // Send the POST request
+    // Send the POST request
   xhr.send(data);
 }
 

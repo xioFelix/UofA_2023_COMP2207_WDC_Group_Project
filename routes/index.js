@@ -3,6 +3,10 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const session = require('express-session');
+var flash = require('connect-flash');
+
+const cookieParser = require('cookie-parser');
+
 
 const app = express(); // Create an instance of the Express application
 
@@ -25,7 +29,13 @@ router.get('/', function (req, res) {
   console.log("Cookies :  ", req.cookies);
 });
 
-// ... 省略其余路由处理程序 ...
+router.get('/login', function (req, res) {
+    if (!req.session.username) {
+    req.flash('info', 'Please Login First!');
+    res.redirect('http://localhost:8080/Users/userLogin.html');
+  }
+});
+
 
 router.post('/login', async function(req, res, next) {
   try {
@@ -89,9 +99,9 @@ router.post('/signup', function(req, res, next) {
         return;
       }
 
-      connection.query(query, [req.body.username], function(err, results) {
-        if (err) {
-          console.error(err);
+      connection.query(query, [req.body.username], function(err1, results) {
+        if (err1) {
+          console.error(err1);
           res.sendStatus(500); // 处理错误时返回服务器错误状态码
           return;
         }
@@ -101,11 +111,11 @@ router.post('/signup', function(req, res, next) {
         } else {
           // 将新用户插入到数据库中
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
-          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err) {
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err2) {
             connection.release(); // 释放连接
 
-            if (err) {
-              console.error(err);
+            if (err2) {
+              console.error(err2);
               res.sendStatus(500); // 处理错误时返回服务器错误状态码
               return;
             }
@@ -123,7 +133,16 @@ router.post('/signup', function(req, res, next) {
   }
 });
 
-
+// 自定义会话验证中间件
+function requireSession(req, res, next) {
+    if (req.session && req.session.username && req.cookies.auth) {
+        // 用户会话和 cookie 都存在，继续处理请求
+        next();
+    } else {
+        // 用户会话或 cookie 不存在，重定向到登录页或其他处理方式
+        res.redirect('/login');
+    }
+}
 
 
 router.post('/logout', function(req,res,next){
@@ -138,7 +157,7 @@ router.post('/logout', function(req,res,next){
 });
 
 
-router.post('/login_to_user_by_google', async function (req, res) {
+router.post('/login_to_user', async function (req, res) {
   // This code handles a Google login via an AJAX request to the regular login route
   if ('client_id' in req.body && 'credential' in req.body) {
 
@@ -189,7 +208,6 @@ router.post('/login_to_user_by_google', async function (req, res) {
       // No user
       res.sendStatus(401);
     }
-
   } else {
     res.sendStatus(401);
   }
@@ -223,14 +241,64 @@ router.get('/cookie',function(req, res){
 //   }
 // });
 
-// // 退出登录功能 待实现
-router.get('/clearcookie', function(req,res){
-  clearCookie('cookie_name');
-  res.send('Cookie deleted');
-  // 跳到登录页
-  res.redirect('/login');
+// Route for retrieving activitys from the database
+router.get('/posts', function (req, res) {
+
+  //Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM activity;";
+    connection.query(query, function (err3, rows, fields) {
+      connection.release();
+      if (err3) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
 });
 
+// Route for adding an activity to the database
+router.post('/posts', (req, res) => {
+  const { clubID, title, content } = req.body;
 
+ req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  // Execute a query to insert the new activity into the activity table
+  connection.query(
+    'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)',
+    [clubID, title, content],
+    (error, results) => {
+      if (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Failed to add post to the database.' });
+      } else {
+        // Retrieve the added post from the database
+        const addedPostId = results.insertId;
+        connection.query(
+          'SELECT * FROM activity WHERE activity_id = ?',
+          [addedPostId],
+          (error1, results1) => {
+            if (error1) {
+              console.error('Error:', error1);
+              res.status(500).json({ error1: 'Failed to retrieve the added post from the database.' });
+            } else {
+              const addedPost = results1[0];
+              res.json(addedPost);
+            }
+          }
+        );
+      }
+    }
+  );
+});
+});
 
 module.exports = router;

@@ -1,2 +1,1 @@
-USE survival;
-DROP TABLE activity, club, manager, user;
+DROP DATABASE survival;
