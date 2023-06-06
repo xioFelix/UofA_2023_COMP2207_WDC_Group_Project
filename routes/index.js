@@ -227,6 +227,7 @@ router.get('/cookie',function(req, res){
 //   }
 // });
 
+// post annoucenment
 // Route for retrieving activitys from the database
 router.get('/posts', function (req, res) {
 
@@ -250,41 +251,101 @@ router.get('/posts', function (req, res) {
 
 // Route for adding an activity to the database
 router.post('/posts', (req, res) => {
-  const { clubID, title, content } = req.body;
+  const clubID = req.body.clubID;
+  const title = req.body.title;
+  const content = req.body.content;
 
- req.pool.getConnection(function (err, connection) {
+  // Check if club ID exists in the database
+  req.pool.getConnection((err, connection) => {
     if (err) {
       res.sendStatus(500);
       return;
     }
-  // Execute a query to insert the new activity into the activity table
-  connection.query(
-    'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)',
-    [clubID, title, content],
-    (error, results) => {
-      if (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Failed to add post to the database.' });
-      } else {
-        // Retrieve the added post from the database
-        const addedPostId = results.insertId;
-        connection.query(
-          'SELECT * FROM activity WHERE activity_id = ?',
-          [addedPostId],
-          (error1, results1) => {
-            if (error1) {
-              console.error('Error:', error1);
-              res.status(500).json({ error1: 'Failed to retrieve the added post from the database.' });
-            } else {
-              const addedPost = results1[0];
-              res.json(addedPost);
-            }
-          }
-        );
+
+    const query = 'SELECT * FROM activity WHERE club_id = ?';
+    connection.query(query, [clubID], (err2, rows) => {
+      if (err2) {
+        res.sendStatus(500);
+        connection.release();
+        return;
       }
-    }
-  );
+
+      if (rows.length === 0) {
+        res.status(400).json({ error: 'Club ID does not exist in the database.' });
+        connection.release();
+        return;
+      }
+
+      // Club ID exists, proceed with inserting the post
+      const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
+      connection.query(insertQuery, [clubID, title, content], (err3, result) => {
+        connection.release();
+        if (err3) {
+          res.sendStatus(500);
+          return;
+        }
+
+        res.sendStatus(200);
+      });
+    });
+  });
 });
+
+// setting
+router.post('/personal_info', function (req, res, next) {
+  try {
+    // 验证请求体中的数据是否为空
+    if (!req.body.username || !req.body.password) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      return;
+    }
+
+    // 更新用户密码
+    const updateQuery = 'UPDATE user SET user_password = ? WHERE user_name = ?';
+    db.getConnection(function (err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
+
+      connection.query(updateQuery, [req.body.password, req.body.username], function (err) {
+        connection.release(); // 释放连接
+
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
+
+        req.session.username = req.body.username;
+        console.log("Successful update the password of" + req.body.username);
+        res.end();
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
+});
+
+router.get('/personal_info', function (req, res) {
+  // 从数据库中获取当前用户的信息
+  db.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500); // 处理错误时返回服务器错误状态码
+      return;
+    }
+    var query = 'SELECT * FROM user WHERE user_name = ?'; // 假设你有一个名为 'user' 的表格，并且有一个名为 'id' 的字段用于标识用户
+    connection.query(query, function (err, results) { // 假设你已经从请求中获取了当前用户的ID，并将其赋值给变量 currentUserId
+      connection.release(); // 释放连接
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
 });
 
 
