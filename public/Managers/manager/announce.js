@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const row = document.createElement('div');
           row.innerHTML = `
           <div class="content">
-          <p id="id">Activity ID: ${activity.activity_id} Time: ${activity.post_time}</p>
+          <p id="id">Activity ID: ${activity.activity_id} Time: ${activity.post_time}.timeStamp</p>
           <p class="title">Title: ${activity.announcement_title}</p>
           <p class="title">Content: </p>
           <div>${activity.announcement_content}</div>

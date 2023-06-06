@@ -27,58 +27,43 @@
             </div>
         </div>
 
-        <br>
+    <br>
+    <div class="card">
+        <div class="title">
+            <h1>Setting</h1>
+            <hr>
+        </div>
         <div>
-            <div class="title">
-                <h1>Setting</h1>
-                <hr>
-            </div>
-            <div class="information">
-                <form action="#" method="post">
+            <section id="update">
+                <form method="POST">
                     <table>
                         <tr>
                             <td class="in_left"><label for="username">Username</label></td>
-                            <td class="in_right"><input type="text" name="username" id="username"></td>
+                            <td class="in_right"><input type="text" name="username" id="username" placeholder="fixed the username ..."></td>
                         </tr>
-
                         <tr>
                             <td class="in_left"><label for="email">Email</label></td>
-                            <td class="in_right"><input type="email" name=email id="email"></td>
+                            <td class="in_right"><input type="email" name=email id="email" placeholder="fixed the email ..."></td>
                         </tr>
-
-                        <tr>
-                            <td class="in_left"><label for="name">Fullname</label></td>
-                            <td class="in_right"><input type="text" name="name" id="name"></td>
-
-                        </tr>
-
-                        <tr>
-                            <td class="in_left"><label for="phone">Phone Number</label></td>
-                            <td class="in_right"><input type="text" name="phone" id="phone"></td>
-
-                        </tr>
-
                         <tr>
                             <td class="in_left_p"><label for="password">Password</label></td>
-                            <td class="in_right_p"><input type="password" name="name" id="password"> </td>
-                            <td class="conceal" id='conceal'>
+                            <td class="in_right_p"><input type="password" name="name" id="password" placeholder="fixed the username ..."> </td>
+                            <td class="conceal" id='togglePassword'>
                                 <i class="fa-solid fa-eye-slash"></i>
                             </td>
                         </tr>
-
                         <tr>
-                            <td class="submit">
-                                <input type="submit" value="Save">
+                            <td>
+                                <button type="submit" id="save" onclick="saveButton()">Save</button>
                             </td>
                         </tr>
                     </table>
-
                 </form>
-
-            </div>
-
+            </section>
         </div>
-        <br>
+    </div>
+
+    <br>
 
         <!--footer-->
                 <div class="footer">
@@ -95,7 +80,7 @@
                             <li>Phone number: <a href="tel:0086110">0400000000</a></li>
                             <li>Address: <a
                                     href="https://www.google.com/maps/place/The+University+of+Adelaide/data=!4m7!3m6!1s0x6ab0ced27ef95329:0xb46ee5f583fae2bf!8m2!3d-34.920603!4d138.6062277!16zL20vMDFkYm5z!19sChIJKVP5ftLOsGoRv-L6g_XlbrQ?authuser=0&hl=en&rclk=1">North
-                                    Terace, Adelaide, SA, 5000</a></li>
+                                    Terrace, Adelaide, SA, 5000</a></li>
                         </ul>
                         <div class="image">
                             <a href="https://www.facebook.com"><i class="fa-brands fa-facebook-f"></i></a>

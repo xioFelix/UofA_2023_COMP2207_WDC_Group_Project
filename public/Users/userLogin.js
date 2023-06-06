@@ -66,9 +66,6 @@ function signup() {
   xhr.send(data);
 }
 
-
-
-
 function logout() {
 
     let req = new XMLHttpRequest();
