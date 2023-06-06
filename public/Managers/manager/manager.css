@@ -8,6 +8,14 @@ body {
     background: #f1f1f1;
 }
 
+div {
+    word-break: break-word;
+}
+
+p {
+    word-break: break-word;
+}
+
 /*TOP*/
 img.Logorelative{
     position: relative;
@@ -168,10 +176,6 @@ input[type=button] {
     margin: 20px;
 }
 
-.title {
-    margin: 10px 30px 30px 30px;
-}
-
 .information {
     margin: 10px 30px 30px 30px;
 }
@@ -190,30 +194,9 @@ input[type=button] {
     border-style: solid;
 }
 
-.left {
-    text-align: left;
-    margin: 0 auto;
-}
-
-.middle {
-    text-align: center;
-    margin: 0 auto;
-}
-
 .right {
     text-align: right;
     margin: 0 auto;
-}
-
-.formTitle {
-    font-size: 1.5em;
-    width: 90%;
-}
-
-.formText {
-    padding: 1ex;
-    width: 100%;
-    text-align: left;
 }
 
 .submitButton {
@@ -222,4 +205,23 @@ input[type=button] {
     text-align: left;
     color: white;
     background-color: #7ba1a8;
+}
+
+/* write posting textarea */
+input[type="text"], textarea {
+    font-size: 1.2em;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+/* anoucenment */
+#id {
+    font-size: 0.8em;
+    color: #5c5555;
+}
+
+.title {
+    color: #5c8987;
+    font-size: 1.2em;
+    font-weight: normal;
 }

@@ -7,6 +7,7 @@ const usersRouter = require('./routes/users');
 const session = require("express-session");
 const mysql = require('mysql2');
 const { Sequelize, DataTypes } = require('sequelize');
+var flash = require('connect-flash');
 
 const app = express();
 
@@ -22,9 +23,14 @@ const db = mysql.createPool({
     database: 'survival'
 });
 
-
-
-
+// cookies配置
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'super secret string',
+    secure: false
+}));
+app.use(flash());
 
 // Connect to the database
 app.use(function (req, res, next) {
@@ -32,15 +38,6 @@ app.use(function (req, res, next) {
     // eslint-disable-next-line no-console
     console.log("Successfully connected to the database");
     next();
-});
-
-// 创建 Sequelize 实例
-const sequelize = new Sequelize({
-  dialect: 'mysql',
-  dialectModule: mysql,
-  dialectOptions: {
-    connection: db
-  }
 });
 
 // 使用cookieParser中间件
@@ -68,37 +65,38 @@ app.use(cookieParser());
 //         next();
 //     }
 // });
-
-
-// 设置全局的cookie属性
-app.use((req, res, next) => {
-    res.cookie('myCookie', 'Hello, Cookie!', {
-        maxAge: 3600000, // 设置过期时间为1小时后
-        domain: 'localhost:8080', // 设置作用域为example.com
-        path: '/workspaces/23S1_WDC_UG025_survival', // 设置路径为/mypath
-        secure: false, // 仅在HTTPS连接下发送cookie
-        httpOnly: true, // 标记为"HttpOnly"
-        sameSite: 'strict' // 设置SameSite属性为"strict"
-    });
+app.use(function(req,res,next){
+    console.log("The current user is:"+req.session.username);
     next();
 });
 
-// 引入cookies模块
-const Cookies = require("cookies");
+// 自定义会话验证中间件
+function requireSession(req, res, next) {
+    if (req.session && req.session.username) {
+        // 用户会话存在，继续处理请求
+        next();
+    } else {
+        // 用户会话不存在，重定向到登录页或其他处理方式
+        res.redirect('/login');
+    }
+}
 
-// cookies配置
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'super secret string',
-    secure: false
-}));
 
 app.use(function(req,res,next){
     console.log("The current user is:"+req.session.username);
     next();
 });
 
+// 用于处理 "/Users/user/home_page.html" 的路由
+app.get('/Users/user/home_page.html', requireSession, function (req, res) {
+    const cookieValue = req.session.username;
+    if (cookieValue !== null && cookieValue !== undefined && cookieValue !== '') {
+        res.redirect('http://localhost:8080/Users/userLogin.html');
+    } else {
+        // The cookie is not valid, redirect to another page or handle the error
+        res.redirect('/Users/userLogin.html');
+    }
+});
 
 // 设置cookie
 app.get('/set_google_cookie', (req, res) => {

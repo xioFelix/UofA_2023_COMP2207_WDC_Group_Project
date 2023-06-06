@@ -1,73 +1,55 @@
-const password = document.getElementById('password');
-// const anniu = document.getElementById('conceal');
-document.addEventListener('click', function () {
-    if (password.type === 'password') {
-        password.setAttribute('type', 'text');
+// 密码可见/隐藏切换
+document.getElementById('togglePassword').addEventListener('click', function() {
+    var passwordInput = document.getElementById('password');
+    if (passwordInput.type === 'password') {
+        passwordInput.setAttribute('type', 'text');
     } else {
-        password.setAttribute('type', 'password');
+        passwordInput.setAttribute('type', 'password');
     }
 });
 
-// eslint-disable-next-line no-unused-vars
-function openClubUser() {
-    window.location.href = 'clubs_user.html';
-}
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault(); // 阻止表单的默认提交行为
 
-// eslint-disable-next-line no-unused-vars
-function openClubAll() {
-    window.location.href = 'club_all.html';
-}
+    // 获取表单字段的值
+    var username = document.getElementById('username').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
 
+    // 创建一个对象来存储要发送的数据
+    var data = {
+      username: username,
+      email: email,
+      password: password
+    };
 
-// databsases
-document.addEventListener('DOMContentLoaded', () => {
-    function describeUsers() {
-        fetch('/describe_user')
-            .then((response) => response.json())
-            .then((data) => {
-                const tableBody = document.querySelector('table tbody');
-                tableBody.innerHTML = '';
-
-                data.forEach((survival) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td>${survival.club_name}</td><td>${survival.manager_id}</td>`;
-                    tableBody.appendChild(row);
-                });
-            });
-    }
-
-    describeUsers();
-
-    // const addActorForm = document.querySelector('form');
-    //
-    // // eslint-disable-next-line no-shadow
-    // addActorForm.addEventListener('submit', (addActorForm) => {
-    //     addActorForm.preventDefault();
-    //
-    //     const firstNameInput = document.querySelector('#actor-first-name');
-    //     const lastNameInput = document.querySelector('#actor-last-name');
-    //
-    //     const actor = {
-    //         first_name: firstNameInput.value,
-    //         last_name: lastNameInput.value
-    //     };
-    //
-    //     fetch('/actors', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(actor)
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //
-    //             // eslint-disable-next-line no-console
-    //             console.log(data);
-    //         });
-    //
-    //     firstNameInput.value = '';
-    //     lastNameInput.value = '';
-    //     describeUsers();
-    // });
+    // 发送POST请求到服务器
+    fetch('/personal_info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(function (response) {
+        if (response.ok) {
+          // eslint-disable-next-line no-console
+          console.log('Password updated successfully');
+          // 在此处进行任何其他成功后的操作
+          // eslint-disable-next-line no-alert
+          alert('Password updated successfully'); // 显示成功的弹窗
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('Failed to update password');
+          // 在此处进行任何其他失败后的操作
+          // eslint-disable-next-line no-alert
+          alert('Failed to update password'); // 显示失败的弹窗
+        }
+      })
+      .catch(function (error) {
+        console.log('Error:', error);
+        // 在此处处理错误
+        // eslint-disable-next-line no-alert
+        alert('An error occurred'); // 显示错误的弹窗
+      });
 });

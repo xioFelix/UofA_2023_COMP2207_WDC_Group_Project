@@ -145,7 +145,8 @@ li {
 /* setting */
 h1 {
     font-size: 150%;
-    margin-left: 5%;
+    margin-left: 10%;
+
 }
 
 .in_left {
@@ -165,8 +166,6 @@ h1 {
 
 #username,
 #email,
-#name,
-#phone,
 #password {
     width: 251px;
     height: 32px;
@@ -191,8 +190,12 @@ h1 {
     padding-left: 40px;
 }
 
+i {
+    color:#7ba1a8;
+    margin: 0 0.5rem 0 0.5rem;
+}
 
-input[type=submit] {
+#save {
     background-color: #7ba1a8;
     border: none;
     color: #fff;

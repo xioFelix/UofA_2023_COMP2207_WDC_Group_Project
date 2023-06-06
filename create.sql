@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: survival
 -- ------------------------------------------------------
--- Server version	8.0.32-0ubuntu0.22.04.2
+-- Server version 8.0.32-0ubuntu0.22.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `activity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `activity` (
-  `activity_id` int NOT NULL,
+  `activity_id` int NOT NULL AUTO_INCREMENT,
   `club_id` int NOT NULL,
   `announcement_title` varchar(100) NOT NULL,
   `announcement_content` varchar(2000) NOT NULL,
@@ -39,9 +39,7 @@ CREATE TABLE `activity` (
   `join_user_id` int DEFAULT NULL,
   PRIMARY KEY (`activity_id`),
   KEY `club_id` (`club_id`),
-  KEY `join_user_id` (`join_user_id`),
-  CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`),
-  CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`join_user_id`) REFERENCES `user` (`user_id`)
+  KEY `join_user_id` (`join_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -90,9 +88,7 @@ CREATE TABLE `manager` (
   `user_id` int NOT NULL,
   `club_id` int NOT NULL,
   PRIMARY KEY (`user_id`),
-  KEY `club_id` (`club_id`),
-  CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  CONSTRAINT `manager_ibfk_2` FOREIGN KEY (`club_id`) REFERENCES `club` (`club_id`)
+  KEY `club_id` (`club_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -122,8 +118,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`),
-  KEY `join_club_id` (`join_club_id`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`join_club_id`) REFERENCES `club` (`club_id`)
+  KEY `join_club_id` (`join_club_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
