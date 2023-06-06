@@ -99,9 +99,9 @@ router.post('/signup', function(req, res, next) {
         return;
       }
 
-      connection.query(query, [req.body.username], function(err, results) {
-        if (err) {
-          console.error(err);
+      connection.query(query, [req.body.username], function(err1, results) {
+        if (err1) {
+          console.error(err1);
           res.sendStatus(500); // 处理错误时返回服务器错误状态码
           return;
         }
@@ -111,11 +111,11 @@ router.post('/signup', function(req, res, next) {
         } else {
           // 将新用户插入到数据库中
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
-          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err) {
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err2) {
             connection.release(); // 释放连接
 
-            if (err) {
-              console.error(err);
+            if (err2) {
+              console.error(err2);
               res.sendStatus(500); // 处理错误时返回服务器错误状态码
               return;
             }
@@ -241,5 +241,64 @@ router.get('/cookie',function(req, res){
 //   }
 // });
 
+// Route for retrieving activitys from the database
+router.get('/posts', function (req, res) {
+
+  //Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM activity;";
+    connection.query(query, function (err3, rows, fields) {
+      connection.release();
+      if (err3) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+// Route for adding an activity to the database
+router.post('/posts', (req, res) => {
+  const { clubID, title, content } = req.body;
+
+ req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+  // Execute a query to insert the new activity into the activity table
+  connection.query(
+    'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)',
+    [clubID, title, content],
+    (error, results) => {
+      if (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Failed to add post to the database.' });
+      } else {
+        // Retrieve the added post from the database
+        const addedPostId = results.insertId;
+        connection.query(
+          'SELECT * FROM activity WHERE activity_id = ?',
+          [addedPostId],
+          (error1, results1) => {
+            if (error1) {
+              console.error('Error:', error1);
+              res.status(500).json({ error1: 'Failed to retrieve the added post from the database.' });
+            } else {
+              const addedPost = results1[0];
+              res.json(addedPost);
+            }
+          }
+        );
+      }
+    }
+  );
+});
+});
 
 module.exports = router;
