@@ -210,14 +210,6 @@ router.post('/loginToManager', function (req, res) {
   res.redirect('./Managers/manager/home_page.html');
 });
 
-router.post('/loginToAdmin', function (req, res) {
-  res.redirect('./Admins/Admin/home_page.html');
-});
-
-router.post('/otherLoginToUser', function (req, res) {
-  res.redirect('./Users/user/home_page.html');
-});
-
 router.get('/cookie',function(req, res){
   res.cookie(cookie_name , 'cookie_value', { expire: new Date() + 9000000 }).send('Cookie is set');
 });
