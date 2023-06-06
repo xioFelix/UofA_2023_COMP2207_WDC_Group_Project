@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>postPage</title>
         <link href="manager.css" rel="stylesheet" type="text/css" />
+        <script src="announce.js"></script>
         <script src="https://kit.fontawesome.com/bf9fc0347d.js" crossorigin="anonymous"></script>
     </head>
 
@@ -26,33 +27,34 @@
             </div>
         </div>
 
+        <!--post activity-->
+        <div class="card">
+        <h2>Post activities</h2>
+        <section>
+            <input id="club-id" type="text" placeholder="Club ID" /><br />
+            <input id="post-title" type="text" placeholder="Title" /><br />
+            <textarea rows="10" id="post-content" placeholder="Details" ></textarea><br />
+            <button class="submitButton" type="button" id="addButton">Submit</button>
+        </section>
         <br>
-        <div class="left">
-            <form action="#">
-                <div class="left"><label for="title" class="formTitle">Title: </label>
-                    <input type="text" id="title" name="title" class="formTitle"><br><br>
-                </div>
-                <div class="middle"><textarea rows="4" type="text" id="text" name="text"
-                        class="formText middle"></textarea></div>
-                <br>
-                <br>
-                <div class="right"><input class="submitButton" type="submit" value="Submit"></div>
-            </form>
+        <!--end of posting activity-->
         </div>
         <br>
 
-        <div class="Announcement">
-            <h3>Past announcement: </h3>
-            <p>Announcement1</p>
-            <p>Announcement2</p>
-            <p>Announcement3</p>
-            <p>Announcement4</p>
-            <p>Announcement5</p>
-            <p>Announcement6</p>
-            <p>Announcement7</p>
+        <div class="card">
+        <!--past post content-->
+        <h2>Past post content</h2>
+        <hr>
+        <table class="pure-table pure-table-horizontal">
+            <thead>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        <!--end of past post content-->
         </div>
         <br>
-
         <!--footer-->
                 <div class="footer">
                     <a href="../../index.html">
@@ -68,7 +70,7 @@
                             <li>Phone number: <a href="tel:0086110">0400000000</a></li>
                             <li>Address: <a
                                     href="https://www.google.com/maps/place/The+University+of+Adelaide/data=!4m7!3m6!1s0x6ab0ced27ef95329:0xb46ee5f583fae2bf!8m2!3d-34.920603!4d138.6062277!16zL20vMDFkYm5z!19sChIJKVP5ftLOsGoRv-L6g_XlbrQ?authuser=0&hl=en&rclk=1">North
-                                    Terace, Adelaide, SA, 5000</a></li>
+                                    Terrace, Adelaide, SA, 5000</a></li>
                         </ul>
                         <div class="image">
                             <a href="https://www.facebook.com"><i class="fa-brands fa-facebook-f"></i></a>
