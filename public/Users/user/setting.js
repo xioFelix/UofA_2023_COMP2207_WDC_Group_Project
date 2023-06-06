@@ -8,6 +8,16 @@ document.getElementById('togglePassword').addEventListener('click', function() {
     }
 });
 
+// eslint-disable-next-line no-unused-vars
+function openClubUser() {
+  window.location.href = 'clubs_user.html';
+}
+
+// eslint-disable-next-line no-unused-vars
+function openClubAll() {
+  window.location.href = 'club_all.html';
+}
+
 document.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault(); // 阻止表单的默认提交行为
 
