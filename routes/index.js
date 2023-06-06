@@ -291,7 +291,6 @@ router.post('/posts', (req, res) => {
   });
 });
 
-
 // setting
 router.post('/personal_info', function (req, res, next) {
   try {
