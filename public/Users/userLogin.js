@@ -87,28 +87,19 @@ function logout() {
 }
 
 function do_google_login(response) {
-
-    // Sends the login token provided by google to the server for verification using an AJAX request
-
-    console.log(response);
-
-    // Setup AJAX request
-    let req = new XMLHttpRequest();
-
-    req.onreadystatechange = function (){
-        // Handle response from our server
-        if (req.readyState === 4 && req.status === 200) {
-            alert('Logged In with Google successfully');
-            window.location.href = '/Users/user/home_page.html';
-        } else if (req.readyState === 4 && req.status === 401) {
-            alert('Login FAILED');
+    // 发送ID Token到服务器
+    const req = new XMLHttpRequest();
+    req.onreadystatechange = function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                alert('Logged In with Google successfully');
+                window.location.href = '/Users/user/home_page.html';
+            } else if (req.status == 401) {
+                alert('Login FAILED');
+            }
         }
     };
-
-    // Open requst
-    req.open('POST', '/login_to_user');
+    req.open('POST', '/google_login');
     req.setRequestHeader('Content-Type', 'application/json');
-    // Send the login token
-    req.send(JSON.stringify(response));
-
+    req.send(JSON.stringify({ idToken: response.credential }));
 }

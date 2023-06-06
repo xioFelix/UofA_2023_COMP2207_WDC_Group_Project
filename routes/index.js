@@ -157,61 +157,54 @@ router.post('/logout', function(req,res,next){
 });
 
 
-router.post('/login_to_user', async function (req, res) {
-  // This code handles a Google login via an AJAX request to the regular login route
-  if ('client_id' in req.body && 'credential' in req.body) {
+router.post('/google_login', async function (req, res) {
+  try {
+    const { idToken } = req.body; // 获取客户端提供的Google登录令牌
 
+    // 使用 Google OAuth2Client 验证令牌
     const ticket = await client.verifyIdToken({
-      idToken: req.body.credential,
-      audience: CLIENT_ID // Specify the CLIENT_ID of the app that accesses the backend
-      // Or, if multiple clients access the backend:
-      // [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      idToken: idToken,
+      audience: CLIENT_ID // Google客户端ID
     });
-    const payload = ticket.getPayload();
-    // console.log(payload['sub']);
-    // eslint-disable-next-line no-console
-    console.log(payload.email);
-    req.cookies.set("email", payload.email);
-    // eslint-disable-next-line
-    console.log(payload.given_name);
-    // res.redirect('./Users/user/home_page.html');
-    // If request specified a G Suite domain:
-    // const domain = payload['hd'];
 
-    // Search for user by email
-    for (let id in users) {
-      if (users[id].email === payload.email) {
-        req.session.user = users[id];
-        res.cookie("auth",true);
-        console.log("Login in by user name successfully");
-        res.redirect('/Users/user/home_page.html');
-        res.json(req.session.user);
+    const payload = ticket.getPayload();
+    const userEmail = payload.email;
+
+    // 在数据库中检查用户是否存在
+    const query = 'SELECT * FROM user WHERE user_email = ?';
+    db.getConnection(function (err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
         return;
       }
-    }
 
-    // No user
-    res.sendStatus(401);
+      connection.query(query, [userEmail], function (err, results) {
+        connection.release(); // 释放连接
 
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
 
-  } else if ('username' in req.body && 'password' in req.body) {
+        const user = results[0];
 
-    if (req.body.username in users && users[req.body.username].password === req.body.password) {
-      // There is a user
-      req.session.user = users[req.body.username];
-      // eslint-disable-next-line no-console
-      console.log(req.body.username);
-      res.json(req.session.user);
-      // Redirect the user to the desired page after login.
-      // res.redirect('./Users/user/home_page.html');
-    } else {
-      // No user
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(401);
+        if (user) {
+          req.session.username = user.user_name;
+          console.log(user.user_name);
+          res.end();
+        } else {
+          res.sendStatus(401); // 用户不存在，返回未授权状态码
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
   }
 });
+
 
 router.post('/loginToManager', function (req, res) {
   res.redirect('./Managers/manager/home_page.html');
