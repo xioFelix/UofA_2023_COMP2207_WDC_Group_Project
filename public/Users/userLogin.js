@@ -97,6 +97,7 @@ function do_google_login(response) {
             } else if (req.status == 401) {
                 alert('Login FAILED');
             }
+            }
         }
     };
     req.open('POST', '/google_login');
