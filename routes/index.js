@@ -101,8 +101,6 @@ router.get('/get_user_info', function (req, res, next) {
    });
 });
 
-
-
 router.post('/signup', function(req, res, next) {
   try {
     // 验证请求体中的数据是否为空
