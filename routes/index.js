@@ -132,19 +132,6 @@ router.post('/signup', function(req, res, next) {
   }
 });
 
-function checkAuth(req, res, next) {
-  if (!req.session.username) {
-    res.status(401).send('Unauthorized');
-  } else {
-    next();
-  }
-}
-
-app.use('/protected', checkAuth);
-
-app.get('/protected/user/home_page.html', function (req, res) {
-  res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
-});
 
 
 router.get('/logout', function(req, res, next) {
@@ -211,88 +198,99 @@ router.post('/google_login', async function (req, res) {
   }
 });
 
-router.get('/cookie',function(req, res){
-  res.cookie(cookie_name , 'cookie_value', { expire: new Date() + 9000000 }).send('Cookie is set');
+function checkAuth(req, res, next) {
+  if (!req.session.username) {
+    res.status(401).send('Unauthorized');
+  } else {
+    next();
+  }
+}
+
+app.use('/protected', checkAuth);
+
+app.get('/protected/user/home_page.html', function (req, res) {
+  res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
 });
 
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
-//   if (result.length > 0) {
-//     // 登录成功
-//     // 登录成功了，把当前用户的信息，保存到req.session中
-//     req.session.user = req.body;
-//     res.redirect('/');
-//   } else {
-//     res.redirect('/login');
-//   }
-// });
+  //   if (result.length > 0) {
+    //     // 登录成功
+    //     // 登录成功了，把当前用户的信息，保存到req.session中
+    //     req.session.user = req.body;
+    //     res.redirect('/');
+    //   } else {
+      //     res.redirect('/login');
+      //   }
+      // });
 
-// post annoucenment
-// Route for retrieving activitys from the database
-router.get('/posts', function (req, res) {
+      // post annoucenment
+      // Route for retrieving activitys from the database
+      router.get('/posts', function (req, res) {
 
-  // Connect to the database
-  req.pool.getConnection(function (err, connection) {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-    var query = "SELECT * FROM activity;";
-    connection.query(query, function (err3, rows, fields) {
-      connection.release();
-      if (err3) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); // send response
-    });
-  });
-});
-
-// Route for adding an activity to the database
-router.post('/posts', (req, res) => {
-  const { clubID } = req.body;
-  const { title } = req.body;
-  const { content } = req.body;
-
-  // Check if club ID exists in the database
-  req.pool.getConnection((err, connection) => {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-
-    const query = 'SELECT * FROM activity WHERE club_id = ?';
-    connection.query(query, [clubID], (err2, rows) => {
-      if (err2) {
-        res.sendStatus(500);
-        connection.release();
-        return;
-      }
-
-      if (rows.length === 0) {
-        res.status(400).json({ error: 'Club ID does not exist in the database.' });
-        connection.release();
-        return;
-      }
-
-      // Club ID exists, proceed with inserting the post
-      const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
-      connection.query(insertQuery, [clubID, title, content], (err3, result) => {
-        connection.release();
-        if (err3) {
-          res.sendStatus(500);
-          return;
-        }
-
-        res.sendStatus(200);
+        // Connect to the database
+        req.pool.getConnection(function (err, connection) {
+          if (err) {
+            res.sendStatus(500);
+            return;
+          }
+          var query = "SELECT * FROM activity;";
+          connection.query(query, function (err3, rows, fields) {
+            connection.release();
+            if (err3) {
+              res.sendStatus(500);
+              return;
+            }
+            res.json(rows); // send response
+          });
+        });
       });
-    });
-  });
-});
 
-// setting
-router.post('/personal_info', function (req, res, next) {
+      // Route for adding an activity to the database
+      router.post('/posts', (req, res) => {
+        const { clubID } = req.body;
+        const { title } = req.body;
+        const { content } = req.body;
+
+        // Check if club ID exists in the database
+        req.pool.getConnection((err, connection) => {
+          if (err) {
+            res.sendStatus(500);
+            return;
+          }
+
+          const query = 'SELECT * FROM activity WHERE club_id = ?';
+          connection.query(query, [clubID], (err2, rows) => {
+            if (err2) {
+              res.sendStatus(500);
+              connection.release();
+              return;
+            }
+
+            if (rows.length === 0) {
+              res.status(400).json({ error: 'Club ID does not exist in the database.' });
+              connection.release();
+              return;
+            }
+
+            // Club ID exists, proceed with inserting the post
+            const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
+            connection.query(insertQuery, [clubID, title, content], (err3, result) => {
+              connection.release();
+              if (err3) {
+                res.sendStatus(500);
+                return;
+              }
+
+              res.sendStatus(200);
+            });
+          });
+        });
+      });
+
+      // setting
+      router.post('/personal_info', function (req, res, next) {
+
   try {
     // 验证请求体中的数据是否为空
     if (!req.body.username || !req.body.password) {
