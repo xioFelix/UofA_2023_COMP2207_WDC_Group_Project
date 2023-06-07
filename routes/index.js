@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
+const {join} = require("path");
 const client = new OAuth2Client(CLIENT_ID);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -142,7 +143,7 @@ function checkAuth(req, res, next) {
 app.use('/protected', checkAuth);
 
 app.get('/protected/user/home_page.html', function (req, res) {
-  res.sendFile(path.join(__dirname, 'protected', 'user', 'home_page.html'));
+  res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
 });
 
 
