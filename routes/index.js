@@ -40,7 +40,7 @@ router.get('/login', function (req, res) {
 router.post('/login', async function (req, res, next) {
   try {
     // 验证请求体中的数据是否为空
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.user_email || !req.body.password) {
       res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
       return;
     }
