@@ -102,10 +102,10 @@ function do_google_login(response) {
         if (req.readyState === 4) {
             if (req.status === 200) {
                 alert('Login FAILED');
-            } else if (req.status === 201) {
+            } else if (req.status === 204) {
                 alert('Logged In with Google successfully as Manager');
                 window.location.href = req.response.redirectUrl;
-            } else if (req.status === 202) {
+            } else if (req.status === 205) {
                 alert('Logged In with Google successfully as User');
                 window.location.href = req.response.redirectUrl;
             } else if (req.status === 203) {
