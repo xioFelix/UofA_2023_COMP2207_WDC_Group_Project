@@ -13,7 +13,6 @@ const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleuser
 const { OAuth2Client } = require('google-auth-library');
 const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = mysql.createPool({
