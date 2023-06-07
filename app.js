@@ -84,7 +84,7 @@ app.get('/set_google_cookie', (req, res) => {
 });
 
 app.get('/get_google_cookie', (req, res) => {
-    const { google_cookie } = req.session;
+    const { google_cookie } = req.session.user_name;
     res.send('Cookie value: ' + google_cookie);
 });
 
