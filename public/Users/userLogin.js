@@ -17,10 +17,10 @@ function login() {
     let req = new XMLHttpRequest();
 
     req.onreadystatechange = function(){
-        if(req.readyState == 4 && req.status == 200){
+        if(req.readyState === 4 && req.status === 200){
             alert('Logged In successfully');
             window.location.href = '../protected/user/home_page.html';
-        } else if(req.readyState == 4 && req.status == 401){
+        } else if(req.readyState === 4 && req.status === 401){
             alert('Login FAILED');
         }
     };
@@ -60,7 +60,9 @@ function signup() {
   };
 
   // Create a data object with the form values
-    const data = JSON.stringify({username: username, email: email, password: password, user: "user"});
+    const data = JSON.stringify({
+ username: username, email: email, password: password, user: "user"
+});
 
     // Send the POST request
   xhr.send(data);
@@ -71,9 +73,9 @@ function logout() {
     let req = new XMLHttpRequest();
 
     req.onreadystatechange = function(){
-        if(req.readyState == 4 && req.status == 200){
+        if(req.readyState === 4 && req.status === 200){
             alert('Logged Out');
-        } else if(req.readyState == 4 && req.status == 403){
+        } else if(req.readyState === 4 && req.status === 403){
             alert('Not logged in');
         }
     };
@@ -87,11 +89,11 @@ function do_google_login(response) {
     // 发送ID Token到服务器
     const req = new XMLHttpRequest();
     req.onreadystatechange = function () {
-        if (req.readyState == 4) {
-            if (req.status == 200) {
+        if (req.readyState === 4) {
+            if (req.status === 200) {
                 alert('Logged In with Google successfully');
                 window.location.href = '../protected/user/home_page.html';
-            } else if (req.status == 401) {
+            } else if (req.status === 401) {
                 alert('Login FAILED');
             }
         }

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -6,8 +7,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const session = require("express-session");
 const mysql = require('mysql2');
-const { Sequelize, DataTypes } = require('sequelize');
-var flash = require('connect-flash');
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -51,7 +51,7 @@ function requireSession(req, res, next) {
 }
 
 app.use(function (req, res, next) {
-    console.log("The current user is:" + req.session.username);
+    console.log("The current user is2:" + req.session.username);
     next();
 });
 
