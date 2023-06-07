@@ -101,16 +101,18 @@ function do_google_login(response) {
     req.onreadystatechange = function () {
         if (req.readyState === 4) {
             if (req.status === 200) {
-                alert('Login FAILED');
-            } else if (req.status === 211) {
-                alert('Logged In with Google successfully as Manager');
+                alert('Logged In successfully 😊');
+            } else if (req.status === 201) {
+                let response_google = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
-            } else if (req.status === 212) {
-                alert('Logged In with Google successfully as User');
+            } else if (req.status === 202) {
+                let response_google = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
-            } else if (req.status === 213) {
-                alert('Logged In with Google successfully as Admin');
+            } else if (req.status === 203) {
+                let response_google = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
+            } else if (req.status == 401) {
+                alert('Login FAILED 😭');
             }
         }
     };
