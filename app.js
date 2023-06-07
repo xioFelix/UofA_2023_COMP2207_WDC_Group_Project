@@ -34,6 +34,19 @@ app.use(session({
     secure: false
 }));
 
+const checkUser = (req, res, next) => {
+    if (req.session && req.session.user_name) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
+
+// Route that requires user to be logged in
+app.get('/protected', checkUser, (req, res) => {
+    res.sendFile(path.join(__dirname, '/secure_dir/protected.html'));
+});
+
 // Connect to the database
 app.use(function (req, res, next) {
     req.pool = db;
