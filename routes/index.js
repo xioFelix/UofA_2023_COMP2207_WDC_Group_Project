@@ -27,7 +27,7 @@ router.get('/', function (req, res) {
 
 router.get('/login', function (req, res) {
   console.log(req.session.username);
-  if (req.session.username === NULL || req.session.username === '') {
+  if (req.session.username === null || req.session.username === '') {
     req.flash('info', 'Please Login First!');
     res.redirect('/Users/userLogin.html');
   }else{
