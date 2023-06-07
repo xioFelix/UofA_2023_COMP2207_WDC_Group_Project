@@ -224,8 +224,9 @@ function checkAuth(req, res, next) {
 app.use('/protected', checkAuth);
 
 app.get('/protected/user/home_page.html', function (req, res) {
-  res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
+  res.sendFile(join(__dirname, 'user', 'home_page.html'));
 });
+
 
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
