@@ -15,14 +15,25 @@ function login() {
     };
 
     let req = new XMLHttpRequest();
-
-    req.onreadystatechange = function(){
-        if(req.readyState === 4 && req.status === 200){
-            alert('Logged In successfully 😊');
-        } else if(req.readyState == 4 && req.status == 401){
-            alert('Login FAILED 😭');
+    req.onreadystatechange = function () {
+        if (req.readyState === 4) {
+            if (req.status === 200) {
+                alert('Logged In successfully 😊');
+            } else if (req.status === 201) {
+                let response = JSON.parse(req.responseText);
+                window.location.href = response.redirectUrl;
+            } else if (req.status === 202) {
+                let response = JSON.parse(req.responseText);
+                window.location.href = response.redirectUrl;
+            } else if (req.status === 203) {
+                let response = JSON.parse(req.responseText);
+                window.location.href = response.redirectUrl;
+            } else if (req.status == 401) {
+                alert('Login FAILED 😭');
+            }
         }
     };
+
 
     req.open('POST','/login');
     req.setRequestHeader('Content-Type','application/json');
