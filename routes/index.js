@@ -83,7 +83,7 @@ router.post('/login', async function (req, res, next) {
           console.log("The current user is2: " + req.session.username);
           res.end();
         } else {
-          res.sendStatus(401); // 用户名或密码不正确，返回未授权状态码
+          res.sendStatus(401); // Incorrect username or password, login failed!
         }
       });
     });
@@ -93,11 +93,13 @@ router.post('/login', async function (req, res, next) {
   }
 });
 
+
 router.get('/get_user_info', function (req, res, next) {
   res.json({
     username: req.session.username,
     userId: req.session.userId,
-    email: req.session.userEmail
+    email: req.session.userEmail,
+    userIdentity: req.session.userIdentity
    });
 });
 
