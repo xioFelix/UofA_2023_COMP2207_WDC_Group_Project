@@ -84,8 +84,8 @@ router.post('/login', async function (req, res, next) {
 });
 
 router.get('/get_user_info', function (req, res, next) {
-  const { user_id } = req.session;
   const { user_name } = req.session;
+  const { user_id } = req.session;
   const { user_email } = req.session;
 
   res.json({

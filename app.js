@@ -33,6 +33,7 @@ app.use(session({
 
 const checkUser = (req, res, next) => {
     if (req.session && req.session.user_name) {
+        console.log("User Checked");
         next();
     } else {
         res.redirect('/login');
@@ -41,12 +42,12 @@ const checkUser = (req, res, next) => {
 
 app.use(function (req, res, next) {
     req.pool = db;
-    console.log("Successfully connected to the database");
+    console.log("Successfully connected to the database 1");
     next();
 });
 
 app.use(function (req, res, next) {
-    console.log("The current user is:" + req.session.username);
+    console.log("The current user is1:" + req.session.username);
     next();
 });
 
@@ -63,17 +64,17 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/protected/manager/*', checkUser, function (req, res) {
+app.get('/protected/manager/*', requireSession, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/protected/Admin/*', checkUser, function (req, res) {
+app.get('/protected/Admin/*', requireSession, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/protected/user/*', checkUser, function (req, res) {
+app.get('/protected/user/*', requireSession, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
