@@ -37,7 +37,7 @@ router.get('/login', function (req, res) {
   }
 });
 
-router.post('/login', async function(req, res, next) {
+router.post('/login', async function (req, res, next) {
   try {
     // 验证请求体中的数据是否为空
     if (!req.body.username || !req.body.password) {
@@ -46,8 +46,8 @@ router.post('/login', async function(req, res, next) {
     }
 
     // 在数据库中查找匹配的用户
-    const query = 'SELECT * FROM user WHERE user_name = ? AND user_password = ?';
-    db.getConnection(function(err, connection) {
+    const query = 'SELECT user_id, user_name, user_email FROM user WHERE user_name = ? AND user_password = ?';
+    db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
         res.sendStatus(500); // 处理错误时返回服务器错误状态码
@@ -55,7 +55,7 @@ router.post('/login', async function(req, res, next) {
       }
 
       // eslint-disable-next-line no-shadow
-      connection.query(query, [req.body.username,req.body.password], function(err, results) {
+      connection.query(query, [req.body.username, req.body.password], function (err, results) {
         connection.release(); // 释放连接
 
         if (err) {
@@ -68,7 +68,9 @@ router.post('/login', async function(req, res, next) {
 
         if (user && user.user_password === req.body.password) {
           req.session.username = user.user_name;
-          console.log("The current user is:"+req.session.username);
+          req.session.userId = user.user_id;
+          req.session.userEmail = user.user_email;
+          console.log("The current user is: " + req.session.username);
           res.end();
         } else {
           res.sendStatus(401); // 用户名或密码不正确，返回未授权状态码
