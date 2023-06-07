@@ -94,8 +94,7 @@ router.post('/login', async function (req, res, next) {
 });
 
 router.get('/get_user_info', function (req, res, next) {
-  var id = '<%=session.getAttribute("user_name")%>';
-  console.log("session是" + id);
+  console.log("The current user is2: " + req.session.username);
 });
 
 
