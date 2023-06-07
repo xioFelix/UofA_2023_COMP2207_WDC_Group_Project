@@ -2,9 +2,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const session = require("express-session");
 const mysql = require('mysql2');
-const flash = require('connect-flash');
+const { Sequelize, DataTypes } = require('sequelize');
+var flash = require('connect-flash');
 
 const app = express();
 
@@ -60,17 +63,17 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/Managers/manager/*', checkUser, function (req, res) {
+app.get('/protected/manager/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/Admins/Admin/*', checkUser, function (req, res) {
+app.get('/protected/Admin/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/Users/user/*', checkUser, function (req, res) {
+app.get('/protected/user/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
@@ -84,5 +87,8 @@ app.get('/get_google_cookie', (req, res) => {
     const { google_cookie } = req.cookies;
     res.send('Cookie value: ' + google_cookie);
 });
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;

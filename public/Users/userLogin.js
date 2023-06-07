@@ -19,7 +19,7 @@ function login() {
     req.onreadystatechange = function(){
         if(req.readyState == 4 && req.status == 200){
             alert('Logged In successfully');
-            window.location.href = 'http://localhost:8080/Users/user/home_page.html';
+            window.location.href = 'http://localhost:8080/protected/user/home_page.html';
         } else if(req.readyState == 4 && req.status == 401){
             alert('Login FAILED');
         }
@@ -90,7 +90,7 @@ function do_google_login(response) {
         if (req.readyState == 4) {
             if (req.status == 200) {
                 alert('Logged In with Google successfully');
-                window.location.href = '/Users/user/home_page.html';
+                window.location.href = '../protected/user/home_page.html';
             } else if (req.status == 401) {
                 alert('Login FAILED');
             }

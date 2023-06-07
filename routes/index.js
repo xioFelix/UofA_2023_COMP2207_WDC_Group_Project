@@ -6,13 +6,9 @@ const session = require('express-session');
 var flash = require('connect-flash');
 
 const cookieParser = require('cookie-parser');
-
-
-const app = express(); // Create an instance of the Express application
-
+const app = express();
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
-const { get } = require("../app");
 const client = new OAuth2Client(CLIENT_ID);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,18 +18,16 @@ const db = mysql.createPool({
   database: 'survival'
 });
 
-/* GET home page. */
 router.get('/', function (req, res) {
   res.render('index', { title: 'Express' });
-  // eslint-disable-next-line no-console
   console.log("Cookies :  ", req.cookies);
 });
 
 router.get('/login', function (req, res) {
   console.log(req.session.username);
-    if (!req.session.username) {
+  if (!req.session.username) {
     req.flash('info', 'Please Login First!');
-    res.redirect('http://localhost:8080/Users/userLogin.html');
+    res.redirect('/Users/userLogin.html');
   }
 });
 
@@ -140,7 +134,7 @@ function requireSession(req, res, next) {
         next();
     } else {
         // 用户会话或 cookie 不存在，重定向到登录页或其他处理方式
-        res.redirect('/login');
+    res.redirect('/Users/userLogin.html');
     }
 }
 
@@ -148,7 +142,7 @@ function requireSession(req, res, next) {
 router.get('/logout', function(req, res, next) {
   if ('username' in req.session) {
     delete req.session.username;
-    res.redirect('./Users/userLogin.html')
+    res.redirect('/protected/user/userLogin.html');
     console.log("The current user is:"+req.session.username);
   } else {
     res.sendStatus(403);
@@ -156,7 +150,9 @@ router.get('/logout', function(req, res, next) {
   }
 });
 
-
+router.post('/loginToManager', function (req, res) {
+  res.redirect('/protected/manager/home_page.html');
+});
 
 router.post('/google_login', async function (req, res) {
   try {
@@ -204,11 +200,6 @@ router.post('/google_login', async function (req, res) {
     console.error(err);
     res.sendStatus(500); // 处理错误时返回服务器错误状态码
   }
-});
-
-
-router.post('/loginToManager', function (req, res) {
-  res.redirect('./Managers/manager/home_page.html');
 });
 
 router.get('/cookie',function(req, res){
