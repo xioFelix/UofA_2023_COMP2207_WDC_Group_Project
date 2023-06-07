@@ -198,19 +198,19 @@ router.post('/google_login', async function (req, res) {
   }
 });
 
-// function checkAuth(req, res, next) {
-//   if (!req.session.username) {
-//     res.status(401).send('Unauthorized');
-//   } else {
-//     next();
-//   }
-// }
+function checkAuth(req, res, next) {
+  if (!req.session.username) {
+    res.status(401).send('Unauthorized');
+  } else {
+    next();
+  }
+}
 
-// app.use('/protected', checkAuth);
+app.use('/protected', checkAuth);
 
-// app.get('/protected/user/home_page.html', function (req, res) {
-//   res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
-// });
+app.get('/protected/user/home_page.html', function (req, res) {
+  res.sendFile(join(__dirname, 'protected', 'user', 'home_page.html'));
+});
 
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
