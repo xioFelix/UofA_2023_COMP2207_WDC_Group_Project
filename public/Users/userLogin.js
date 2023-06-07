@@ -108,7 +108,7 @@ function do_google_login(response) {
             } else if (req.status === 205) {
                 alert('Logged In with Google successfully as User');
                 window.location.href = req.response.redirectUrl;
-            } else if (req.status === 203) {
+            } else if (req.status === 206) {
                 alert('Logged In with Google successfully as Admin');
                 window.location.href = req.response.redirectUrl;
             }
