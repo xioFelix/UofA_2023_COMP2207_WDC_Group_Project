@@ -66,7 +66,7 @@ router.post('/login', async function (req, res, next) {
 
         const user = results[0];
 
-        if (user && user.user_password === req.body.password) {
+        if (user.user_password === req.body.password) {
           req.session.username = user.user_name;
           req.session.userId = user.user_id;
           req.session.userEmail = user.user_email;
