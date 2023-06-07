@@ -60,20 +60,21 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/Managers/manager/*', requireSession, function (req, res) {
+app.get('/Managers/manager/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/Admins/Admin/*', requireSession, function (req, res) {
+app.get('/Admins/Admin/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-app.get('/Users/user/*', requireSession, function (req, res) {
+app.get('/Users/user/*', checkUser, function (req, res) {
     let url = req.originalUrl;
     res.sendFile(path.join(__dirname, 'protected', url));
 });
+
 
 app.get('/set_google_cookie', (req, res) => {
     res.cookie('google_cookie', 'Hello, Google_Cookie!');
