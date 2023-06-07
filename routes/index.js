@@ -221,11 +221,11 @@ router.post('/google_login', async function (req, res) {
 
           // 根据用户身份，重定向到不同的页面
           if (user.user_identity === "manager") {
-            res.status(201).send({ redirectUrl: '/protected/manager/home_page.html' });
+            res.status(211).send({ redirectUrl: '/protected/manager/home_page.html' });
           } else if (user.user_identity === "user") {
-            res.status(202).send({ redirectUrl: '/protected/user/home_page.html' });
+            res.status(212).send({ redirectUrl: '/protected/user/home_page.html' });
           } else if (user.user_identity === "admin") {
-            res.status(203).send({ redirectUrl: '/protected/Admin/home_page.html' });
+            res.status(13).send({ redirectUrl: '/protected/Admin/home_page.html' });
           }
         } else {
           res.sendStatus(401); // 用户不存在，返回未授权状态码
