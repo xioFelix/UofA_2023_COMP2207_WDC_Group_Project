@@ -71,6 +71,7 @@ app.get('/protected/manager/*', requireSession, function (req, res) {
 
 app.get('/protected/Admin/*', requireSession, function (req, res) {
     let url = req.originalUrl;
+    console.log(url);
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
