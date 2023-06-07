@@ -10,7 +10,7 @@ $(document).ready(function () {
 function login() {
 
     let logindata = {
-        username: document.getElementById('login-user').value,
+        user_email: document.getElementById('login-user').value,
         password: document.getElementById('login-pass').value
     };
 
