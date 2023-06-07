@@ -65,7 +65,7 @@ router.post('/login', async function (req, res, next) {
         }
 
         const user = results[0];
-console.log(user);
+        console.log(user);
         if (user.user_password === req.body.password) {
           req.session.username = user.user_name;
           req.session.userId = user.user_id;
