@@ -88,8 +88,6 @@ router.get('/get_user_info', function (req, res, next) {
   const { username } = req.session;
   const { userEmail } = req.session;
 
-  // 使用提取的值进行后续操作
-  // 例如，将用户信息作为响应的一部分发送回客户端
   res.json({
     userId: userId,
     username: username,
