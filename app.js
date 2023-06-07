@@ -51,7 +51,7 @@ function requireSession(req, res, next) {
 }
 
 app.use(function (req, res, next) {
-    console.log("The current user is2:" + req.session.username);
+    console.log("Identity is: " + req.session.userIdentity);
     next();
 });
 
