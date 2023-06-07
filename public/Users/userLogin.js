@@ -104,13 +104,13 @@ function do_google_login(response) {
                 alert('Logged In successfully 😊');
             } else if (req.status === 201) {
                 let response_google = JSON.parse(req.responseText);
-                window.location.href = response.redirectUrl;
+                window.location.href = response_google.redirectUrl;
             } else if (req.status === 202) {
                 let response_google = JSON.parse(req.responseText);
-                window.location.href = response.redirectUrl;
+                window.location.href = response_google.redirectUrl;
             } else if (req.status === 203) {
                 let response_google = JSON.parse(req.responseText);
-                window.location.href = response.redirectUrl;
+                window.location.href = response_google.redirectUrl;
             } else if (req.status == 401) {
                 alert('Login FAILED 😭');
             }
