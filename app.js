@@ -75,7 +75,6 @@ app.get('/Users/user/*', checkUser, function (req, res) {
     res.sendFile(path.join(__dirname, 'protected', url));
 });
 
-
 app.get('/set_google_cookie', (req, res) => {
     res.cookie('google_cookie', 'Hello, Google_Cookie!');
     res.send('Cookie has been set.');
