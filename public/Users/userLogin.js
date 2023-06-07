@@ -104,13 +104,13 @@ function do_google_login(response) {
                 alert('Login FAILED');
             } else if (req.status === 211) {
                 alert('Logged In with Google successfully as Manager');
-                window.location.href = req.response.redirectUrl;
+                window.location.href = response.redirectUrl;
             } else if (req.status === 212) {
                 alert('Logged In with Google successfully as User');
-                window.location.href = req.response.redirectUrl;
+                window.location.href = response.redirectUrl;
             } else if (req.status === 213) {
                 alert('Logged In with Google successfully as Admin');
-                window.location.href = req.response.redirectUrl;
+                window.location.href = response.redirectUrl;
             }
         }
     };
