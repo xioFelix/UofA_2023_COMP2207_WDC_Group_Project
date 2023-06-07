@@ -101,10 +101,16 @@ function do_google_login(response) {
     req.onreadystatechange = function () {
         if (req.readyState === 4) {
             if (req.status === 200) {
-                alert('Logged In with Google successfully');
-                window.location.href = '../protected/user/home_page.html';
-            } else if (req.status === 401) {
                 alert('Login FAILED');
+            } else if (req.status === 201) {
+                alert('Logged In with Google successfully as Manager');
+                window.location.href = req.response.redirectUrl;
+            } else if (req.status === 202) {
+                alert('Logged In with Google successfully as User');
+                window.location.href = req.response.redirectUrl;
+            } else if (req.status === 203) {
+                alert('Logged In with Google successfully as Admin');
+                window.location.href = req.response.redirectUrl;
             }
         }
     };
