@@ -57,7 +57,6 @@ router.post('/login', async function (req, res, next) {
       // eslint-disable-next-line no-shadow
       connection.query(query, [req.body.user_email, req.body.password], function (err, results) {
         connection.release(); // 释放连接
-
         if (err) {
           console.error(err);
           res.sendStatus(500); // 处理错误时返回服务器错误状态码
