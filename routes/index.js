@@ -94,7 +94,11 @@ router.post('/login', async function (req, res, next) {
 });
 
 router.get('/get_user_info', function (req, res, next) {
-  res.json({ username: req.session.username + "  The current user ID is: " + req.session.userId + "  The current user Email is: " + req.session.userEmail });
+  res.json({
+    username: req.session.username,
+    userId: req.session.userId,
+    email: eq.session.userEmail
+   });
 });
 
 
