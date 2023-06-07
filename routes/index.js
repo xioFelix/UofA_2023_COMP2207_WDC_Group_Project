@@ -214,8 +214,19 @@ router.post('/google_login', async function (req, res) {
 
         if (user) {
           req.session.username = user.user_name;
-          console.log(user.user_name);
-          res.end();
+          req.session.userId = user.user_id;
+          req.session.userEmail = user.user_email;
+          req.session.userIdentity = user.user_identity;
+          console.log("The current user is2: " + req.session.username);
+
+          // 根据用户身份，重定向到不同的页面
+          if (user.user_identity === "manager") {
+            res.status(201).send({ redirectUrl: '/protected/manager/home_page.html' });
+          } else if (user.user_identity === "user") {
+            res.status(202).send({ redirectUrl: '/protected/user/home_page.html' });
+          } else if (user.user_identity === "admin") {
+            res.status(203).send({ redirectUrl: '/protected/Admin/home_page.html' });
+          }
         } else {
           res.sendStatus(401); // 用户不存在，返回未授权状态码
         }
@@ -226,6 +237,7 @@ router.post('/google_login', async function (req, res) {
     res.sendStatus(500); // 处理错误时返回服务器错误状态码
   }
 });
+
 
 function checkAuth(req, res, next) {
   if (!req.session.username) {
