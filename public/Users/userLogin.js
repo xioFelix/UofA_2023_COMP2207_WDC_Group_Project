@@ -116,6 +116,7 @@ function do_google_login(response) {
             }
         }
     };
+    
     req.open('POST', '/google_login');
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify({ idToken: response.credential }));
