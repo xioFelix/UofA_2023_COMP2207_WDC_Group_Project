@@ -64,7 +64,13 @@ router.post('/login', async function (req, res, next) {
           return;
         }
 
-        const user = results[0];
+        if (results.length > 0) {
+          const user = results[0];
+          // Now you can safely access the properties of user
+        } else {
+          console.log('No results found');
+        }
+
         console.log(user);
         if (user.user_password === req.body.password) {
           req.session.username = user.user_name;
