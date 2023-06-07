@@ -97,7 +97,7 @@ router.get('/get_user_info', function (req, res, next) {
   res.json({
     username: req.session.username,
     userId: req.session.userId,
-    email: eq.session.userEmail
+    email: req.session.userEmail
    });
 });
 
