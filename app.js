@@ -66,18 +66,19 @@ app.use(function (req, res, next) {
 
 app.get('/protected/manager/*', requireSession, function (req, res) {
     let url = req.originalUrl;
-    res.sendFile(path.join(__dirname, 'protected', url));
+    res.sendFile(path.join(__dirname, url));
 });
 
 app.get('/protected/Admin/*', requireSession, function (req, res) {
     let url = req.originalUrl;
-    res.sendFile(path.join(__dirname, 'protected', url));
+    res.sendFile(path.join(__dirname, url));
 });
 
 app.get('/protected/user/*', requireSession, function (req, res) {
     let url = req.originalUrl;
-    res.sendFile(path.join(__dirname, 'protected', url));
+    res.sendFile(path.join(__dirname, url));
 });
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
