@@ -44,8 +44,8 @@ router.post('/login', async function (req, res, next) {
       return;
     }
 
-    // 在数据库中查找匹配的用户
-    const query = 'SELECT user_id, user_name, user_email, user_password FROM user WHERE user_email = ? AND user_password = ?';
+    // 在数据库中查找匹配的用户，同时获取用户身份
+    const query = 'SELECT user_id, user_name, user_email, user_password, user_identity FROM user WHERE user_email = ? AND user_password = ?';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
