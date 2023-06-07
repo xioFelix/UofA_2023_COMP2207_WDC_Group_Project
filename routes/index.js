@@ -81,7 +81,14 @@ router.post('/login', async function (req, res, next) {
           req.session.userEmail = user.user_email;
           req.session.userIdentity = user.user_identity;
           console.log("The current user is2: " + req.session.username);
-          res.end();
+          // 根据用户身份，重定向到不同的页面
+          if (user.user_identity === "manager") {
+            res.redirect('/protected/manager/home_page.html');
+          } else if(user.user_identity === "user") {
+            res.redirect('/protected/user/home_page.html');
+          } else if(user.user_identity === "admin") {
+            res.redirect('/protected/Admin/home_page.html');
+          }
         } else {
           res.sendStatus(401); // Incorrect username or password, login failed!
         }
