@@ -85,13 +85,13 @@ router.post('/login', async function (req, res, next) {
 
 router.get('/get_user_info', function (req, res, next) {
   const { user_id } = req.session;
-  const { username } = req.session;
+  const { user_name } = req.session;
   const { userEmail } = req.session;
 
   res.json({
     user_id: user_id,
-    username: username,
-    userEmail: userEmail
+    user_name: user_name,
+    user_email: user_email
   });
 });
 
