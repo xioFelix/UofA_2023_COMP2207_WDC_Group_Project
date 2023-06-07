@@ -2,9 +2,11 @@ const mysql = require('mysql');
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+// eslint-disable-next-line no-unused-vars
 const session = require('express-session');
-var flash = require('connect-flash');
-
+// eslint-disable-next-line no-unused-vars
+require('connect-flash');
+// eslint-disable-next-line no-unused-vars
 const cookieParser = require('cookie-parser');
 const app = express();
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
@@ -25,12 +27,14 @@ router.get('/', function (req, res) {
 
 router.get('/login', function (req, res) {
   console.log(req.session.username);
-  if (!req.session.username) {
+  if (req.session.username === NULL || req.session.username === '') {
     req.flash('info', 'Please Login First!');
     res.redirect('/Users/userLogin.html');
+  }else{
+    res.redirect('../protected/user/home_page.html');
+
   }
 });
-
 
 router.post('/login', async function(req, res, next) {
   try {
@@ -176,6 +180,7 @@ router.post('/google_login', async function (req, res) {
         return;
       }
 
+      // eslint-disable-next-line no-shadow
       connection.query(query, [userEmail], function (err, results) {
         connection.release(); // 释放连接
 
@@ -222,7 +227,7 @@ router.get('/cookie',function(req, res){
 // Route for retrieving activitys from the database
 router.get('/posts', function (req, res) {
 
-  //Connect to the database
+  // Connect to the database
   req.pool.getConnection(function (err, connection) {
     if (err) {
       res.sendStatus(500);
@@ -242,9 +247,9 @@ router.get('/posts', function (req, res) {
 
 // Route for adding an activity to the database
 router.post('/posts', (req, res) => {
-  const clubID = req.body.clubID;
-  const title = req.body.title;
-  const content = req.body.content;
+  const { clubID } = req.body;
+  const { title } = req.body;
+  const { content } = req.body;
 
   // Check if club ID exists in the database
   req.pool.getConnection((err, connection) => {
@@ -300,6 +305,7 @@ router.post('/personal_info', function (req, res, next) {
         return;
       }
 
+      // eslint-disable-next-line no-shadow
       connection.query(updateQuery, [req.body.password, req.body.username], function (err) {
         connection.release(); // 释放连接
 
@@ -328,13 +334,14 @@ router.get('/personal_info', function (req, res) {
       return;
     }
     var query = 'SELECT * FROM user WHERE user_name = ?'; // 假设你有一个名为 'user' 的表格，并且有一个名为 'id' 的字段用于标识用户
+    // eslint-disable-next-line no-shadow
     connection.query(query, function (err, results) { // 假设你已经从请求中获取了当前用户的ID，并将其赋值给变量 currentUserId
       connection.release(); // 释放连接
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.json(rows); // send response
     });
   });
 });
