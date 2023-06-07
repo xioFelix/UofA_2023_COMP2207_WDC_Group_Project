@@ -96,7 +96,7 @@ router.post('/login', async function (req, res, next) {
 router.get('/get_user_info', function (req, res, next) {
   const { user_name } = req.session.username;
   const { user_id } = req.session.userId;
-  const { user_email } = req.session;
+  const { user_email } = req.session.userEmail;
 
   res.json({
     user_id: user_id,
