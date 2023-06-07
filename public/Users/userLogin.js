@@ -19,7 +19,7 @@ function login() {
     req.onreadystatechange = function(){
         if(req.readyState == 4 && req.status == 200){
             alert('Logged In successfully');
-            window.location.href = '/protected/user/home_page.html';
+            window.location.href = '../protected/user/home_page.html';
         } else if(req.readyState == 4 && req.status == 401){
             alert('Login FAILED');
         }
