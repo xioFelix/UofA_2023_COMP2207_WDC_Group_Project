@@ -102,13 +102,13 @@ function do_google_login(response) {
         if (req.readyState === 4) {
             if (req.status === 200) {
                 alert('Logged In successfully 😊');
-            } else if (req.status === 201) {
+            } else if (req.status === 211) {
                 let response_google = JSON.parse(req.responseText);
                 window.location.href = response_google.redirectUrl;
-            } else if (req.status === 202) {
+            } else if (req.status === 212) {
                 let response_google = JSON.parse(req.responseText);
                 window.location.href = response_google.redirectUrl;
-            } else if (req.status === 203) {
+            } else if (req.status === 213) {
                 let response_google = JSON.parse(req.responseText);
                 window.location.href = response_google.redirectUrl;
             } else if (req.status == 401) {
