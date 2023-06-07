@@ -131,16 +131,19 @@ router.post('/signup', function(req, res, next) {
   }
 });
 
-// 自定义会话验证中间件
-function requireSession(req, res, next) {
-    if (req.session && req.session.username && req.cookies.auth) {
-        // 用户会话和 cookie 都存在，继续处理请求
-        next();
-    } else {
-        // 用户会话或 cookie 不存在，重定向到登录页或其他处理方式
-    res.redirect('/Users/userLogin.html');
-    }
+function checkAuth(req, res, next) {
+  if (!req.session.username) {
+    res.status(401).send('Unauthorized');
+  } else {
+    next();
+  }
 }
+
+app.use('/protected', checkAuth);
+
+app.get('/protected/user/home_page.html', function (req, res) {
+  res.sendFile(path.join(__dirname, 'protected', 'user', 'home_page.html'));
+});
 
 
 router.get('/logout', function(req, res, next) {
