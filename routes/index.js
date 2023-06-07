@@ -89,7 +89,6 @@ router.post('/login', async function (req, res, next) {
           } else if (user.user_identity === "admin") {
             res.status(203).send({ redirectUrl: '/protected/Admin/home_page.html' });
           }
-
         } else {
           res.sendStatus(401); // Incorrect username or password, login failed!
         }
