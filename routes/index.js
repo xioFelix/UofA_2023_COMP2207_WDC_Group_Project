@@ -83,6 +83,12 @@ router.post('/login', async function (req, res, next) {
   }
 });
 
+router.get('/get_user_id', function (req, res, next) {
+  console.log(req.session.userId);
+  res.end();
+});
+
+
 router.post('/signup', function(req, res, next) {
   try {
     // 验证请求体中的数据是否为空
