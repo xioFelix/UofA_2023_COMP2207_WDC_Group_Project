@@ -27,7 +27,7 @@ const db = mysql.createPool({
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'super secret string',
+    secret: 'survival',
     secure: false
 }));
 app.use(flash());
