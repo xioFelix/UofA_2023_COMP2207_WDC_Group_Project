@@ -94,11 +94,8 @@ router.post('/login', async function (req, res, next) {
 });
 
 router.get('/get_user_info', function (req, res, next) {
-  res.json({
-    user_id: req.session.user_id,
-    user_name: req.session.user_name,
-    user_email: req.session.user_email
-  });
+  var id = '<%=session.getAttribute("id")%>';
+  alert("session是" + id);
 });
 
 
