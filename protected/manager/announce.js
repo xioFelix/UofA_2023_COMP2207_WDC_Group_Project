@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to retrieve posts from the server and display them in the table
   function fetchposts(){
     fetch('/posts')
-      .then(response => response.json())
-      .then(posts => {
+      .then((response) => response.json())
+      .then((posts) => {
         const tableBody = document.querySelector('table tbody');
         tableBody.innerHTML = '';
 
-        posts.forEach(activity => {
+        posts.forEach((activity) => {
           const row = document.createElement('div');
           row.innerHTML = `
           <div class="content">
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
           tableBody.appendChild(row);
         });
       });
-  };
+  }
 
   fetchposts();
   // Function to add an post to the server and update the table
@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/posts', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(post),
+      body: JSON.stringify(post)
     })
-      .then(response => response.json())
-      .then(newpost => {
+      .then((response) => response.json())
+      .then((newpost) => {
         // Clear the input fields
         clubIdInput.value = '';
         titleInput.value = '';
