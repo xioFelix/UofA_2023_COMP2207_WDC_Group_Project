@@ -99,7 +99,7 @@ router.get('/get_user_info', function (req, res, next) {
   const { user_email } = req.session.userEmail;
 
   res.json({
-    user_id: user_id,
+    user_id: req.session.username,
     user_name: user_name,
     user_email: user_email
   });
