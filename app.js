@@ -30,6 +30,16 @@ app.use(session({
     secret: 'survival',
     secure: false
 }));
+
+const checkUser = (req, res, next) => {
+    if (req.session && req.session.user_name) {
+        console.log("User Checked");
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
+
 app.use(function (req, res, next) {
     req.pool = db;
     console.log("Successfully connected to the database 1");
