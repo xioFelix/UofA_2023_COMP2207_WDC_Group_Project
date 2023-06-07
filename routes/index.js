@@ -234,6 +234,13 @@ app.get('/protected/user/home_page.html', function (req, res) {
   res.sendFile(join(__dirname, 'user', 'home_page.html'));
 });
 
+app.get('/protected/manager/home_page.html', function (req, res) {
+  res.sendFile(join(__dirname, 'manager', 'home_page.html'));
+});
+
+app.get('/protected/Admin/home_page.html', function (req, res) {
+  res.sendFile(join(__dirname, 'Admin', 'home_page.html'));
+});
 
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
