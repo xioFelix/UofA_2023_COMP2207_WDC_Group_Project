@@ -11,6 +11,8 @@ var flash = require('connect-flash');
 
 const app = express();
 
+// 使用cookieParser中间件
+app.use(cookieParser());
 app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,8 +42,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// 使用cookieParser中间件
-app.use(cookieParser());
 
 // // cookies配置
 // app.use((req, res, next) => {
