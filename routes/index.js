@@ -79,6 +79,7 @@ router.post('/login', async function (req, res, next) {
           req.session.username = user.user_name;
           req.session.userId = user.user_id;
           req.session.userEmail = user.user_email;
+          req.session.userIdentity = user.user_identity;
           console.log("The current user is2: " + req.session.username);
           res.end();
         } else {
