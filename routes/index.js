@@ -83,11 +83,11 @@ router.post('/login', async function (req, res, next) {
           console.log("The current user is2: " + req.session.username);
           // 根据用户身份，重定向到不同的页面
           if (user.user_identity === "manager") {
-            res.status(201).send({ redirectUrl: '/protected/manager/home_page.html' });
+            res.status(201);
           } else if (user.user_identity === "user") {
             res.status(202);
           } else if (user.user_identity === "admin") {
-            res.status(203).send({ redirectUrl: '/protected/Admin/home_page.html' });
+            res.status(203);
           }
 
         } else {
