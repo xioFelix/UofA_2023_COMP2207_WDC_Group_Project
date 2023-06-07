@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
-const {join} = require("path");
+const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -64,14 +64,19 @@ router.post('/login', async function (req, res, next) {
           return;
         }
 
+        let user;
         if (results.length > 0) {
-          const user = results[0];
-          // Now you can safely access the properties of user
+
+          // eslint-disable-next-line prefer-destructuring
+          user = results[0];
         } else {
           console.log('No results found');
         }
 
-        console.log(user);
+        if (user) {
+          console.log(user.name);
+        }
+
         if (user.user_password === req.body.password) {
           req.session.username = user.user_name;
           req.session.userId = user.user_id;
