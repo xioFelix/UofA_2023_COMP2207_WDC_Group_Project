@@ -100,8 +100,8 @@ router.get('/get_user_info', function (req, res, next) {
 
   res.json({
     user_id: req.session.username,
-    user_name: user_name,
-    user_email: user_email
+    user_name: req.session.user_name,
+    user_email: req.session.user_email
   });
 });
 
