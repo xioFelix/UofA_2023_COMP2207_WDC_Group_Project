@@ -46,7 +46,7 @@ function requireSession(req, res, next) {
     if (req.session && req.session.username) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect('/Users/userLogin.html');
     }
 }
 
