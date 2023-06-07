@@ -11,6 +11,7 @@ var flash = require('connect-flash');
 
 const app = express();
 
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,7 +31,6 @@ app.use(session({
     secret: 'survival',
     secure: false
 }));
-app.use(flash());
 
 // Connect to the database
 app.use(function (req, res, next) {
@@ -65,8 +65,8 @@ app.use(cookieParser());
 //         next();
 //     }
 // });
-app.use(function(req,res,next){
-    console.log("The current user is:"+req.session.username);
+app.use(function (req, res, next) {
+    console.log("The current user is:" + req.session.username);
     next();
 });
 
@@ -82,8 +82,8 @@ function requireSession(req, res, next) {
 }
 
 
-app.use(function(req,res,next){
-    console.log("The current user is:"+req.session.username);
+app.use(function (req, res, next) {
+    console.log("The current user is:" + req.session.username);
     next();
 });
 
