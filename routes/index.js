@@ -70,7 +70,7 @@ router.post('/login', async function (req, res, next) {
           req.session.username = user.user_name;
           req.session.userId = user.user_id;
           req.session.userEmail = user.user_email;
-          console.log("The current user is: " + req.session.username);
+          console.log("The current user is2: " + req.session.username);
           res.end();
         } else {
           res.sendStatus(401); // 用户名或密码不正确，返回未授权状态码
