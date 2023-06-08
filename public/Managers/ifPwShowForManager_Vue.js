@@ -1,14 +1,5 @@
-class Vue {
-    // eslint-disable-next-line no-useless-constructor,no-empty-function
-    constructor(param) {
-
-    }
-
-}
-
-// eslint-disable-next-line no-new,no-undef
-new Vue({
-    el: '.managerLoginPw',
+// eslint-disable-next-line no-undef
+const Pw1 = new Vue({
     data: {
         password: '',
         showPassword: false
@@ -25,9 +16,8 @@ new Vue({
     }
 });
 
-// eslint-disable-next-line no-new,no-undef
-new Vue({
-    el: '.managerSignUpPw',
+// eslint-disable-next-line no-undef
+const Pw2 = new Vue({
     data: {
         password: '',
         showPassword: false
@@ -43,3 +33,6 @@ new Vue({
         }
     }
 });
+
+Pw1.$mount('#ifShowPw1');
+Pw2.$mount('#ifShowPw2');
