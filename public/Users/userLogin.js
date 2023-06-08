@@ -18,7 +18,7 @@ function login() {
     req.onreadystatechange = function () {
         if (req.readyState === 4) {
             if (req.status === 200) {
-                alert('Welcome back! ' + req.session.username);
+                alert('Logged In successfully 😊');
             } else if (req.status === 201) {
                 let response = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
