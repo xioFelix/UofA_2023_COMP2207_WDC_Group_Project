@@ -360,7 +360,7 @@ input:checked~.tab-content {
 /* VIP club intruction  */
 .history {
     word-wrap: break-word;
-    font-size: 100%;
+    font-size: 1.2em;
     text-align: left;
     line-height: 1.8;
     margin: 0% 0% 0% 0%;

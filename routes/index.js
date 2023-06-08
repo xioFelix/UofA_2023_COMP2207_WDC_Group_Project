@@ -113,39 +113,39 @@ router.get('/get_user_info', function (req, res, next) {
 
 router.post('/signup', function (req, res, next) {
   try {
-    // 验证请求体中的数据是否为空
+    // Verify that the data in the request body is empty
     if (!req.body.username || !req.body.email || !req.body.password) {
-      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      res.sendStatus(400); // Return an error status code, indicating that the request body data is incomplete
       return;
     }
 
-    // 在数据库中查找是否存在相同的用户名
+    // Find the same user name in the database
     const query = 'SELECT * FROM user WHERE user_name = ?';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500); // Return server error status code when handling error
         return;
       }
 
       connection.query(query, [req.body.username], function (err1, results) {
         if (err1) {
           console.error(err1);
-          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          res.sendStatus(500);
           return;
         }
 
         if (results.length > 0) {
-          res.sendStatus(401); // 用户名已存在，返回未授权状态码
+          res.sendStatus(401); // The user name already exists. The unauthorized status code is returned
         } else {
-          // 将新用户插入到数据库中
+          // Insert the new user into the database
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
           connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function (err2) {
-            connection.release(); // 释放连接
+            connection.release();
 
             if (err2) {
               console.error(err2);
-              res.sendStatus(500); // 处理错误时返回服务器错误状态码
+              res.sendStatus(500);
               return;
             }
 
@@ -158,11 +158,9 @@ router.post('/signup', function (req, res, next) {
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500);
   }
 });
-
-
 
 router.get('/logout', function (req, res, next) {
   if ('username' in req.session) {
@@ -181,33 +179,33 @@ router.post('/loginToManager', function (req, res) {
 
 router.post('/google_login', async function (req, res) {
   try {
-    const { idToken } = req.body; // 获取客户端提供的Google登录令牌
+    const { idToken } = req.body; // Get the Google login token provided by the client
 
-    // 使用 Google OAuth2Client 验证令牌
+    // Use Google OAuth2Client to authenticate the token
     const ticket = await client.verifyIdToken({
       idToken: idToken,
-      audience: CLIENT_ID // Google客户端ID
+      audience: CLIENT_ID // Google client ID
     });
 
     const payload = ticket.getPayload();
     const userEmail = payload.email;
 
-    // 在数据库中检查用户是否存在
+    // Check whether the user exists in the database
     const query = 'SELECT * FROM user WHERE user_email = ?';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500);
         return;
       }
 
       // eslint-disable-next-line no-shadow
       connection.query(query, [userEmail], function (err, results) {
-        connection.release(); // 释放连接
+        connection.release();
 
         if (err) {
           console.error(err);
-          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          res.sendStatus(500);
           return;
         }
 
@@ -220,7 +218,7 @@ router.post('/google_login', async function (req, res) {
           req.session.userIdentity = user.user_identity;
           console.log("The current user is2: " + req.session.username);
 
-          // 根据用户身份，重定向到不同的页面
+          // Redirect to different pages based on user identity
           if (user.user_identity === "manager") {
             res.status(211).send({ redirectUrl: '/protected/manager/home_page.html' });
           } else if (user.user_identity === "user") {
@@ -229,13 +227,13 @@ router.post('/google_login', async function (req, res) {
             res.status(213).send({ redirectUrl: '/protected/Admin/home_page.html' });
           }
         } else {
-          res.sendStatus(401); // 用户不存在，返回未授权状态码
+          res.sendStatus(401); // The user does not exist. The unauthorized status code is returned
         }
       });
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500);
   }
 });
 
@@ -261,18 +259,6 @@ app.get('/protected/manager/home_page.html', function (req, res) {
 app.get('/protected/Admin/home_page.html', function (req, res) {
   res.sendFile(join(__dirname, 'Admin', 'home_page.html'));
 });
-
-// // 登录功能 待实现
-// router.findUser(username, password, result => {
-//   if (result.length > 0) {
-//     // 登录成功
-//     // 登录成功了，把当前用户的信息，保存到req.session中
-//     req.session.user = req.body;
-//     res.redirect('/');
-//   } else {
-//     res.redirect('/login');
-//   }
-// });
 
 // post annoucenment
 // Route for retrieving activitys from the database
@@ -442,27 +428,27 @@ router.post('/message', (req, res) => {
         return;
       }
       if (rows.length > 0) {
-        // 用户已经加入指定俱乐部
+        // The user has joined the specified club
         console.log("Already joined this activity!");
-        res.sendStatus(409); // 返回冲突状态码，表示已存在
+        res.sendStatus(409); // conflict
         return;
       }
       const insertQuery = 'INSERT INTO userAct (user_id, activity_id) VALUES (?, ?)';
       connection.query(insertQuery, [userID, activityID], (err3, result) => {
         if (err3) {
           if (err3.code === 'ER_DUP_ENTRY') {
-            console.log('User is already a member of the club.'); // 用户已经是俱乐部成员
-            res.sendStatus(409); // 返回冲突状态码，表示已存在
+            console.log('User is already a member of the club.'); // user is already the member of club
+            res.sendStatus(409); // conflict
           } else {
             console.error(err3);
-            res.sendStatus(500); // 处理错误时返回服务器错误状态码
+            res.sendStatus(500);
           }
-          connection.release(); // 释放数据库连接
+          connection.release();
           return;
         }
         console.log("Successfully joined the activity!");
         res.sendStatus(200);
-        connection.release(); // 释放数据库连接
+        connection.release();
       });
     });
   });
@@ -528,28 +514,28 @@ router.post('/quitClub', (req, res) => {
 // setting
 router.post('/personal_info', function (req, res, next) {
   try {
-    // 验证请求体中的数据是否为空
+    // Verify that the data in the request body is empty
     if (!req.body.username || !req.body.email || !req.body.password) {
-      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      res.sendStatus(400); // Return an error status code, indicating that the request body data is incomplete
       return;
     }
 
-    // 更新用户信息
+    // update user information
     const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = 11';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500);
         return;
       }
 
       // eslint-disable-next-line max-len
       connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err) {
-        connection.release(); // 释放连接
+        connection.release();
 
         if (err) {
           console.error(err);
-          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          res.sendStatus(500);
           return;
         }
 
@@ -560,20 +546,20 @@ router.post('/personal_info', function (req, res, next) {
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500);
   }
 });
 
 router.get('/personal_info', function (req, res) {
-  // 从数据库中获取当前用户的信息
+  // Get the current user's information from the database
   db.getConnection(function (err, connection) {
     if (err) {
-      res.sendStatus(500); // 处理错误时返回服务器错误状态码
+      res.sendStatus(500);
       return;
     }
-    var query = 'SELECT * FROM user WHERE user_id = ?'; // 假设你有一个名为 'user' 的表格，并且有一个名为 'id' 的字段用于标识用户
-    connection.query(query, function (err, results) { // 假设你已经从请求中获取了当前用户的ID，并将其赋值给变量 currentuser_id
-      connection.release(); // 释放连接
+    var query = 'SELECT * FROM user WHERE user_id = ?'; // Suppose you have a table named 'user' and a field named 'id' to identify the user
+    connection.query(query, function (err, results) { // Suppose you have obtained the ID of the currentuser from the request and assigned it to the variable currentuser_id
+      connection.release();
       if (err) {
         res.sendStatus(500);
         return;
@@ -588,51 +574,50 @@ router.post('/joinClub', function (req, res) {
   const { user_id, club_id } = req.body;
 
   try {
-    // 验证请求体中的数据是否为空
+    // Verify that the data in the request body is empty
     if (!user_id || !club_id) {
-      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      res.sendStatus(400);
       return;
     }
 
-    // 查询用户是否已加入俱乐部
+    // Check whether the user has joined the club
     const selectQuery = 'SELECT * FROM userClub WHERE user_id = ? AND club_id = ?';
     db.query(selectQuery, [user_id, club_id], function (err, rows) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500);
         return;
       }
       if (rows.length > 0) {
-        // 用户已经加入指定俱乐部
-        res.sendStatus(409); // 返回冲突状态码，表示已存在
+        res.sendStatus(409); // conflict
         return;
       }
 
-      // 用户未加入指定俱乐部，插入记录
+      // If the user does not join the specified club, insert a record
       const insertQuery = 'INSERT INTO userClub (user_id, club_id) VALUES (?, ?)';
       db.query(insertQuery, [user_id, club_id], function (err) {
         if (err) {
           if (err.code === 'ER_DUP_ENTRY') {
-            console.log('User is already a member of the club.'); // 用户已经是俱乐部成员
-            res.sendStatus(409); // 返回冲突状态码，表示已存在
+            console.log('User is already a member of the club.'); // The user is already a club member
+            res.sendStatus(409); // conflict
           } else {
             console.error(err);
-            res.sendStatus(500); // 处理错误时返回服务器错误状态码
+            res.sendStatus(500);
           }
           return;
         }
         console.log(`Successfully added the club ID: ${club_id} to the user ID: ${user_id}`);
-        res.sendStatus(200); // 返回成功状态码
+        res.sendStatus(200);
       });
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500);
   }
 });
 
 router.get('/clubs_user', function (req, res) {
-  const { user_id } = req.query; // 从查询参数中获取用户ID
+  const { user_id } = req.query; // Obtain the user ID from the query parameters
   const clubLinks = [
     { name: 'Web', url: './protected/user/webclub.html' },
     { name: 'Sleeping', url: './protected/user/sleepingclub.html' },
@@ -641,7 +626,7 @@ router.get('/clubs_user', function (req, res) {
   ];
 
   try {
-    // 查询用户已加入的俱乐部及其名称
+    // Query the name of the club to which the user has joined
     const selectQuery = `
       SELECT c.club_id, c.club_name
       FROM userClub uc
@@ -650,11 +635,11 @@ router.get('/clubs_user', function (req, res) {
     db.query(selectQuery, [user_id], function (err, rows) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500);
         return;
       }
 
-      // 提取用户已加入的俱乐部信息列表
+      // Extract the list of clubs that the user has joined
       const joinClub = rows.map((row) => ({
         club_id: row.club_id,
         club_name: row.club_name
@@ -670,13 +655,12 @@ router.get('/clubs_user', function (req, res) {
           return '';
         })
         .join('<br>');
-
-      // 将已加入的俱乐部链接返回给客户端
+      // Return the joined club link to the client
       res.send(clubLinksHTML);
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500);
   }
 });
 

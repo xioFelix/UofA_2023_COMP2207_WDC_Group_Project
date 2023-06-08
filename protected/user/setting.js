@@ -37,13 +37,13 @@ document.querySelector('form').addEventListener('submit', function (event) {
           console.log('Updated successfully');
           // 在此处进行任何其他成功后的操作
           // eslint-disable-next-line no-alert
-          alert('Updated successfully'); // 显示成功的弹窗
+          alert('Update SUCCESSFULLY!'); // 显示成功的弹窗
         } else {
           // eslint-disable-next-line no-console
-          console.log('Failed to update');
+          console.log('FAIL to update');
           // 在此处进行任何其他失败后的操作
           // eslint-disable-next-line no-alert
-          alert('Failed to update'); // 显示失败的弹窗
+          alert('FAIL to Update! Hint: Repeated Username or Email.'); // 显示失败的弹窗
         }
       })
       .catch(function (error) {
