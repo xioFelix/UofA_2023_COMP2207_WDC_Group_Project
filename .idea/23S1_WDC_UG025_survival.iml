@@ -8,5 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="element-ui" level="application" />
+    <orderEntry type="library" name="94cf77f898" level="application" />
+    <orderEntry type="library" name="vue" level="application" />
   </component>
 </module>
