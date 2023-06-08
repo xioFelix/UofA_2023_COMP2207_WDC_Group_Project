@@ -362,7 +362,7 @@ input:checked~.tab-content {
     word-wrap: break-word;
     font-size: 1.2em;
     text-align: left;
-    line-height: 1.8;
+    line-height: 1.4;
     margin: 0% 0% 0% 0%;
     font-weight: normal;
 }

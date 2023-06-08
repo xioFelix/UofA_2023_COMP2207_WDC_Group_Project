@@ -82,6 +82,7 @@ function managersignup() {
     const username = document.getElementById('signup-manager').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-pass').value;
+    const club = document.getElementById('signup-club').value;
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
@@ -107,7 +108,7 @@ function managersignup() {
 
     // Create a data object with the form values
     const data = JSON.stringify({
-        username: username, email: email, password: password, user: "manager"
+        username: username, email: email, password: password, user: "manager", club: club
     });
 
     // Send the POST request

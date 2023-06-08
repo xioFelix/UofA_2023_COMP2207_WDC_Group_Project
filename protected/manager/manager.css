@@ -225,3 +225,13 @@ input[type="text"], textarea {
     font-size: 1.2em;
     font-weight: normal;
 }
+
+/* VIP club intruction  */
+.history {
+    word-wrap: break-word;
+    font-size: 1.2em;
+    text-align: left;
+    line-height: 1.4;
+    margin: 0% 0% 0% 0%;
+    font-weight: normal;
+}

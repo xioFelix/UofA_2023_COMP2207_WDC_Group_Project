@@ -180,3 +180,13 @@ input[type=button] {
     display: inline-block;
     width: 49%;
 }
+
+/* VIP club intruction  */
+.history {
+    word-wrap: break-word;
+    font-size: 1.2em;
+    text-align: left;
+    line-height: 1.4;
+    margin: 0% 0% 0% 0%;
+    font-weight: normal;
+}

@@ -100,8 +100,6 @@ router.post('/login', async function (req, res, next) {
   }
 });
 
-
-
 router.get('/get_user_info', function (req, res, next) {
   res.json({
     username: req.session.username,
@@ -139,19 +137,29 @@ router.post('/signup', function (req, res, next) {
           res.sendStatus(401); // The user name already exists. The unauthorized status code is returned
         } else {
           // Insert the new user into the database
-          const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
-          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function (err2) {
-            connection.release();
-
+          const insertUserQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
+          connection.query(insertUserQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function (err2, userResult) {
             if (err2) {
               console.error(err2);
               res.sendStatus(500);
               return;
             }
 
-            req.session.username = req.body.username;
-            console.log(req.body.username);
-            res.end();
+            // Insert the new user into the manager table
+            const insertManagerQuery = 'INSERT INTO manager (user_id, club_id) VALUES (?, ?)';
+            const userId = userResult.insertId; // Get the user_id just inserted into the user table
+            const clubId = req.body.club; // Get the club_id from the HTML radio button
+            connection.query(insertManagerQuery, [userId, clubId], function (err3) {
+              if (err3) {
+                console.error(err3);
+                res.sendStatus(500);
+                return;
+              }
+
+              req.session.username = req.body.username;
+              console.log(req.body.username);
+              res.end();
+            });
           });
         }
       });
@@ -161,6 +169,7 @@ router.post('/signup', function (req, res, next) {
     res.sendStatus(500);
   }
 });
+
 
 router.get('/logout', function (req, res, next) {
   if ('username' in req.session) {
