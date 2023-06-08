@@ -293,7 +293,7 @@ h1 {
 }
 
 /* login button: submit*/
-.login-bottom input[type="submit"] {
+#login-bottom{
     /* font-size: 0.9em; */
     color: #fff;
     background: #7ba1a8;
