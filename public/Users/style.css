@@ -220,7 +220,9 @@ h1 {
 
 /*--//main--*/
 .login-top {
-    padding: 2em 3em;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10% 10%;
 }
 
 /* dotted line - text password */
@@ -238,8 +240,41 @@ h1 {
 }
 
 .login-top input[type="text"]:focus,
+.login-top input[type="email"]:focus,
 .login-top input[type="password"]:focus {
     border-bottom-style: solid;
+}
+
+.login-top input[type="text"]:hover::placeholder,
+.login-top input[type="email"]:hover::placeholder,
+.login-top input[type="password"]:hover::placeholder {
+    font-weight: bold;
+    color: balck;
+    font-size: larger;
+}
+
+.login-top input[type="text"]::-webkit-input-placeholder,
+.login-top input[type="email"]::-webkit-input-placeholder,
+.login-top input[type="password"]::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0.700);}
+
+.login-top input[type="text"]::-moz-placeholder,
+.login-top input[type="email"]::-moz-placeholder,
+.login-top input[type="password"]::-moz-placeholder {
+    color: rgba(0, 0, 0, 0.700)
+    ;}
+
+.login-top input[type="text"]:-ms-input-placeholder,
+.login-top input[type="email"]:-ms-input-placeholder,
+.login-top input[type="password"]:-ms-input-placeholder {
+    color: rgba(0, 0, 0, 0.700);}
+
+.login-top input[type="text"]::placeholder,
+.login-top input[type="email"]::placeholder,
+.login-top input[type="password"]::placeholder {
+    color: rgba(0, 0, 0, 0.700);
+    opacity: 1;
+    /* 添加 opacity 属性 */
 }
 
 /* button font */
