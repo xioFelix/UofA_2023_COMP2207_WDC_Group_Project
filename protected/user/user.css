@@ -9,7 +9,7 @@ body {
 }
 
 /*TOP*/
-img.Logorelative{
+img.Logorelative {
     position: relative;
     height: 100%;
     width: 100%;
@@ -68,7 +68,7 @@ img.Logorelative{
 /* Add a card effect for articles */
 .card {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     margin-top: 20px;
 }
 
@@ -140,7 +140,7 @@ img.LogoBottom {
 }
 
 li {
-    width:450px;
+    width: 450px;
 }
 
 
@@ -150,7 +150,7 @@ li {
     float: left;
     width: 50%;
     padding: 15px;
-    font-weight: bolder ;
+    font-weight: bolder;
 }
 
 /* Clear floats after the columns */
@@ -299,6 +299,7 @@ input:checked~.tab-content {
     text-align: right;
     margin: 0 auto;
 }
+
 .right1 {
     text-align: right;
     margin: 0 auto;
@@ -307,7 +308,7 @@ input:checked~.tab-content {
 
 /* MARGIN */
 /* club_user */
-.clubMargin{
+.clubMargin {
     padding-left: 5%;
 }
 
@@ -334,4 +335,48 @@ input:checked~.tab-content {
 .logout button:hover {
     background-color: #ddd;
     color: black;
+}
+
+/* anoucenment */
+#id {
+    font-size: 0.8em;
+    color: #5c5555;
+}
+
+.title {
+    color: #5c8987;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+#submitButton {
+    padding: 0.5em;
+    border: none;
+    text-align: left;
+    color: white;
+    background-color: #7ba1a8;
+}
+
+/* VIP club intruction  */
+.history {
+    word-wrap: break-word;
+    font-size: 100%;
+    text-align: left;
+    line-height: 1.8;
+    margin: 0% 0% 0% 0%;
+    font-weight: normal;
+}
+
+.history-title {
+    font-size: 1.2em;
+    margin: 0% 0% 0% 0%;
+}
+
+#quit-club-botton {
+    padding: 0.5em;
+    border: none;
+    text-align: left;
+    color: white;
+    background-color: #7ba1a8;
+    margin: 0% 0% 0% 1%;
 }

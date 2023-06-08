@@ -70,6 +70,22 @@ app.get('/protected/user/*', requireSession, function (req, res) {
     res.sendFile(path.join(__dirname, url));
 });
 
+// app.post('/protected/manager/*', requireSession, function (req, res) {
+//     let url = req.originalUrl;
+//     res.sendFile(path.join(__dirname, url));
+// });
+
+// app.post('/protected/Admin/*', requireSession, function (req, res) {
+//     let url = req.originalUrl;
+//     res.sendFile(path.join(__dirname, url));
+// });
+
+// app.post('/protected/user/*', requireSession, function (req, res) {
+//     let url = req.originalUrl;
+//     res.sendFile(path.join(__dirname, url));
+// });
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

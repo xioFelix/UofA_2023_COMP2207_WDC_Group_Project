@@ -30,7 +30,7 @@ router.get('/login', function (req, res) {
   if (req.session.username === null || req.session.username === '') {
     req.flash('info', 'Please Login First!');
     res.redirect('/Users/userLogin.html');
-  }else{
+  } else {
     res.redirect('../protected/user/home_page.html');
 
   }
@@ -108,10 +108,10 @@ router.get('/get_user_info', function (req, res, next) {
     userId: req.session.userId,
     email: req.session.userEmail,
     userIdentity: req.session.userIdentity
-   });
+  });
 });
 
-router.post('/signup', function(req, res, next) {
+router.post('/signup', function (req, res, next) {
   try {
     // 验证请求体中的数据是否为空
     if (!req.body.username || !req.body.email || !req.body.password) {
@@ -121,14 +121,14 @@ router.post('/signup', function(req, res, next) {
 
     // 在数据库中查找是否存在相同的用户名
     const query = 'SELECT * FROM user WHERE user_name = ?';
-    db.getConnection(function(err, connection) {
+    db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
         res.sendStatus(500); // 处理错误时返回服务器错误状态码
         return;
       }
 
-      connection.query(query, [req.body.username], function(err1, results) {
+      connection.query(query, [req.body.username], function (err1, results) {
         if (err1) {
           console.error(err1);
           res.sendStatus(500); // 处理错误时返回服务器错误状态码
@@ -140,7 +140,7 @@ router.post('/signup', function(req, res, next) {
         } else {
           // 将新用户插入到数据库中
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
-          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function(err2) {
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function (err2) {
             connection.release(); // 释放连接
 
             if (err2) {
@@ -164,14 +164,14 @@ router.post('/signup', function(req, res, next) {
 
 
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function (req, res, next) {
   if ('username' in req.session) {
     delete req.session.username;
     res.redirect('/protected/user/userLogin.html');
-    console.log("The current user is:"+req.session.username);
+    console.log("The current user is:" + req.session.username);
   } else {
     res.sendStatus(403);
-    console.log("The current user is:"+req.session.username);
+    console.log("The current user is:" + req.session.username);
   }
 });
 
@@ -264,92 +264,278 @@ app.get('/protected/Admin/home_page.html', function (req, res) {
 
 // // 登录功能 待实现
 // router.findUser(username, password, result => {
-  //   if (result.length > 0) {
-    //     // 登录成功
-    //     // 登录成功了，把当前用户的信息，保存到req.session中
-    //     req.session.user = req.body;
-    //     res.redirect('/');
-    //   } else {
-      //     res.redirect('/login');
-      //   }
-      // });
+//   if (result.length > 0) {
+//     // 登录成功
+//     // 登录成功了，把当前用户的信息，保存到req.session中
+//     req.session.user = req.body;
+//     res.redirect('/');
+//   } else {
+//     res.redirect('/login');
+//   }
+// });
 
-      // post annoucenment
-      // Route for retrieving activitys from the database
-      router.get('/posts', function (req, res) {
+// post annoucenment
+// Route for retrieving activitys from the database
+router.get('/posts', function (req, res) {
 
-        // Connect to the database
-        req.pool.getConnection(function (err, connection) {
-          if (err) {
+  //Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    var query = "SELECT * FROM activity;";
+    connection.query(query, function (err, rows, fields) {
+      connection.release();
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+// Route for adding an activity to the database
+// Modify the router.post('/posts') route to check club_id existence
+router.post('/posts', (req, res) => {
+  const { clubID, title, content } = req.body;
+
+  // Connect to the database
+  req.pool.getConnection((err, connection) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    // Check if club_id exists in the club table
+    const checkQuery = 'SELECT * FROM club WHERE club_id = ?';
+    connection.query(checkQuery, [clubID], (err2, rows) => {
+      if (err2) {
+        connection.release();
+        res.sendStatus(500);
+        return;
+      }
+
+      if (rows.length === 0) {
+        connection.release();
+        res.status(400).send('Club ID does not exist!');
+        return;
+      }
+
+      // Club ID exists, proceed with adding the post
+      const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
+      connection.query(insertQuery, [clubID, title, content], (err3, result) => {
+        connection.release();
+        if (err3) {
+          res.sendStatus(500);
+          return;
+        }
+
+        res.status(201).json(result);
+      });
+    });
+  });
+});
+
+// user view the activities and join in the activities
+// Route for retrieving activities from the database
+router.get('/message1', function (req, res) {
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    // get the annoucenment of web club
+    var query = 'SELECT * FROM activity WHERE club_id = 1';
+    connection.query(query, function (err, rows, fields) {
+      connection.release();
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+router.get('/message2', function (req, res) {
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    // get the annoucenment of sleeping club
+    var query = 'SELECT * FROM activity WHERE club_id = 2';
+    connection.query(query, function (err, rows, fields) {
+      connection.release();
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+router.get('/message3', function (req, res) {
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    // get the annoucenment of frisbee club
+    var query = 'SELECT * FROM activity WHERE club_id = 3';
+    connection.query(query, function (err, rows, fields) {
+      connection.release();
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+router.get('/message4', function (req, res) {
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    // get the annoucenment of eating club
+    var query = 'SELECT * FROM activity WHERE club_id = 4';
+    connection.query(query, function (err, rows, fields) {
+      connection.release();
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // send response
+    });
+  });
+});
+
+// Route for joining activities from users to the database
+router.post('/message', (req, res) => {
+  const { userID, activityID } = req.body;
+
+  // Connect to the database
+  req.pool.getConnection((err, connection) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+      return;
+    }
+
+    // Check if user_id exists in the userAct table
+    const checkQuery = 'SELECT * FROM userAct WHERE user_id = ? AND activity_id = ?';
+    connection.query(checkQuery, [userID, activityID], (err2, rows) => {
+      if (err2) {
+        console.error(err2);
+        connection.release();
+        res.sendStatus(500);
+        return;
+      }
+      if (rows.length > 0) {
+        // 用户已经加入指定俱乐部
+        console.log("Already joined this activity!");
+        res.sendStatus(409); // 返回冲突状态码，表示已存在
+        return;
+      }
+      const insertQuery = 'INSERT INTO userAct (user_id, activity_id) VALUES (?, ?)';
+      connection.query(insertQuery, [userID, activityID], (err3, result) => {
+        if (err3) {
+          if (err3.code === 'ER_DUP_ENTRY') {
+            console.log('User is already a member of the club.'); // 用户已经是俱乐部成员
+            res.sendStatus(409); // 返回冲突状态码，表示已存在
+          } else {
+            console.error(err3);
+            res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          }
+          connection.release(); // 释放数据库连接
+          return;
+        }
+        console.log("Successfully joined the activity!");
+        res.sendStatus(200);
+        connection.release(); // 释放数据库连接
+      });
+    });
+  });
+});
+
+// users quit club
+// Route for quitting clubs from users to the database
+router.post('/quitClub', (req, res) => {
+  const { userID, clubID } = req.body;
+
+  // Connect to the database
+  req.pool.getConnection((err, connection) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+      return;
+    }
+
+    // Check user_id in table userAct and delete
+    const checkQuery = 'SELECT userAct.user_id, userAct.activity_id, activity.club_id FROM userAct RIGHT JOIN activity ON userAct.activity_id = activity.activity_id WHERE userAct.user_id = ?';
+    connection.query(checkQuery, [userID], (err2, rows) => {
+      if (err2) {
+        console.error(err2);
+        connection.release();
+        res.sendStatus(500);
+        return;
+      }
+
+      if (rows.length > 0) {
+        // User has already joined the specified club
+        const deleteQuery1 = 'DELETE FROM userAct WHERE activity_id IN (SELECT activity_id FROM activity WHERE club_id = ?)';
+        const deleteQuery2 = 'DELETE FROM userClub WHERE user_id = ? AND club_id = ?';
+
+        connection.query(deleteQuery1, [clubID], (err3, result) => {
+          if (err3) {
+            connection.release(); // Release the database connection
+            console.error(err3);
             res.sendStatus(500);
             return;
           }
-          var query = "SELECT * FROM activity;";
-          connection.query(query, function (err3, rows, fields) {
-            connection.release();
-            if (err3) {
+
+          connection.query(deleteQuery2, [userID, clubID], (err4, result) => {
+            connection.release(); // Release the database connection
+
+            if (err4) {
+              console.error(err4);
               res.sendStatus(500);
               return;
             }
-            res.json(rows); // send response
+
+            console.log("Successfully quit the club!");
+            res.sendStatus(200); // Success
           });
         });
-      });
+      } else {
+        console.log("User not in the club!");
+        res.sendStatus(409); // Success
+      }
+    });
+  });
+});
 
-      // Route for adding an activity to the database
-      router.post('/posts', (req, res) => {
-        const { clubID } = req.body;
-        const { title } = req.body;
-        const { content } = req.body;
-
-        // Check if club ID exists in the database
-        req.pool.getConnection((err, connection) => {
-          if (err) {
-            res.sendStatus(500);
-            return;
-          }
-
-          const query = 'SELECT * FROM activity WHERE club_id = ?';
-          connection.query(query, [clubID], (err2, rows) => {
-            if (err2) {
-              res.sendStatus(500);
-              connection.release();
-              return;
-            }
-
-            if (rows.length === 0) {
-              res.status(400).json({ error: 'Club ID does not exist in the database.' });
-              connection.release();
-              return;
-            }
-
-            // Club ID exists, proceed with inserting the post
-            const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
-            connection.query(insertQuery, [clubID, title, content], (err3, result) => {
-              connection.release();
-              if (err3) {
-                res.sendStatus(500);
-                return;
-              }
-
-              res.sendStatus(200);
-            });
-          });
-        });
-      });
-
-      // setting
-      router.post('/personal_info', function (req, res, next) {
-
+// setting
+router.post('/personal_info', function (req, res, next) {
   try {
     // 验证请求体中的数据是否为空
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.username || !req.body.email || !req.body.password) {
       res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
       return;
     }
 
-    // 更新用户密码
-    const updateQuery = 'UPDATE user SET user_password = ? WHERE user_name = ?';
+    // 更新用户信息
+    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = 11';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
@@ -357,8 +543,8 @@ app.get('/protected/Admin/home_page.html', function (req, res) {
         return;
       }
 
-      // eslint-disable-next-line no-shadow
-      connection.query(updateQuery, [req.body.password, req.body.username], function (err) {
+      // eslint-disable-next-line max-len
+      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err) {
         connection.release(); // 释放连接
 
         if (err) {
@@ -368,7 +554,7 @@ app.get('/protected/Admin/home_page.html', function (req, res) {
         }
 
         req.session.username = req.body.username;
-        console.log("Successful update the password of" + req.body.username);
+        console.log("Successful update the information of user: " + req.body.username);
         res.end();
       });
     });
@@ -385,18 +571,113 @@ router.get('/personal_info', function (req, res) {
       res.sendStatus(500); // 处理错误时返回服务器错误状态码
       return;
     }
-    var query = 'SELECT * FROM user WHERE user_name = ?'; // 假设你有一个名为 'user' 的表格，并且有一个名为 'id' 的字段用于标识用户
-    // eslint-disable-next-line no-shadow
-    connection.query(query, function (err, results) { // 假设你已经从请求中获取了当前用户的ID，并将其赋值给变量 currentUserId
+    var query = 'SELECT * FROM user WHERE user_id = ?'; // 假设你有一个名为 'user' 的表格，并且有一个名为 'id' 的字段用于标识用户
+    connection.query(query, function (err, results) { // 假设你已经从请求中获取了当前用户的ID，并将其赋值给变量 currentuser_id
       connection.release(); // 释放连接
       if (err) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); // send response
+      res.json(rows); //send response
     });
   });
 });
 
+//  club_all join
+router.post('/joinClub', function (req, res) {
+  const { user_id, club_id } = req.body;
+
+  try {
+    // 验证请求体中的数据是否为空
+    if (!user_id || !club_id) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      return;
+    }
+
+    // 查询用户是否已加入俱乐部
+    const selectQuery = 'SELECT * FROM userClub WHERE user_id = ? AND club_id = ?';
+    db.query(selectQuery, [user_id, club_id], function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
+      if (rows.length > 0) {
+        // 用户已经加入指定俱乐部
+        res.sendStatus(409); // 返回冲突状态码，表示已存在
+        return;
+      }
+
+      // 用户未加入指定俱乐部，插入记录
+      const insertQuery = 'INSERT INTO userClub (user_id, club_id) VALUES (?, ?)';
+      db.query(insertQuery, [user_id, club_id], function (err) {
+        if (err) {
+          if (err.code === 'ER_DUP_ENTRY') {
+            console.log('User is already a member of the club.'); // 用户已经是俱乐部成员
+            res.sendStatus(409); // 返回冲突状态码，表示已存在
+          } else {
+            console.error(err);
+            res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          }
+          return;
+        }
+        console.log(`Successfully added the club ID: ${club_id} to the user ID: ${user_id}`);
+        res.sendStatus(200); // 返回成功状态码
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
+});
+
+router.get('/clubs_user', function (req, res) {
+  const { user_id } = req.query; // 从查询参数中获取用户ID
+  const clubLinks = [
+    { name: 'Web', url: './protected/user/webclub.html' },
+    { name: 'Sleeping', url: './protected/user/sleepingclub.html' },
+    { name: 'Frisbee', url: './protected/user/frisbee.html' },
+    { name: 'Eating', url: './protected/user/eatingclub.html' }
+  ];
+
+  try {
+    // 查询用户已加入的俱乐部及其名称
+    const selectQuery = `
+      SELECT c.club_id, c.club_name
+      FROM userClub uc
+      JOIN club c ON uc.club_id = c.club_id
+      WHERE uc.user_id = ?`;
+    db.query(selectQuery, [user_id], function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
+
+      // 提取用户已加入的俱乐部信息列表
+      const joinClub = rows.map((row) => ({
+        club_id: row.club_id,
+        club_name: row.club_name
+      }));
+
+      // Generate the HTML for club links based on joinedClubs
+      const clubLinksHTML = joinClub
+        .map((club) => {
+          const clubLink = clubLinks.find((link) => link.name === club.club_name);
+          if (clubLink) {
+            return `<a href="${club.club_name}club.html">${club.club_name} club</a >`;
+          }
+          return '';
+        })
+        .join('<br>');
+
+      // 将已加入的俱乐部链接返回给客户端
+      res.send(clubLinksHTML);
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
+});
 
 module.exports = router;
