@@ -348,7 +348,7 @@ h1 {
     -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-    width: 50%;
+    width: 100%;
     background: #7ba1a8;
     float: left;
     padding: 15px 0;
