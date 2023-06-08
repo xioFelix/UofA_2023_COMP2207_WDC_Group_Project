@@ -38,41 +38,41 @@ router.get('/login', function (req, res) {
 
 router.post('/login', async function (req, res, next) {
   try {
-    // 验证请求体中的数据是否为空
+    // Check if the data in the request body is empty
     if (!req.body.user_email || !req.body.password) {
-      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      res.sendStatus(400); // Return an error status code to indicate incomplete request body data
       return;
     }
 
-    // 在数据库中查找匹配的用户，同时获取用户身份
+    // Find a matching user in the database and retrieve their identity
     const query = 'SELECT user_id, user_name, user_email, user_password, user_identity FROM user WHERE user_email = ? AND user_password = ?';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500); // Return a server error status code when handling errors
         return;
       }
 
       // eslint-disable-next-line no-shadow
       connection.query(query, [req.body.user_email, req.body.password], function (err, results) {
-        connection.release(); // 释放连接
+        connection.release(); // Release the connection
         if (err) {
           console.error(err);
-          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          res.sendStatus(500); // Return a server error status code when handling errors
           return;
         }
 
         let user;
         if (results.length > 0) {
-
           // eslint-disable-next-line prefer-destructuring
           user = results[0];
         } else {
           console.log('No results found');
         }
 
-        if (user) {
-          console.log(user.name);
+        if (!user || !user.user_password) {
+          res.sendStatus(401); // Return status code 401 if user_password is empty or undefined
+          return;
         }
 
         if (user.user_password === req.body.password) {
@@ -81,7 +81,7 @@ router.post('/login', async function (req, res, next) {
           req.session.userEmail = user.user_email;
           req.session.userIdentity = user.user_identity;
           console.log("The current user is2: " + req.session.username);
-          // 根据用户身份，重定向到不同的页面
+          // Redirect to different pages based on user identity
           if (user.user_identity === "manager") {
             res.status(201).send({ redirectUrl: '/protected/manager/home_page.html' });
           } else if (user.user_identity === "user") {
@@ -96,9 +96,10 @@ router.post('/login', async function (req, res, next) {
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500); // Return a server error status code when handling errors
   }
 });
+
 
 
 router.get('/get_user_info', function (req, res, next) {

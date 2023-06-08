@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (req, res, next) {
-    console.log("The current user is1:" + req.session.username);
+    console.log("The current user is1: " + req.session.username);
     next();
 });
 

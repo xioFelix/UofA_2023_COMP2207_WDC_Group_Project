@@ -18,7 +18,7 @@ function login() {
     req.onreadystatechange = function () {
         if (req.readyState === 4) {
             if (req.status === 200) {
-                alert('Logged In successfully 😊');
+                alert('Welcome back! ' + req.session.username);
             } else if (req.status === 201) {
                 let response = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
@@ -28,8 +28,8 @@ function login() {
             } else if (req.status === 203) {
                 let response = JSON.parse(req.responseText);
                 window.location.href = response.redirectUrl;
-            } else if (req.status == 401) {
-                alert('Login FAILED 😭');
+            } else if (req.status === 401) {
+                alert('Login FAILED, Incorrect Username or Password!');
             }
         }
     };
@@ -137,7 +137,7 @@ function do_google_login(response) {
     req.onreadystatechange = function () {
         if (req.readyState === 4) {
             if (req.status === 200) {
-                alert('Logged In successfully 😊');
+                alert('Welcome back! ' + req.session.username);
             } else if (req.status === 211) {
                 let response_google = JSON.parse(req.responseText);
                 window.location.href = response_google.redirectUrl;
@@ -148,7 +148,7 @@ function do_google_login(response) {
                 let response_google = JSON.parse(req.responseText);
                 window.location.href = response_google.redirectUrl;
             } else if (req.status == 401) {
-                alert('Login FAILED 😭');
+                alert('Login FAILED, Incorrect Username or Password!');
             }
         }
     };
