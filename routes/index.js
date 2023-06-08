@@ -139,7 +139,7 @@ router.post('/signup', function(req, res, next) {
         } else {
           // 将新用户插入到数据库中
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
-          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, "user"], function(err2) {
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user ], function(err2) {
             connection.release(); // 释放连接
 
             if (err2) {
