@@ -107,7 +107,7 @@ function managersignup() {
 
     // Create a data object with the form values
     const data = JSON.stringify({
-        username: username, email: email, password: password, user: "user"
+        username: username, email: email, password: password, user: "manager"
     });
 
     // Send the POST request
