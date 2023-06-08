@@ -8,7 +8,7 @@ class Vue {
 
 // eslint-disable-next-line no-new,no-undef
 new Vue({
-    el: '.managerLoginPw',
+    el: '.adminLoginPw',
     data: {
         password: '',
         showPassword: false
