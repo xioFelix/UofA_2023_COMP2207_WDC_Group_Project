@@ -7,11 +7,8 @@ joinButtons.forEach(function (button) {
         // Get the ID of the club that the button belongs to
         var club_id = button.getAttribute('data-club-id');
 
-        var user_id = '11';
-
         // Create an object to store the data to be sent
         var data = {
-            user_id: user_id,
             club_id: club_id
         };
 

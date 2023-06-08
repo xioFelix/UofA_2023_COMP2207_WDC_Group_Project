@@ -61,9 +61,7 @@ DROP TABLE IF EXISTS `club`;
 CREATE TABLE `club` (
   `club_id` int NOT NULL AUTO_INCREMENT,
   `club_name` varchar(20) NOT NULL,
-  `manager_id` int DEFAULT NULL,
-  PRIMARY KEY (`club_id`),
-  UNIQUE KEY `manager_id` (`manager_id`)
+  PRIMARY KEY (`club_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -73,7 +71,7 @@ CREATE TABLE `club` (
 
 LOCK TABLES `club` WRITE;
 /*!40000 ALTER TABLE `club` DISABLE KEYS */;
-INSERT INTO `club` VALUES (1,'Web',5),(2,'Sleeping',6),(3,'Frisbee',7),(4,'Eating',8);
+INSERT INTO `club` VALUES (1,'Web'),(2,'Sleeping'),(3,'Frisbee'),(4,'Eating');
 /*!40000 ALTER TABLE `club` ENABLE KEYS */;
 UNLOCK TABLES;
 

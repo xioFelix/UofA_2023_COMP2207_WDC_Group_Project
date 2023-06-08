@@ -100,14 +100,51 @@ router.post('/login', async function (req, res, next) {
   }
 });
 
-router.get('/get_user_info', function (req, res, next) {
-  res.json({
-    username: req.session.username,
-    userId: req.session.userId,
-    email: req.session.userEmail,
-    userIdentity: req.session.userIdentity
-  });
-});
+// router.get('/get_user_info', function (req, res, next) {
+//   const { userId } = req.session;
+//   // 查询与当前用户关联的俱乐部 ID
+//   const selectClubQuery = 'SELECT club_id FROM manager WHERE user_id = ?';
+//   db.getConnection(function (err, connection) {
+//     if (err) {
+//       console.error(err);
+//       res.sendStatus(500); // 返回服务器错误状态码处理错误
+//       return;
+//     }
+
+//     connection.query(selectClubQuery, [userId], (err2, result) => {
+//       connection.release(); // 释放数据库连接
+
+//       if (err2) {
+//         console.error(err2);
+//         res.sendStatus(500);
+//         return;
+//       }
+
+//       if (result.length === 0) {
+//         console.log("No club found for the user");
+//         // 可根据需要添加适当的处理逻辑
+//         res.sendStatus(404);
+//         return;
+//       }
+
+//       const clubId0 = result[0];
+
+//       // 构造包含用户信息和俱乐部 ID 的 JSON 对象
+//       const userInfo = {
+//         username: req.session.username,
+//         userId: req.session.userId,
+//         email: req.session.userEmail,
+//         userIdentity: req.session.userIdentity,
+//         clubId: clubId0.club_id
+//       };
+
+//       res.json(userInfo);
+//     });
+//   });
+// });
+
+
+
 
 router.post('/signup', function (req, res, next) {
   try {
@@ -417,8 +454,9 @@ router.get('/message4', function (req, res) {
 
 // Route for joining activities from users to the database
 router.post('/message', (req, res) => {
-  const { userID, activityID } = req.body;
-
+  const { userId } = req.session;
+  console.log(userId);
+  const { activityID } = req.body;
   // Connect to the database
   req.pool.getConnection((err, connection) => {
     if (err) {
@@ -429,7 +467,7 @@ router.post('/message', (req, res) => {
 
     // Check if user_id exists in the userAct table
     const checkQuery = 'SELECT * FROM userAct WHERE user_id = ? AND activity_id = ?';
-    connection.query(checkQuery, [userID, activityID], (err2, rows) => {
+    connection.query(checkQuery, [userId, activityID], (err2, rows) => {
       if (err2) {
         console.error(err2);
         connection.release();
@@ -443,7 +481,7 @@ router.post('/message', (req, res) => {
         return;
       }
       const insertQuery = 'INSERT INTO userAct (user_id, activity_id) VALUES (?, ?)';
-      connection.query(insertQuery, [userID, activityID], (err3, result) => {
+      connection.query(insertQuery, [userId, activityID], (err3, result) => {
         if (err3) {
           if (err3.code === 'ER_DUP_ENTRY') {
             console.log('User is already a member of the club.'); // user is already the member of club
@@ -466,8 +504,9 @@ router.post('/message', (req, res) => {
 // users quit club
 // Route for quitting clubs from users to the database
 router.post('/quitClub', (req, res) => {
-  const { userID, clubID } = req.body;
-
+  const { clubID } = req.body;
+  console.log("--------------   " + clubID + "   --------------------");
+  const { userId } = req.session;
   // Connect to the database
   req.pool.getConnection((err, connection) => {
     if (err) {
@@ -476,47 +515,46 @@ router.post('/quitClub', (req, res) => {
       return;
     }
 
-    // Check user_id in table userAct and delete
-    const checkQuery = 'SELECT userAct.user_id, userAct.activity_id, activity.club_id FROM userAct RIGHT JOIN activity ON userAct.activity_id = activity.activity_id WHERE userAct.user_id = ?';
-    connection.query(checkQuery, [userID], (err2, rows) => {
-      if (err2) {
-        console.error(err2);
-        connection.release();
+    // 查询活动的活动ID
+    const selectActivityQuery = 'SELECT activity_id FROM activity WHERE club_id = ?';
+    connection.query(selectActivityQuery, [clubID], (err1, activityResult) => {
+      if (err) {
+        connection.release(); // 释放数据库连接
+        console.error(err1);
         res.sendStatus(500);
         return;
       }
 
-      if (rows.length > 0) {
-        // User has already joined the specified club
-        const deleteQuery1 = 'DELETE FROM userAct WHERE activity_id IN (SELECT activity_id FROM activity WHERE club_id = ?)';
-        const deleteQuery2 = 'DELETE FROM userClub WHERE user_id = ? AND club_id = ?';
+      // 存储活动ID的数组
+      const activityIds = activityResult.map((row) => row.activity_id);
 
-        connection.query(deleteQuery1, [clubID], (err3, result) => {
+      // 执行删除操作
+      const deleteActivityQuery = 'DELETE FROM userAct WHERE activity_id IN (?) AND user_id = ?';
+      const deleteClubQuery = 'DELETE FROM userClub WHERE user_id = ? AND club_id = ?';
+
+      connection.query(deleteActivityQuery, [activityIds, userId], (err2) => {
+        if (err2) {
+          connection.release(); // 释放数据库连接
+          console.error(err2);
+          res.sendStatus(500);
+          return;
+        }
+
+        connection.query(deleteClubQuery, [userId, clubID], (err3) => {
+          connection.release(); // 释放数据库连接
+
           if (err3) {
-            connection.release(); // Release the database connection
             console.error(err3);
             res.sendStatus(500);
             return;
           }
 
-          connection.query(deleteQuery2, [userID, clubID], (err4, result) => {
-            connection.release(); // Release the database connection
-
-            if (err4) {
-              console.error(err4);
-              res.sendStatus(500);
-              return;
-            }
-
-            console.log("Successfully quit the club!");
-            res.sendStatus(200); // Success
-          });
+          console.log("成功退出俱乐部和所有活动！");
+          res.sendStatus(200); // 成功
         });
-      } else {
-        console.log("User not in the club!");
-        res.sendStatus(409); // Success
-      }
+      });
     });
+
   });
 });
 
@@ -580,18 +618,18 @@ router.get('/personal_info', function (req, res) {
 
 //  club_all join
 router.post('/joinClub', function (req, res) {
-  const { user_id, club_id } = req.body;
-
+  const { club_id } = req.body;
+  const { userId } = req.session;
   try {
     // Verify that the data in the request body is empty
-    if (!user_id || !club_id) {
+    if (!userId || !club_id) {
       res.sendStatus(400);
       return;
     }
 
     // Check whether the user has joined the club
     const selectQuery = 'SELECT * FROM userClub WHERE user_id = ? AND club_id = ?';
-    db.query(selectQuery, [user_id, club_id], function (err, rows) {
+    db.query(selectQuery, [userId, club_id], function (err, rows) {
       if (err) {
         console.error(err);
         res.sendStatus(500);
@@ -604,7 +642,7 @@ router.post('/joinClub', function (req, res) {
 
       // If the user does not join the specified club, insert a record
       const insertQuery = 'INSERT INTO userClub (user_id, club_id) VALUES (?, ?)';
-      db.query(insertQuery, [user_id, club_id], function (err) {
+      db.query(insertQuery, [userId, club_id], function (err) {
         if (err) {
           if (err.code === 'ER_DUP_ENTRY') {
             console.log('User is already a member of the club.'); // The user is already a club member
@@ -615,7 +653,7 @@ router.post('/joinClub', function (req, res) {
           }
           return;
         }
-        console.log(`Successfully added the club ID: ${club_id} to the user ID: ${user_id}`);
+        console.log(`Successfully added the club ID: ${club_id} to the user ID: ${userId}`);
         res.sendStatus(200);
       });
     });
@@ -626,7 +664,7 @@ router.post('/joinClub', function (req, res) {
 });
 
 router.get('/clubs_user', function (req, res) {
-  const { user_id } = req.query; // Obtain the user ID from the query parameters
+  const { userId } = req.session;
   const clubLinks = [
     { name: 'Web', url: './protected/user/webclub.html' },
     { name: 'Sleeping', url: './protected/user/sleepingclub.html' },
@@ -641,7 +679,7 @@ router.get('/clubs_user', function (req, res) {
       FROM userClub uc
       JOIN club c ON uc.club_id = c.club_id
       WHERE uc.user_id = ?`;
-    db.query(selectQuery, [user_id], function (err, rows) {
+    db.query(selectQuery, [userId], function (err, rows) {
       if (err) {
         console.error(err);
         res.sendStatus(500);
