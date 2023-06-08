@@ -195,7 +195,7 @@ img {
 
 /*--end reset--*/
 
-/* 背景 */
+/* background */
 body {
     font-family: Verdana, serif;
     background: #a0e0e0 fixed 0 0;
@@ -208,26 +208,22 @@ h1 {
     font-weight: 100;
 }
 
-
 /*--main--*/
-/* class:main */
 .main {
     padding: 3em 0 0;
 }
 
-/* class:main-information */
 .main-information {
     width: 30%;
     margin: 3em auto;
 }
-
 
 /*--//main--*/
 .login-top {
     padding: 2em 3em;
 }
 
-/* 虚线 text password */
+/* dotted line - text password */
 .login-top input[type="text"],
 .login-top input[type="email"],
 .login-top input[type="password"] {
@@ -239,7 +235,6 @@ h1 {
     border: none;
     border-bottom: 2px dashed #7ba1a8;
     margin: 0 0 2em;
-
 }
 
 .login-top input[type="text"]:focus,
@@ -247,34 +242,58 @@ h1 {
     border-bottom-style: solid;
 }
 
-.passwordBox {
-    display: flex;
-    align-items: center;
+/* button font */
+.login-top input[type="text"]:hover,
+.login-top input[type="password"]:hover {
+    border-bottom-color: #7ba1a8;
 }
 
-.eyeBox {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0 1rem 1rem;
-    color: #7ba1a8;
-}
-
-/*--checkbox--*/
+/* checkbox */
 .login-top input[type="checkbox"] {
     display: none;
 }
 
+/* remember me */
+.login-top input[type="checkbox"]+label {
+    position: relative;
+    padding-left: 2em;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #999;
+    font-weight: 400;
+    cursor: pointer;
+}
 
-/* forget和login/signup在同一行 */
-.login-bottom li {
+/* remember me 前面括号 */
+/* .login-top input[type="checkbox"]+label span:first-child {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #C8C8C8;
+    position: absolute;
+    left: 0;
+    top: 3px;
+} */
+
+/* forget & login/signup in one line */
+.login-top li {
     display: inline-block;
 
 }
 
+/* forget - font/color */
+.login-top a {
+    font-size: 1em;
+    color: #999;
+    vertical-align: middle;
+    line-height: 2.4em;
 
-/* login按钮 submit*/
-.login-bottom input[type="submit"] {
+}
 
+
+/* login button: submit*/
+.login-top button{
+    /* font-size: 0.9em; */
     color: #fff;
     background: #7ba1a8;
     border: 3px solid #7ba1a8;
@@ -284,8 +303,8 @@ h1 {
     float: right;
 }
 
-/* submit按钮变白色 */
-.login-bottom input[type="submit"]:hover {
+
+#login_button:hover button{
     background: #fff;
     color: #7ba1a8;
     border-color: #7ba1a8;
@@ -298,23 +317,47 @@ h1 {
 }
 
 /******** SAP ************/
-/* login和register剧中 */
+/* login & register at the centre */
+.sap_tabs {
+    clear: both;
+}
+
+.tab_box {
+    background: #fd926d;
+    padding: 2em;
+}
+
+.top1 {
+    margin-top: 2%;
+}
+
 .resp-tabs-list {
     list-style: none;
     text-align: center;
 }
 
-/* 上面按钮 */
+/* header button change */
 .resp-tab-item {
+    color: #fff;
     font-size: 1.5em;
-    float: center;
+    cursor: pointer;
+    margin: 0;
+    outline: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    width: 50%;
+    background: #7ba1a8;
+    float: left;
     padding: 15px 0;
 }
 
 .resp-tab-active {
     text-shadow: none;
-    color: #fff;
-    background: #7ba1a8;
+    color: #7ba1a8;
+    background: #fff;
 }
 
 /* 中间白框 */
@@ -341,6 +384,54 @@ h2.resp-accordion {
 
 .resp-tab-item label {
     margin-right: 8px;
+}
+
+
+.social-icons ul li a {
+    display: block;
+    color: #7ba1a8;
+    text-align: center;
+}
+
+.social-icons ul li a span {
+    padding: 0.2em 0.6em;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 1em;
+}
+
+.social-icons ul li a span.text {
+    padding-left: 1em;
+}
+
+.social-icons ul li.pin span.icons {
+    /* background: url(../images/i4.png)no-repeat #AB0518 center; */
+
+    height: 10px;
+    padding: 20px;
+    display: inline-block;
+    align-self: center;
+}
+
+.social-icons ul li a:hover span.icons {
+    transform: rotatey(360deg);
+    -webkit-transform: rotatey(360deg);
+    -o-transform: rotatey(360deg);
+    -moz-transform: rotatey(360deg);
+    -ms-transform: rotatey(360deg);
+    transition: .5s all;
+}
+
+.passwordBox {
+    display: flex;
+    align-items: center;
+}
+
+.eyeBox {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 1rem 1rem;
+    color: #7ba1a8;
 }
 
 /* Style the footer */
@@ -395,4 +486,13 @@ img.LogoBottom {
 .footer i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
+}
+
+.footer a {
+    color: #BFCFD4;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
 }
