@@ -1,4 +1,4 @@
-// Toggle between password visibility
+// Toggle password visibility
 document.getElementById('togglePassword').addEventListener('click', function () {
   var passwordInput = document.getElementById('password');
   if (passwordInput.type === 'password') {
@@ -24,7 +24,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
   };
 
   // Send POST request to the server
-  fetch('/personal_info', {
+  fetch('/personal_info_man', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -35,11 +35,11 @@ document.querySelector('form').addEventListener('submit', function (event) {
       if (response.ok) {
         console.log('Update successful');
         // Perform any other operations after success here
-        alert('Update SUCCESSFUL!'); // Display success alert
+        alert('Update successful'); // Display success alert
       } else {
         console.log('Update failed');
         // Perform any other operations after failure here
-        alert('Update FAILED! Hint: Username or Email already exists.'); // Display failure alert
+        alert('Update failed'); // Display failure alert
       }
     })
     .catch(function (error) {

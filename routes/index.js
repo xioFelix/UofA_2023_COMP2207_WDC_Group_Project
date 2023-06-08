@@ -664,4 +664,64 @@ router.get('/clubs_user', function (req, res) {
   }
 });
 
+// Manager
+// setting manager
+router.post('/personal_info_man', function (req, res, next) {
+  try {
+    // Verify that the data in the request body is empty
+    if (!req.body.username || !req.body.email || !req.body.password) {
+      res.sendStatus(400); // Return an error status code indicating that the request body data is incomplete
+      return;
+    }
+
+    // Update user information
+    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = 7';
+    db.getConnection(function (err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return server error status code when handling error
+        return;
+      }
+
+      // eslint-disable-next-line max-len
+      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err) {
+        connection.release(); // release connection
+
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return server error status code when handling error
+          return;
+        }
+
+        req.session.username = req.body.username;
+        console.log("Successful update the information of user: " + req.body.username);
+        res.end();
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return server error status code when handling error
+  }
+});
+
+router.get('/personal_info_man', function (req, res) {
+  // Gets information about the current user from the database
+  db.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500); // Return server error status code when handling error
+      return;
+    }
+    var query = 'SELECT * FROM user WHERE user_id = ?'; // Suppose you have a table named 'user' and a field named 'id' that identifies the user
+    connection.query(query, function (err, results) { // Suppose you've taken the ID of the currentuser from the request and assigned it to the variable currentuser_id
+
+      connection.release(); // release connection
+      if (err) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); //send response
+    });
+  });
+});
+
 module.exports = router;
