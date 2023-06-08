@@ -256,18 +256,20 @@ h1 {
 .login-top input[type="text"]::-webkit-input-placeholder,
 .login-top input[type="email"]::-webkit-input-placeholder,
 .login-top input[type="password"]::-webkit-input-placeholder {
-    color: rgba(0, 0, 0, 0.700);}
+    color: rgba(0, 0, 0, 0.700);
+}
 
 .login-top input[type="text"]::-moz-placeholder,
 .login-top input[type="email"]::-moz-placeholder,
 .login-top input[type="password"]::-moz-placeholder {
-    color: rgba(0, 0, 0, 0.700)
-    ;}
+    color: rgba(0, 0, 0, 0.700);
+}
 
 .login-top input[type="text"]:-ms-input-placeholder,
 .login-top input[type="email"]:-ms-input-placeholder,
 .login-top input[type="password"]:-ms-input-placeholder {
-    color: rgba(0, 0, 0, 0.700);}
+    color: rgba(0, 0, 0, 0.700);
+}
 
 .login-top input[type="text"]::placeholder,
 .login-top input[type="email"]::placeholder,
@@ -325,9 +327,13 @@ h1 {
 
 }
 
+.g_id_signin {
+    display: block;
+    clear: both;
+}
 
 /* login button: submit*/
-.login-top button{
+.login-top button {
     /* font-size: 0.9em; */
     color: #fff;
     background: #7ba1a8;
@@ -336,10 +342,12 @@ h1 {
     cursor: pointer;
     padding: 7px 20px;
     float: right;
+    display: block;
+    clear: both;
 }
 
 
-#login_button:hover button{
+.login_button:hover button {
     background: #fff;
     color: #7ba1a8;
     border-color: #7ba1a8;
@@ -349,6 +357,8 @@ h1 {
     -o-transition: 0.5s all ease;
     -ms-transition: 0.5s all ease;
     float: right;
+    display: block;
+    clear: both;
 }
 
 /******** SAP ************/

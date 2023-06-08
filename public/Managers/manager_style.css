@@ -219,6 +219,38 @@ h1 {
 }
 
 
+
+.g_id_signin {
+    display: block;
+    clear: both;
+}
+
+/* login button: submit*/
+.login-top button {
+    /* font-size: 0.9em; */
+    color: #fff;
+    background: #7ba1a8;
+    border: 3px solid #7ba1a8;
+    outline: none;
+    cursor: pointer;
+    padding: 7px 20px;
+    float: right;
+    display: block;
+    clear: both;
+}
+
+.login_button:hover button {
+    background: #fff;
+    color: #7ba1a8;
+    border-color: #7ba1a8;
+    transition: 0.5s all ease;
+    -webkit-transition: 0.5s all ease;
+    -moz-transition: 0.5s all ease;
+    -o-transition: 0.5s all ease;
+    -ms-transition: 0.5s all ease;
+    float: right;
+}
+
 /*--//main--*/
 .login-top {
     background-color: white;
