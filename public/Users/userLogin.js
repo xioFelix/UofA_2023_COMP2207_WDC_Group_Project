@@ -79,7 +79,7 @@ function usersignup() {
 }
 
 function managersignup() {
-    const username = document.getElementById('signup-user').value;
+    const username = document.getElementById('signup-manager').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-pass').value;
 
