@@ -27,7 +27,7 @@ new Vue({
 
 // eslint-disable-next-line no-new,no-undef
 new Vue({
-    el: '.managerSignUpPw',
+    el: '.adminSignUpPw',
     data: {
         password: '',
         showPassword: false
