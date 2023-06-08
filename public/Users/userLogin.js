@@ -42,7 +42,7 @@ function login() {
 }
 
 // JavaScript function to handle signup
-function signup() {
+function usersignup() {
     const username = document.getElementById('signup-user').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-pass').value;
@@ -116,7 +116,7 @@ function do_google_login(response) {
             }
         }
     };
-    
+
     req.open('POST', '/google_login');
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify({ idToken: response.credential }));
