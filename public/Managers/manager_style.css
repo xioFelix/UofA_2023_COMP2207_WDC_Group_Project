@@ -437,7 +437,6 @@ h1 {
     background: #fff;
 }
 
-/* 中间白框 */
 .resp-tabs-container {
     padding: 0;
     background-color: #fff;
@@ -495,7 +494,6 @@ h2.resp-accordion {
     }
 }
 
-/*底部图片*/
 img.LogoBottom {
 
     max-height: 12rem;
@@ -524,7 +522,6 @@ img.LogoBottom {
     font-size: large;
 }
 
-/* 底部社交符号*/
 .footer i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;

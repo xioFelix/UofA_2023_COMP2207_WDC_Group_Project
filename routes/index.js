@@ -106,85 +106,42 @@ router.post('/login', async function (req, res, next) {
   }
 });
 
-// router.get('/get_user_info', function (req, res, next) {
-//   const { userId } = req.session;
-//   // 查询与当前用户关联的俱乐部 ID
-//   const selectClubQuery = 'SELECT club_id FROM manager WHERE user_id = ?';
-//   db.getConnection(function (err, connection) {
-//     if (err) {
-//       console.error(err);
-//       res.sendStatus(500); // 返回服务器错误状态码处理错误
-//       return;
-//     }
-
-//     connection.query(selectClubQuery, [userId], (err2, result) => {
-//       connection.release(); // 释放数据库连接
-
-//       if (err2) {
-//         console.error(err2);
-//         res.sendStatus(500);
-//         return;
-//       }
-
-//       if (result.length === 0) {
-//         console.log("No club found for the user");
-//         // 可根据需要添加适当的处理逻辑
-//         res.sendStatus(404);
-//         return;
-//       }
-
-//       const clubId0 = result[0];
-
-//       // 构造包含用户信息和俱乐部 ID 的 JSON 对象
-//       const userInfo = {
-//         username: req.session.username,
-//         userId: req.session.userId,
-//         email: req.session.userEmail,
-//         userIdentity: req.session.userIdentity,
-//         clubId: clubId0.club_id
-//       };
-
-//       res.json(userInfo);
-//     });
-//   });
-// });
-
 
 router.post('/signup', function(req, res, next) {
   try {
-    // 验证请求体中的数据是否为空
+    // Validate if the data in the request body is empty
     if (!req.body.username || !req.body.email || !req.body.password) {
-      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
       return;
     }
 
-    // 在数据库中查找是否存在相同的用户名
+    // Check if the same username already exists in the database
     const query = 'SELECT * FROM user WHERE user_name = ?';
     db.getConnection(function(err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        res.sendStatus(500); // Return server error status code when handling errors
         return;
       }
 
       connection.query(query, [req.body.username], function(err1, results) {
         if (err1) {
           console.error(err1);
-          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          res.sendStatus(500); // Return server error status code when handling errors
           return;
         }
 
         if (results.length > 0) {
-          res.sendStatus(401); // 用户名已存在，返回未授权状态码
+          res.sendStatus(401); // Username already exists, return unauthorized status code
         } else {
-          // 将新用户插入到数据库中
+          // Insert the new user into the database
           const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
           connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function(err2) {
-            connection.release(); // 释放连接
+            connection.release(); // Release the connection
 
             if (err2) {
               console.error(err2);
-              res.sendStatus(500); // 处理错误时返回服务器错误状态码
+              res.sendStatus(500); // Return server error status code when handling errors
               return;
             }
 
@@ -197,9 +154,10 @@ router.post('/signup', function(req, res, next) {
     });
   } catch (err) {
     console.error(err);
-    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+    res.sendStatus(500); // Return server error status code when handling errors
   }
 });
+
 
 
 router.post('/manager_signup', function (req, res, next) {
@@ -399,6 +357,72 @@ router.get('/posts', function (req, res) {
   });
 });
 
+const nodemailer = require('nodemailer');
+const path = require('path');
+const moment = require('moment-timezone');
+const sendTime = moment().tz('Australia/Adelaide').format('MMMM Do YYYY, h:mm:ss a');
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.yeah.net',
+  port: 465,
+  secure: true,
+  auth: {
+    user: 'xiofelix@yeah.net',
+    pass: 'OKKUTYNRKMANYFWX'
+  }
+});
+
+function sendEmailToUser(userEmail, postTitle, postContent) {
+  const mailOptions = {
+    from: 'xiofelix@yeah.net',
+    to: userEmail,
+    subject: 'New Post Notification',
+    html: `
+    <html>
+      <head>
+        <style>
+          .container {
+            background-color: #7ba1a8;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+          }
+          .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333333;
+          }
+          .content {
+            font-size: 18px;
+            color: #F5F5F5;
+            margin-top: 10px;
+          }
+          .sent-time {
+            font-size: 16px;
+            color: #E7E7E7;
+            margin-top: 10px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <p class="title">${postTitle}</p >
+          <p class="content">${postContent}</p >
+          <p class="sent-time">Sent at: ${sendTime}</p >
+        </div>
+      </body>
+    </html>
+    `
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent successfully!', info.response);
+    }
+  });
+}
+
 // Route for adding an activity to the database
 router.post('/posts', (req, res) => {
   const { userId } = req.session;
@@ -411,24 +435,25 @@ router.post('/posts', (req, res) => {
       res.sendStatus(500);
       return;
     }
-    var query = 'SELECT club_id FROM manager WHERE user_id = ?';
-    connection.query(query, [userId], function (err2, rows, fields) {
-      connection.release();
+
+    const query = 'SELECT club_id FROM manager WHERE user_id = ?';
+    connection.query(query, [userId], (err2, rows, fields) => {
       if (err2) {
+        connection.release();
         res.sendStatus(500);
         return;
       }
+
       if (rows.length === 0) {
         connection.release();
-        res.status(400).send('post fail!');
+        res.status(400).send('Post failed!');
         return;
       }
-      // Check if clubId exists in the club table
+
       const clubId = rows[0].club_id;
       const checkQuery = 'SELECT * FROM club WHERE club_id = ?';
       connection.query(checkQuery, [clubId], (err1, rows1) => {
-        if (err) {
-          console.error(err1);
+        if (err1) {
           connection.release();
           res.sendStatus(500);
           return;
@@ -442,17 +467,36 @@ router.post('/posts', (req, res) => {
 
         const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
         connection.query(insertQuery, [clubId, title, content], (err3, rows2) => {
-          connection.release();
           if (err3) {
+            connection.release();
             res.sendStatus(500);
             return;
           }
-          res.json(rows2); // send response
+
+          // query users' Email
+          const userQuery = 'SELECT user_email FROM userClub INNER JOIN user ON userClub.user_id = user.user_id WHERE club_id = ?';
+          connection.query(userQuery, [clubId], (err4, rows3) => {
+            connection.release();
+            if (err4) {
+              console.error(err4);
+              res.sendStatus(500);
+              return;
+            }
+
+            // send Email to all user
+            rows3.forEach((row) => {
+              const userEmail = row.user_email;
+              sendEmailToUser(userEmail, title, content);
+            });
+
+            res.json(rows2); // send response
+          });
         });
       });
     });
   });
 });
+
 
 // user view the activities and join in the activities
 // Route for retrieving activities from the database
@@ -585,11 +629,11 @@ router.post('/message', (req, res) => {
   });
 });
 
+
 // users quit club
 // Route for quitting clubs from users to the database
 router.post('/quitClub', (req, res) => {
   const { clubID } = req.body;
-  console.log("--------------   " + clubID + "   --------------------");
   const { userId } = req.session;
   // Connect to the database
   req.pool.getConnection((err, connection) => {
@@ -599,33 +643,32 @@ router.post('/quitClub', (req, res) => {
       return;
     }
 
-    // 查询活动的活动ID
+    // query activity_id
     const selectActivityQuery = 'SELECT activity_id FROM activity WHERE club_id = ?';
     connection.query(selectActivityQuery, [clubID], (err1, activityResult) => {
       if (err) {
-        connection.release(); // 释放数据库连接
+        connection.release();
         console.error(err1);
         res.sendStatus(500);
         return;
       }
 
-      // 存储活动ID的数组
       const activityIds = activityResult.map((row) => row.activity_id);
 
-      // 执行删除操作
+      // Delete
       const deleteActivityQuery = 'DELETE FROM userAct WHERE activity_id IN (?) AND user_id = ?';
       const deleteClubQuery = 'DELETE FROM userClub WHERE user_id = ? AND club_id = ?';
 
       connection.query(deleteActivityQuery, [activityIds, userId], (err2) => {
         if (err2) {
-          connection.release(); // 释放数据库连接
+          connection.release();
           console.error(err2);
           res.sendStatus(500);
           return;
         }
 
         connection.query(deleteClubQuery, [userId, clubID], (err3) => {
-          connection.release(); // 释放数据库连接
+          connection.release();
 
           if (err3) {
             console.error(err3);
@@ -633,8 +676,8 @@ router.post('/quitClub', (req, res) => {
             return;
           }
 
-          console.log("成功退出俱乐部和所有活动！");
-          res.sendStatus(200); // 成功
+          console.log("Successfully exited the club and all activities!");
+          res.sendStatus(200);
         });
       });
     });
@@ -886,10 +929,10 @@ router.get('/activity', function (req, res) {
       res.sendStatus(500);
       return;
     }
-    const user_id = '7';
+    const { userId } = req.session;
     // var user_id = req.params.user_id;
     var clubquery = 'SELECT club_id FROM manager WHERE user_id = ?';
-    connection.query(clubquery, [user_id], function (err1, results, fields) {
+    connection.query(clubquery, [userId], function (err1, results, fields) {
       if (err1) {
         connection.release();
         res.sendStatus(500);
