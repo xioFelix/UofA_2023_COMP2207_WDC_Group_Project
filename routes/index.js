@@ -309,62 +309,90 @@ app.get('/protected/Admin/home_page.html', function (req, res) {
 // post annoucenment
 // Route for retrieving activitys from the database
 router.get('/posts', function (req, res) {
+  const { userId } = req.session;
 
-  //Connect to the database
+  // Connect to the database
   req.pool.getConnection(function (err, connection) {
     if (err) {
       res.sendStatus(500);
       return;
     }
-    var query = "SELECT * FROM activity;";
-    connection.query(query, function (err, rows, fields) {
+    var query = 'SELECT club_id FROM manager WHERE user_id = ?';
+    connection.query(query, [userId], function (err2, rows, fields) {
       connection.release();
-      if (err) {
-        res.sendStatus(500);
-        return;
-      }
-      res.json(rows); // send response
-    });
-  });
-});
-
-// Route for adding an activity to the database
-// Modify the router.post('/posts') route to check club_id existence
-router.post('/posts', (req, res) => {
-  const { clubID, title, content } = req.body;
-
-  // Connect to the database
-  req.pool.getConnection((err, connection) => {
-    if (err) {
-      res.sendStatus(500);
-      return;
-    }
-
-    // Check if club_id exists in the club table
-    const checkQuery = 'SELECT * FROM club WHERE club_id = ?';
-    connection.query(checkQuery, [clubID], (err2, rows) => {
       if (err2) {
-        connection.release();
         res.sendStatus(500);
         return;
       }
-
       if (rows.length === 0) {
         connection.release();
-        res.status(400).send('Club ID does not exist!');
+        res.status(400).send('no annoucenment!');
         return;
       }
-
-      // Club ID exists, proceed with adding the post
-      const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
-      connection.query(insertQuery, [clubID, title, content], (err3, result) => {
+      var clubId = rows[0].club_id;
+      var query2 = 'SELECT * FROM activity WHERE club_id = ?';
+      connection.query(query2, [clubId], function (err3, rows1) {
         connection.release();
         if (err3) {
           res.sendStatus(500);
           return;
         }
+        res.json(rows1); // send response
+      });
+    });
+  });
+});
 
-        res.status(201).json(result);
+// Route for adding an activity to the database
+router.post('/posts', (req, res) => {
+  const { userId } = req.session;
+  const { title, content } = req.body;
+
+  // Connect to the database
+  req.pool.getConnection((err, connection) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+      return;
+    }
+    var query = 'SELECT club_id FROM manager WHERE user_id = ?';
+    connection.query(query, [userId], function (err2, rows, fields) {
+      connection.release();
+      if (err2) {
+        res.sendStatus(500);
+        return;
+      }
+      if (rows.length === 0) {
+        connection.release();
+        res.status(400).send('post fail!');
+        return;
+      }
+      // Check if clubId exists in the club table
+      const clubId = rows[0].club_id;
+      const checkQuery = 'SELECT * FROM club WHERE club_id = ?';
+      connection.query(checkQuery, [clubId], (err1, rows1) => {
+        if (err) {
+          console.error(err1);
+          connection.release();
+          res.sendStatus(500);
+          return;
+        }
+
+        if (rows1.length === 0) {
+          connection.release();
+          res.status(400).send('Club ID does not exist!');
+          return;
+        }
+
+        const insertQuery = 'INSERT INTO activity (club_id, announcement_title, announcement_content) VALUES (?, ?, ?)';
+        connection.query(insertQuery, [clubId, title, content], (err3, rows2) => {
+          connection.release();
+          if (err3) {
+            res.sendStatus(500);
+            return;
+          }
+          res.json(rows2); // send response
+        });
       });
     });
   });
@@ -381,9 +409,9 @@ router.get('/message1', function (req, res) {
     }
     // get the annoucenment of web club
     var query = 'SELECT * FROM activity WHERE club_id = 1';
-    connection.query(query, function (err, rows, fields) {
+    connection.query(query, function (err1, rows, fields) {
       connection.release();
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
@@ -401,9 +429,9 @@ router.get('/message2', function (req, res) {
     }
     // get the annoucenment of sleeping club
     var query = 'SELECT * FROM activity WHERE club_id = 2';
-    connection.query(query, function (err, rows, fields) {
+    connection.query(query, function (err1, rows, fields) {
       connection.release();
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
@@ -421,9 +449,9 @@ router.get('/message3', function (req, res) {
     }
     // get the annoucenment of frisbee club
     var query = 'SELECT * FROM activity WHERE club_id = 3';
-    connection.query(query, function (err, rows, fields) {
+    connection.query(query, function (err1, rows, fields) {
       connection.release();
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
@@ -441,9 +469,9 @@ router.get('/message4', function (req, res) {
     }
     // get the annoucenment of eating club
     var query = 'SELECT * FROM activity WHERE club_id = 4';
-    connection.query(query, function (err, rows, fields) {
+    connection.query(query, function (err1, rows, fields) {
       connection.release();
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
@@ -577,11 +605,11 @@ router.post('/personal_info', function (req, res, next) {
       }
 
       // eslint-disable-next-line max-len
-      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err) {
+      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err1) {
         connection.release();
 
-        if (err) {
-          console.error(err);
+        if (err1) {
+          console.error(err1);
           res.sendStatus(500);
           return;
         }
@@ -591,8 +619,8 @@ router.post('/personal_info', function (req, res, next) {
         res.end();
       });
     });
-  } catch (err) {
-    console.error(err);
+  } catch (err1) {
+    console.error(err1);
     res.sendStatus(500);
   }
 });
@@ -605,13 +633,13 @@ router.get('/personal_info', function (req, res) {
       return;
     }
     var query = 'SELECT * FROM user WHERE user_id = ?'; // Suppose you have a table named 'user' and a field named 'id' to identify the user
-    connection.query(query, function (err, results) { // Suppose you have obtained the ID of the currentuser from the request and assigned it to the variable currentuser_id
+    connection.query(query, function (err1, results) { // Suppose you have obtained the ID of the currentuser from the request and assigned it to the variable currentuser_id
       connection.release();
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.json(rows); // send response
     });
   });
 });
@@ -642,13 +670,13 @@ router.post('/joinClub', function (req, res) {
 
       // If the user does not join the specified club, insert a record
       const insertQuery = 'INSERT INTO userClub (user_id, club_id) VALUES (?, ?)';
-      db.query(insertQuery, [userId, club_id], function (err) {
-        if (err) {
-          if (err.code === 'ER_DUP_ENTRY') {
+      db.query(insertQuery, [userId, club_id], function (err1) {
+        if (err1) {
+          if (err1.code === 'ER_DUP_ENTRY') {
             console.log('User is already a member of the club.'); // The user is already a club member
             res.sendStatus(409); // conflict
           } else {
-            console.error(err);
+            console.error(err1);
             res.sendStatus(500);
           }
           return;
@@ -657,8 +685,8 @@ router.post('/joinClub', function (req, res) {
         res.sendStatus(200);
       });
     });
-  } catch (err) {
-    console.error(err);
+  } catch (err1) {
+    console.error(err1);
     res.sendStatus(500);
   }
 });
@@ -731,11 +759,11 @@ router.post('/personal_info_man', function (req, res, next) {
       }
 
       // eslint-disable-next-line max-len
-      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err) {
+      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err1) {
         connection.release(); // release connection
 
-        if (err) {
-          console.error(err);
+        if (err1) {
+          console.error(err1);
           res.sendStatus(500); // Return server error status code when handling error
           return;
         }
@@ -759,14 +787,112 @@ router.get('/personal_info_man', function (req, res) {
       return;
     }
     var query = 'SELECT * FROM user WHERE user_id = ?'; // Suppose you have a table named 'user' and a field named 'id' that identifies the user
-    connection.query(query, function (err, results) { // Suppose you've taken the ID of the currentuser from the request and assigned it to the variable currentuser_id
+    connection.query(query, function (err1, results) { // Suppose you've taken the ID of the currentuser from the request and assigned it to the variable currentuser_id
 
       connection.release(); // release connection
-      if (err) {
+      if (err1) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); //send response
+      res.json(rows); // send response
+    });
+  });
+});
+
+// user activity
+router.get('/user_activity', function (req, res) {
+  const { userId } = req.session;
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    var query = 'SELECT a.announcement_title, a.announcement_content FROM activity AS a INNER JOIN userAct AS ua ON a.activity_id = ua.activity_id WHERE ua.user_id = ?';
+
+    connection.query(query, [userId], function (err1, rows, fields) {
+      connection.release();
+      if (err1) {
+        res.sendStatus(500);
+        return;
+      }
+      res.json(rows); // Send response
+    });
+  });
+});
+
+// Activity title
+router.get('/activity', function (req, res) {
+  // Connect to the database
+  req.pool.getConnection(function (err, connection) {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+    const user_id = '7';
+    // var user_id = req.params.user_id;
+    var clubquery = 'SELECT club_id FROM manager WHERE user_id = ?';
+    connection.query(clubquery, [user_id], function (err1, results, fields) {
+      if (err1) {
+        connection.release();
+        res.sendStatus(500);
+        return;
+      }
+      if (results.length === 0) {
+        // No club found for the user
+        connection.release();
+        res.sendStatus(404);
+        return;
+      }
+
+      var { club_id } = results[0];
+      var query = 'SELECT announcement_title, activity_id FROM activity WHERE club_id = ?';
+      connection.query(query, [club_id], function (err2, rows) {
+        connection.release();
+        if (err2) {
+          res.sendStatus(500);
+          return;
+        }
+        res.json(rows); // Send response
+      });
+    });
+  });
+});
+
+
+// Activity user
+router.get('/activity_user/:activity_id', function (req, res) {
+  // Connect to the database
+  var { activity_id } = req.params;
+  req.pool.getConnection(function (err1, connection) {
+    if (err1) {
+      res.sendStatus(500);
+      return;
+    }
+    var userquery = 'SELECT user_id FROM userAct WHERE activity_id = ?';
+    connection.query(userquery, [activity_id], function (err2, results, fields) {
+      connection.release(); // Release the connection
+
+      if (err2) {
+        res.sendStatus(500);
+        return;
+      }
+      if (results.length === 0) {
+        // No user found for the activity
+        res.sendStatus(404);
+        return;
+      }
+
+      var { user_id } = results[0];
+      var query = 'SELECT user_name FROM user WHERE user_id = ?';
+      connection.query(query, [user_id], function (err, rows) {
+        if (err) {
+          res.sendStatus(500);
+          return;
+        }
+        res.json(rows); // Send response
+      });
     });
   });
 });

@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Function to retrieve posts from the server and display them in the table
-  function fetchposts() {
+  function fetchPosts() {
     fetch('/posts')
-      .then((response) => response.json())
-      .then((posts) => {
+      .then(response => response.json())
+      .then(posts => {
         const tableBody = document.querySelector('table tbody');
         tableBody.innerHTML = '';
 
-        posts.forEach((activity) => {
+        posts.forEach(activity => {
           const row = document.createElement('div');
           row.innerHTML = `
           <div class="content">
@@ -22,62 +22,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
           tableBody.appendChild(row);
         });
+      })
+      .catch(error => {
+        console.error(error);
       });
   }
 
-  // Function to add an post to the server and update the table
-  var addpost = () => {
-    const clubIdInput = document.getElementById('club-id');
+  // Function to add a post to the server and update the table
+  const addPost = () => {
     const titleInput = document.getElementById('post-title');
     const contentInput = document.getElementById('post-content');
 
-    const clubID = clubIdInput.value.trim();
     const title = titleInput.value.trim();
     const content = contentInput.value.trim();
 
-    if (clubID === '' || title === '' || content === '') {
-      alert('Please enter clubID Title and Content.');
+    if (title === '' || content === '') {
+      alert('Please enter Title and Content.');
       return;
     }
 
-    const post = { clubID, title, content };
+    const post = { title, content };
 
     fetch('/posts', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(post)
+      body: JSON.stringify(post),
     })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           // Clear the input fields
-          clubIdInput.value = '';
           titleInput.value = '';
           contentInput.value = '';
 
           // Update the table by retrieving all posts again
-          fetchposts();
+          fetchPosts();
         } else if (response.status === 400) {
           return response.text();
         } else {
           throw new Error('An error occurred');
         }
       })
-      .then((errorMessage) => {
+      .then(errorMessage => {
         if (errorMessage) {
           alert(errorMessage);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
   };
 
   // Add event listener for the Add button
   const addButton = document.getElementById('addButton');
-  addButton.addEventListener('click', addpost);
+  addButton.addEventListener('click', addPost);
 
   // Initial retrieval and display of posts
-  fetchposts();
+  fetchPosts();
 });
