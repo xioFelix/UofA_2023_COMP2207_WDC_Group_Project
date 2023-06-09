@@ -39,7 +39,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
       } else {
         console.log('Update failed');
         // Perform any other operations after failure here
-        alert('Update failed'); // Display failure alert
+        alert('Update FAILED! Hint: Username or Email already exists.'); // Display failure alert
       }
     })
     .catch(function (error) {
