@@ -86,7 +86,7 @@ function managersignup() {
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/signup', true);
+    xhr.open('POST', '/manager_signup', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     // Set up a callback function to handle the response
