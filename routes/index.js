@@ -150,9 +150,59 @@ router.post('/login', async function (req, res, next) {
 // });
 
 
+router.post('/signup', function(req, res, next) {
+  try {
+    // 验证请求体中的数据是否为空
+    if (!req.body.username || !req.body.email || !req.body.password) {
+      res.sendStatus(400); // 返回错误状态码，表示请求体数据不完整
+      return;
+    }
+
+    // 在数据库中查找是否存在相同的用户名
+    const query = 'SELECT * FROM user WHERE user_name = ?';
+    db.getConnection(function(err, connection) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // 处理错误时返回服务器错误状态码
+        return;
+      }
+
+      connection.query(query, [req.body.username], function(err1, results) {
+        if (err1) {
+          console.error(err1);
+          res.sendStatus(500); // 处理错误时返回服务器错误状态码
+          return;
+        }
+
+        if (results.length > 0) {
+          res.sendStatus(401); // 用户名已存在，返回未授权状态码
+        } else {
+          // 将新用户插入到数据库中
+          const insertQuery = 'INSERT INTO user (user_name, user_email, user_password, user_identity) VALUES (?, ?, ?, ?)';
+          connection.query(insertQuery, [req.body.username, req.body.email, req.body.password, req.body.user], function(err2) {
+            connection.release(); // 释放连接
+
+            if (err2) {
+              console.error(err2);
+              res.sendStatus(500); // 处理错误时返回服务器错误状态码
+              return;
+            }
+
+            req.session.username = req.body.username;
+            console.log(req.body.username);
+            res.end();
+          });
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // 处理错误时返回服务器错误状态码
+  }
+});
 
 
-router.post('/signup', function (req, res, next) {
+router.post('/manager_signup', function (req, res, next) {
   try {
     // Verify that the data in the request body is empty
     if (!req.body.username || !req.body.email || !req.body.password) {
