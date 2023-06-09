@@ -684,14 +684,14 @@ router.post('/quitClub', (req, res) => {
 // setting
 router.post('/personal_info', function (req, res, next) {
   try {
-    // Verify that the data in the request body is empty
-    if (!req.body.username || !req.body.email || !req.body.password) {
+    // Verify that the data in the request body is not empty
+    if (!req.body.user_name || !req.body.user_email || !req.body.user_password) {
       res.sendStatus(400); // Return an error status code, indicating that the request body data is incomplete
       return;
     }
 
-    // update user information
-    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = 11';
+    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = ?';
+
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
@@ -699,26 +699,77 @@ router.post('/personal_info', function (req, res, next) {
         return;
       }
 
-      // eslint-disable-next-line max-len
-      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err1) {
-        connection.release();
-
-        if (err1) {
-          console.error(err1);
+      // Check if the new username is already in use
+      const checkUsernameQuery = 'SELECT user_id FROM user WHERE user_name = ?';
+      connection.query(checkUsernameQuery, [req.body.user_name], function (err, rows) {
+        if (err) {
+          console.error(err);
           res.sendStatus(500);
           return;
         }
 
-        req.session.username = req.body.username;
-        console.log("Successful update the information of user: " + req.body.username);
-        res.end();
+        if (rows.length > 0) {
+          const existingUserId = rows[0].user_id;
+
+          // If the existing username belongs to the current user, allow the update
+          if (existingUserId === req.body.user_id) {
+            checkEmail();
+          } else {
+            res.status(400).send('Username is already in use.'); // Return an error status code with an error message
+          }
+        } else {
+          checkEmail();
+        }
       });
+
+      function checkEmail() {
+        // Check if the new email is already in use
+        const checkEmailQuery = 'SELECT user_id FROM user WHERE user_email = ?';
+        connection.query(checkEmailQuery, [req.body.user_email], function (err, rows) {
+          if (err) {
+            console.error(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          if (rows.length > 0) {
+            const existingUserId = rows[0].user_id;
+
+            // If the existing email belongs to the current user, allow the update
+            if (existingUserId === req.body.user_id) {
+              executeUpdateQuery();
+            } else {
+              res.status(400).send('Email is already in use.'); // Return an error status code with an error message
+            }
+          } else {
+            executeUpdateQuery();
+          }
+        });
+      }
+
+      function executeUpdateQuery() {
+        // Execute the update query with the provided parameters
+        connection.query(updateQuery, [req.body.user_name, req.body.user_email, req.body.user_password, req.body.user_id], function (err) {
+          connection.release();
+
+          if (err) {
+            console.error(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          req.session.user_name = req.body.user_name;
+          console.log("Successfully updated the information of user: " + req.body.username);
+          res.end();
+        });
+      }
     });
-  } catch (err1) {
-    console.error(err1);
+  } catch (err) {
+    console.error(err);
     res.sendStatus(500);
   }
 });
+
 
 router.get('/personal_info', function (req, res) {
   // Get the current user's information from the database
@@ -838,61 +889,92 @@ router.get('/clubs_user', function (req, res) {
 // setting manager
 router.post('/personal_info_man', function (req, res, next) {
   try {
-    // Verify that the data in the request body is empty
-    if (!req.body.username || !req.body.email || !req.body.password) {
-      res.sendStatus(400); // Return an error status code indicating that the request body data is incomplete
+    // Verify that the data in the request body is not empty
+    if (!req.body.user_name || !req.body.user_email || !req.body.user_password) {
+      res.sendStatus(400); // Return an error status code, indicating that the request body data is incomplete
       return;
     }
 
-    // Update user information
     const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = ?';
+
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
-        res.sendStatus(500); // Return server error status code when handling error
-        return;
-      }
-      const { userId } = req.session;
-      // eslint-disable-next-line max-len
-      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password, userId], function (err1) {
-        connection.release(); // release connection
-
-        if (err1) {
-          console.error(err1);
-          res.sendStatus(500); // Return server error status code when handling error
-          return;
-        }
-
-        req.session.username = req.body.username;
-        console.log("Successful update the information of user: " + req.body.username);
-        res.end();
-      });
-    });
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500); // Return server error status code when handling error
-  }
-});
-
-router.get('/personal_info_man', function (req, res) {
-  // Gets information about the current user from the database
-  db.getConnection(function (err, connection) {
-    if (err) {
-      res.sendStatus(500); // Return server error status code when handling error
-      return;
-    }
-    var query = 'SELECT * FROM user WHERE user_id = ?'; // Suppose you have a table named 'user' and a field named 'id' that identifies the user
-    connection.query(query, function (err1, results) { // Suppose you've taken the ID of the currentuser from the request and assigned it to the variable currentuser_id
-
-      connection.release(); // release connection
-      if (err1) {
         res.sendStatus(500);
         return;
       }
-      res.json(rows); // send response
+
+      // Check if the new username is already in use
+      const checkUsernameQuery = 'SELECT user_id FROM user WHERE user_name = ?';
+      connection.query(checkUsernameQuery, [req.body.user_name], function (err, rows) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500);
+          return;
+        }
+
+        if (rows.length > 0) {
+          const existingUserId = rows[0].user_id;
+
+          // If the existing username belongs to the current user, allow the update
+          if (existingUserId === req.body.user_id) {
+            checkEmail();
+          } else {
+            res.status(400).send('Username is already in use.'); // Return an error status code with an error message
+          }
+        } else {
+          checkEmail();
+        }
+      });
+
+      function checkEmail() {
+        // Check if the new email is already in use
+        const checkEmailQuery = 'SELECT user_id FROM user WHERE user_email = ?';
+        connection.query(checkEmailQuery, [req.body.user_email], function (err, rows) {
+          if (err) {
+            console.error(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          if (rows.length > 0) {
+            const existingUserId = rows[0].user_id;
+
+            // If the existing email belongs to the current user, allow the update
+            if (existingUserId === req.body.user_id) {
+              executeUpdateQuery();
+            } else {
+              res.status(400).send('Email is already in use.'); // Return an error status code with an error message
+            }
+          } else {
+            executeUpdateQuery();
+          }
+        });
+      }
+
+      function executeUpdateQuery() {
+        // Execute the update query with the provided parameters
+        connection.query(updateQuery, [req.body.user_name, req.body.user_email, req.body.user_password, req.body.user_id], function (err) {
+          connection.release();
+
+          if (err) {
+            console.error(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          req.session.user_name = req.body.user_name;
+          console.log("Successfully updated the information of user: " + req.body.username);
+          res.end();
+        });
+      }
     });
-  });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
+
 
 // user activity
 router.get('/user_activity', function (req, res) {
