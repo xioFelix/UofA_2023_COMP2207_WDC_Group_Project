@@ -42,15 +42,17 @@ function fetchMessages() {
 
                 tableBody.appendChild(row);
             });
+            // Wait for all user fetching promises to complete
+            Promise.all(userFetchingPromises)
         });
 }
 
 fetchMessages();
 
 
-  // Adding CSS styles
-  const style = document.createElement('style');
-  style.innerHTML = `
+// Adding CSS styles
+const style = document.createElement('style');
+style.innerHTML = `
   .tabs {
     border-radius: 8px;
     overflow: hidden;

@@ -13,7 +13,6 @@ const CLIENT_ID = '75404991579-12nakh3l8ida0mseh3ff6rhrjbqjd6r4.apps.googleuserc
 const { OAuth2Client } = require('google-auth-library');
 const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
-const sendEmail = require('./sendEmail');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -36,10 +35,6 @@ router.get('/login', function (req, res) {
     res.redirect('../protected/user/home_page.html');
 
   }
-});
-
-router.get('/send_email', function (req, res) {
-  sendEmail(req, res);
 });
 
 router.post('/login', async function (req, res, next) {
@@ -583,8 +578,9 @@ router.get('/message4', function (req, res) {
 // Route for joining activities from users to the database
 router.post('/message', (req, res) => {
   const { userId } = req.session;
-  console.log(userId);
+  console.log("Current user in POST /message is: " + userId);
   const { activityID } = req.body;
+  console.log("Current activityID in POST /message is: " + activityID)
   // Connect to the database
   req.pool.getConnection((err, connection) => {
     if (err) {
@@ -964,6 +960,7 @@ router.get('/activity', function (req, res) {
 router.get('/activity_user/:activity_id', function (req, res) {
   // Connect to the database
   var { activity_id } = req.params;
+  console.log(activity_id);
   req.pool.getConnection(function (err1, connection) {
     if (err1) {
       res.sendStatus(500);
@@ -983,8 +980,9 @@ router.get('/activity_user/:activity_id', function (req, res) {
         return;
       }
 
-      var { user_id } = results[0];
-      var query = 'SELECT user_name FROM user WHERE user_id = ?';
+      var user_id = results.map(result => result.user_id);
+      console.log("All the users userquery give: " + user_id);
+      var query = 'SELECT user_name FROM user WHERE user_id IN (?)';
       connection.query(query, [user_id], function (err, rows) {
         if (err) {
           res.sendStatus(500);
@@ -1287,16 +1285,49 @@ router.post('/clubmembersRemove', function (req, res) {
       }
 
       const { user_id } = rows[0];
-      const deleteQuery = 'DELETE FROM userClub WHERE user_id = ?';
-      db.query(deleteQuery, [user_id], function (err) {
+      const getUserActivitiesQuery = `
+        SELECT ua.activity_id
+        FROM userAct ua
+        INNER JOIN activity a ON ua.activity_id = a.activity_id
+        WHERE ua.user_id = ?;
+      `;
+      db.query(getUserActivitiesQuery, [user_id], function (err, activityRows) {
         if (err) {
           console.error(err);
-          res.sendStatus(500); // Return the server error status code when handling an error
+          res.sendStatus(500);
           return;
         }
 
-        console.log(`Successfully removed the user: ${user_name}!`);
-        res.sendStatus(200); // Return success status code
+        const activityIds = activityRows.map(row => row.activity_id);
+
+        const deleteClubMembershipQuery = 'DELETE FROM userClub WHERE user_id = ?';
+        db.query(deleteClubMembershipQuery, [user_id], function (err) {
+          if (err) {
+            console.error(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          function removeUserFromActivities(user_id, activityIds) {
+            if (activityIds.length === 0) {
+              console.log(`Successfully removed the user!`);
+              res.sendStatus(200);
+              return;
+            }
+
+            const deleteFromActivitiesQuery = 'DELETE FROM userAct WHERE user_id = ? AND activity_id = ?';
+            const activityId = activityIds.pop();
+            db.query(deleteFromActivitiesQuery, [user_id, activityId], function (err) {
+              if (err) {
+                console.error(err);
+                res.sendStatus(500);
+                return;
+              }
+            });
+          }
+
+          removeUserFromActivities(user_id, activityIds);
+        });
       });
     });
   } catch (err) {
@@ -1304,6 +1335,7 @@ router.post('/clubmembersRemove', function (req, res) {
     res.sendStatus(500); // Return the server error status code when handling an error
   }
 });
+
 
 module.exports = router;
 
