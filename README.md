@@ -48,10 +48,21 @@ The final database backup for the project is stored at the following location:
 3.Running the Project:
 
 In your development environment, follow the steps below to run the project:
+
 1.Import the database:
     service mysql start
     mysql < create.sql
+
 2.Install project dependencies:
     npm install
+
 3.Start the project:
     npm start
+    
+4.For testing purposes, we have registered an account for you with the role "admin".
+The user_id is 17,
+the username is "marker",
+the password is "123456",
+the email is "compsci2207@gmail.com" (This may not be a real email, it is only for logging into our website).
+
+Additionally, we strongly recommend that you register with a real testing email as a user. This way, after joining our club, you will be able to receive emails that we send.

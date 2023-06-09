@@ -125,7 +125,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Felix','123456','xiofelix725@gmail.com','admin'),(2,'Jancy','123456','1317858648@qq.com','admin'),(3,'Lily','123456','wangqianying2022@gmail.com','admin'),(4,'Emily','123456','cyqqazmlp@gmail.com','admin'),(5,'F','123456','xiofelix@gmail.com','manager'),(6,'J','123456','131785@qq.com','manager'),(7,'L','123456','wangqianying@gmail.com','manager'),(8,'E','123456','cyqqaz@gmail.com','manager'),(9,'A','123456','A@gmail.com','user'),(10,'B','123456','B@gmail.com','user'),(11,'C','123456','C@gmail.com','user'),(12,'D','123456','D@gmail.com','user'),(13,'AA','123456','AA@gmail.com','user'),(14,'BB','123456','BB@gmail.com','user'),(15,'CC','123456','CC@gmail.com','user'),(16,'DD','123456','DD@gmail.com','user');
+INSERT INTO `user` VALUES (1,'Felix','123456','xiofelix725@gmail.com','admin'),(2,'Jancy','123456','1317858648@qq.com','admin'),(3,'Lily','123456','wangqianying2022@gmail.com','admin'),(4,'Emily','123456','cyqqazmlp@gmail.com','admin'),(5,'F','123456','xiofelix@gmail.com','manager'),(6,'J','123456','131785@qq.com','manager'),(7,'L','123456','wangqianying@gmail.com','manager'),(8,'E','123456','cyqqaz@gmail.com','manager'),(9,'A','123456','A@gmail.com','user'),(10,'B','123456','B@gmail.com','user'),(11,'C','123456','C@gmail.com','user'),(12,'D','123456','D@gmail.com','user'),(13,'AA','123456','AA@gmail.com','user'),(14,'BB','123456','BB@gmail.com','user'),(15,'CC','123456','CC@gmail.com','user'),(16,'DD','123456','DD@gmail.com','user'),(17,'marker','123456','compsci2207@gmail.com','admin');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
