@@ -13,7 +13,9 @@ const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleuser
 const { OAuth2Client } = require('google-auth-library');
 const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
+const sendEmail = require('./sendEmail');
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 const db = mysql.createPool({
   host: 'localhost',
@@ -34,6 +36,10 @@ router.get('/login', function (req, res) {
     res.redirect('../protected/user/home_page.html');
 
   }
+});
+
+router.get('/send_email', function (req, res) {
+  sendEmail(req, res);
 });
 
 router.post('/login', async function (req, res, next) {
@@ -896,5 +902,318 @@ router.get('/activity_user/:activity_id', function (req, res) {
     });
   });
 });
+
+// Admin remove
+router.post('/adminRemove', function (req, res) {
+  const { user_name } = req.body;
+  try {
+    // Validate if the data in the request body is empty
+    if (!user_name) {
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
+      return;
+    }
+
+    const adminQuery = 'SELECT * FROM user WHERE user_name = ?';
+    db.query(adminQuery, [user_name], function (err) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      const deleteAdmin = 'DELETE FROM user WHERE user_name = ?';
+      db.query(deleteAdmin, [user_name], function (err) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return the server error status code when handling an error
+          return;
+        }
+
+        console.log(`Successfully remove the admin: ${user_name}!`);
+        res.sendStatus(200); // Return success status code
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+// Club remove
+router.post('/clubRemove', function (req, res) {
+  const { club_name } = req.body;
+
+  try {
+    // Validate if the data in the request body is empty
+    if (!club_name) {
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
+      return;
+    }
+
+    const clubQuery = 'SELECT * FROM club WHERE club_name = ?';
+    db.query(clubQuery, [club_name], function (err) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      const deleteClub = 'DELETE FROM club WHERE club_name = ?';
+      db.query(deleteClub, [club_name], function (err) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return the server error status code when handling an error
+          return;
+        }
+
+        console.log(`Successfully remove the club: ${club_name}!`);
+        res.sendStatus(200); // Return success status code
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+// User remove
+router.post('/userRemove', function (req, res) {
+  const { user_name } = req.body;
+
+  try {
+    // Validate if the data in the request body is empty
+    if (!user_name) {
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
+      return;
+    }
+
+    const userQuery = 'SELECT * FROM user WHERE user_name = ?';
+    db.query(userQuery, [user_name], function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      if (rows.length === 0) {
+        console.log(`Member with username ${user_name} does not exist`);
+        res.sendStatus(404); // Return status code 404 to indicate that the user does not exist
+        return;
+      }
+
+      const deleteQuery = 'DELETE FROM user WHERE user_name = ?';
+      db.query(deleteQuery, [user_name], function (err) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return the server error status code when handling an error
+          return;
+        }
+
+        console.log(`Successfully removed the user: ${user_name}!`);
+        res.sendStatus(200); // Return success status code
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+// set admin
+router.post('/setAdmin', function (req, res) {
+  const { user_name } = req.body;
+
+  try {
+    // Validate if the data in the request body is empty
+    if (!user_name) {
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
+      return;
+    }
+
+    const userQuery = 'SELECT * FROM user WHERE user_name = ?';
+    db.query(userQuery, [user_name], function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      if (rows.length === 0) {
+        console.log(`Member with username ${user_name} does not exist`);
+        res.sendStatus(404); // Return status code 404 to indicate that the user does not exist
+        return;
+      }
+
+      const identityQuery = 'SELECT user_identity FROM user WHERE user_name = ?';
+      db.query(identityQuery, [user_name], function (err) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return the server error status code when handling an error
+          return;
+        }
+
+        const adminSetQuery = 'UPDATE user SET user_identity = ? WHERE user_name = ?';
+        db.query(adminSetQuery, ['admin', user_name], function (err) {
+          if (err) {
+            console.error(err);
+            res.sendStatus(500); // Return the server error status code when handling an error
+            return;
+          }
+
+          console.log(`Successfully set ${user_name} as admin!`);
+          res.sendStatus(200); // Return success status code
+        });
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+// admin/user.html get user_name
+router.get('/userName', function (req, res) {
+  try {
+    const userQuery = 'SELECT * FROM user WHERE user_identity = "user"';
+    db.query(userQuery, function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      res.json(rows); // Send user data as response
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+router.get('/adminName', function (req, res) {
+  try {
+    const userQuery = 'SELECT * FROM user WHERE user_identity = "admin"';
+    db.query(userQuery, function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+      res.json(rows); // Send user data as response
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+router.get('/clubName', function (req, res) {
+  try {
+    const clubQuery = 'SELECT club_name FROM club ';
+    db.query(clubQuery, function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      res.json(rows); // Send user data as response
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+
+// get club member names
+router.get('/clubmembersName', function (req, res) {
+  const { userId } = req.session;
+
+  try {
+    const clubQuery = 'SELECT club_id FROM manager WHERE user_id = ?';
+    db.query(clubQuery, [userId], function (err, results) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Handle error by returning server error status code
+        return;
+      }
+
+      console.log(clubQuery, userId);
+
+      var clubId = results[0].club_id;
+
+      const userQuery = 'SELECT user.user_name FROM userClub JOIN user ON userClub.user_id = user.user_id WHERE userClub.club_id = ?';
+      db.query(userQuery, [clubId], function (err, results) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Handle error by returning server error status code
+          return;
+        }
+
+        console.log(results);
+
+        res.json(results); // Send user names as response
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Handle error by returning server error status code
+  }
+});
+
+
+// club member remove
+router.post('/clubmembersRemove', function (req, res) {
+  const { user_name } = req.body;
+
+  try {
+    // Validate if the data in the request body is empty
+    if (!user_name) {
+      res.sendStatus(400); // Return error status code indicating incomplete request body data
+      return;
+    }
+
+    const userQuery = 'SELECT user_id FROM user WHERE user_name = ?';
+    db.query(userQuery, [user_name], function (err, rows) {
+      if (err) {
+        console.error(err);
+        res.sendStatus(500); // Return the server error status code when handling an error
+        return;
+      }
+
+      if (rows.length === 0) {
+        console.log(`Member with username ${user_name} does not exist`);
+        res.sendStatus(404); // Return status code 404 to indicate that the user does not exist
+        return;
+      }
+
+      const { user_id } = rows[0];
+      const deleteQuery = 'DELETE FROM userClub WHERE user_id = ?';
+      db.query(deleteQuery, [user_id], function (err) {
+        if (err) {
+          console.error(err);
+          res.sendStatus(500); // Return the server error status code when handling an error
+          return;
+        }
+
+        console.log(`Successfully removed the user: ${user_name}!`);
+        res.sendStatus(200); // Return success status code
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500); // Return the server error status code when handling an error
+  }
+});
+
+module.exports = router;
+
+
 
 module.exports = router;

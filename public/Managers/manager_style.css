@@ -283,7 +283,7 @@ h1 {
 .login-top input[type="email"]:hover::placeholder,
 .login-top input[type="password"]:hover::placeholder {
     font-weight: bold;
-    color: balck;
+    color: black;
     font-size: larger;
 }
 

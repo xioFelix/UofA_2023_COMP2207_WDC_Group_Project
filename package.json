@@ -18,9 +18,11 @@
     "express-session": "^1.17.3",
     "google-auth-library": "^8.8.0",
     "googleapis": "^118.0.0",
+    "moment": "^2.29.4",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.3.3",
+    "nodemailer": "^6.9.3",
     "sequelize": "^6.32.0",
     "vue": "^2.5.17"
   },
