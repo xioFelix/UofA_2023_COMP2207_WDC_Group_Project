@@ -9,7 +9,7 @@ require('connect-flash');
 // eslint-disable-next-line no-unused-vars
 const cookieParser = require('cookie-parser');
 const app = express();
-const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
+const CLIENT_ID = '75404991579-12nakh3l8ida0mseh3ff6rhrjbqjd6r4.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
 const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
@@ -806,16 +806,16 @@ router.post('/personal_info_man', function (req, res, next) {
     }
 
     // Update user information
-    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = 7';
+    const updateQuery = 'UPDATE user SET user_name = ?, user_email = ?, user_password = ? WHERE user_id = ?';
     db.getConnection(function (err, connection) {
       if (err) {
         console.error(err);
         res.sendStatus(500); // Return server error status code when handling error
         return;
       }
-
+      const { userId } = req.session;
       // eslint-disable-next-line max-len
-      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password], function (err1) {
+      connection.query(updateQuery, [req.body.username, req.body.email, req.body.password, userId], function (err1) {
         connection.release(); // release connection
 
         if (err1) {
@@ -971,7 +971,7 @@ router.post('/adminRemove', function (req, res) {
         return;
       }
 
-      const deleteAdmin = 'DELETE FROM user WHERE user_name = ?';
+      const deleteAdmin = 'UPDATE user SET user_identity = "user" WHERE user_name = ?';
       db.query(deleteAdmin, [user_name], function (err) {
         if (err) {
           console.error(err);
