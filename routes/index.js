@@ -9,7 +9,7 @@ require('connect-flash');
 // eslint-disable-next-line no-unused-vars
 const cookieParser = require('cookie-parser');
 const app = express();
-const CLIENT_ID = '646353834079-tcugf0r1sa6bcusb8q7a8g9fl02o7otn.apps.googleusercontent.com';
+const CLIENT_ID = '75404991579-12nakh3l8ida0mseh3ff6rhrjbqjd6r4.apps.googleusercontent.com';
 const { OAuth2Client } = require('google-auth-library');
 const { join } = require("path");
 const client = new OAuth2Client(CLIENT_ID);
