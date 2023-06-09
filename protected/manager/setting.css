@@ -8,6 +8,14 @@ body {
     background: #f1f1f1;
 }
 
+h1 h2 h3 h4 {
+    font-family: "Sofia", sans-serif;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 /*TOP*/
 img.Logorelative{
     position: relative;
@@ -64,11 +72,16 @@ img.Logorelative{
     color: black;
 }
 
+.title {
+    color: #5c8987;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
 /* Add a card effect for articles */
 .card {
     background-color: white;
     padding: 20px;
-    margin-top: 20px;
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
@@ -145,8 +158,7 @@ li {
 /* setting */
 h1 {
     font-size: 150%;
-    margin-left: 10%;
-
+    margin-left: 1%;
 }
 
 .in_left {

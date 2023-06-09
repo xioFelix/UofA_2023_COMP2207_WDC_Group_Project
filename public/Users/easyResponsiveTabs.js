@@ -1,7 +1,3 @@
-// function jQuery() {
-
-// }
-
 (function ($) {
     $.fn.extend({
         easyResponsiveTabs: function (options) {
@@ -64,17 +60,6 @@
                 let count = 0;
                 let $tabContent;
                 $respTabs.find('.resp-tab-item').each(function () {
-//                     // eslint-disable-next-line no-undef,no-unused-vars
-//                     $(this);
-// // Assigning the 'aria-labelledby' attr to tab-content
-//                     let tabcount = 0;
-//                     $respTabs.find('.resp-tab-content').each(function () {
-//                         $tabContent = $(this);
-//                         $tabContent.attr('aria-labelledby', 'tab_item-' + (tabcount));
-//                         tabcount++;
-//                     });
-//                     count++;
-//                 });
                     /* --begin- */
                     // eslint-disable-next-line no-undef
                     $tabItem = $(this);
@@ -99,24 +84,6 @@
                 });
                 /* --end-- */
 
-//                 // Tab Click action function
-//                 $respTabs.find("[role=tab]").each(function () {
-//                     const $currentTab = $(this);
-//                     // eslint-disable-next-line consistent-return
-//                     $currentTab.click(function () {
-
-//                         // eslint-disable-next-line no-unused-vars
-//                         $currentTab.attr('aria-controls');
-//                     });
-//                     // Window resize function
-//                     $(window).resize(function () {
-//                         $respTabs.find('.resp-accordion-closed').removeAttr('style');
-//                     });
-//                 });
-//             });
-//         }
-//     });
-// }(jQuery));
                 /* --begin-- */
                 // Tab Click action function
                 $respTabs.find("[role=tab]").each(function () {

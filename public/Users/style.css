@@ -86,6 +86,14 @@ video {
     vertical-align: baseline;
 }
 
+h1 h2 h3 h4 {
+    font-family: "Sofia", sans-serif;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 article,
 aside,
 details,
@@ -249,7 +257,7 @@ h1 {
 .login-top input[type="email"]:hover::placeholder,
 .login-top input[type="password"]:hover::placeholder {
     font-weight: bold;
-    color: balck;
+    color: black;
     font-size: larger;
 }
 
@@ -276,7 +284,6 @@ h1 {
 .login-top input[type="password"]::placeholder {
     color: rgba(0, 0, 0, 0.700);
     opacity: 1;
-    /* 添加 opacity 属性 */
 }
 
 /* button font */
@@ -302,15 +309,6 @@ h1 {
     cursor: pointer;
 }
 
-/* remember me 前面括号 */
-/* .login-top input[type="checkbox"]+label span:first-child {
-    width: 14px;
-    height: 14px;
-    border: 2px solid #C8C8C8;
-    position: absolute;
-    left: 0;
-    top: 3px;
-} */
 
 /* forget & login/signup in one line */
 .login-top li {
@@ -405,7 +403,6 @@ h1 {
     background: #fff;
 }
 
-/* 中间白框 */
 .resp-tabs-container {
     padding: 0;
     background-color: #fff;
@@ -498,7 +495,6 @@ h2.resp-accordion {
     }
 }
 
-/*底部图片*/
 img.LogoBottom {
 
     max-height: 12rem;
@@ -527,7 +523,6 @@ img.LogoBottom {
     font-size: large;
 }
 
-/* 底部社交符号*/
 .footer i {
     color: #BFCFD4;
     margin: 0 0.5rem 0 0.5rem;
@@ -540,4 +535,23 @@ img.LogoBottom {
 
 .footer a:hover {
     color: white;
+}
+
+/* Manager regester select box style */
+.form-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.form-container label {
+    margin-bottom: 5px;
+}
+
+.form-container select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 90%;
 }

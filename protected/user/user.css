@@ -8,6 +8,14 @@ body {
     background: #f1f1f1;
 }
 
+h1 h2 h3 h4 {
+    font-family: "Sofia", sans-serif;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 /*TOP*/
 img.Logorelative {
     position: relative;
@@ -69,7 +77,6 @@ img.Logorelative {
 .card {
     background-color: white;
     padding: 10px;
-    margin-top: 20px;
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
@@ -362,7 +369,7 @@ input:checked~.tab-content {
     word-wrap: break-word;
     font-size: 1.2em;
     text-align: left;
-    line-height: 1.8;
+    line-height: 1.4;
     margin: 0% 0% 0% 0%;
     font-weight: normal;
 }

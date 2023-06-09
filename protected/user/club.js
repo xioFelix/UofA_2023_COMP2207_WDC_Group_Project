@@ -16,15 +16,14 @@ function openClubAll() {
 
 // Assume you have a div element with the id "clubLinksContainer" for containing club links
 const clubLinksContainer = document.getElementById('clubLink');
-var user_id = '11';
 // Make an asynchronous request to get the joined club links
-fetch('/clubs_user?user_id=' + user_id) // Replace YOUR_USER_ID with the actual user ID
+fetch('/clubs_user') // Replace YOUR_USER_ID with the actual user ID
 
-  .then(response => response.text())
-  .then(data => {
+  .then((response) => response.text())
+  .then((data) => {
     // Insert the returned data into the clubLinksContainer element on the page
     clubLinksContainer.innerHTML = data;
   })
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
   });

@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>postPage</title>
         <link href="manager.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
         <script src="announce.js"></script>
         <script src="https://kit.fontawesome.com/bf9fc0347d.js" crossorigin="anonymous"></script>
     </head>
@@ -28,12 +29,17 @@
             </div>
         </div>
 
+        <br>
         <!--post activity-->
         <div class="card">
-            <h2>Post activities</h2>
+            <div class="title">
+            <h1>Post activities</h1>
+        </div>
             <section>
+                <!--
                 <input id="club-id" type="text" placeholder="Club ID"
                     oninput="value=value.replace(/[^\d]/g,'')" /><br />
+                -->
                 <input id="post-title" type="text" placeholder="Title" /><br />
                 <textarea rows="10" id="post-content" placeholder="Details"></textarea><br />
                 <button class="submitButton" type="button" id="addButton">Submit</button>

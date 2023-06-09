@@ -1,13 +1,47 @@
+// Function to post activity
+function postActivity(activityID) {
+
+  const Activity = { activityID };
+
+  fetch('/message', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(Activity)
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Update the table by retrieving all messages again
+        alert("Successfully joined the activity!");
+        // fetchMessages();
+      } else if (response.status === 409) {
+        alert("You have already joined this activity!");
+
+      } else {
+        throw new Error('An error occurred');
+      }
+    })
+    .then((errorMessage) => {
+      if (errorMessage) {
+        alert(errorMessage);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Function to retrieve messages from the server and display them in the table
   function fetchMessages() {
     fetch('/message1')
-      .then(response => response.json())
-      .then(messages => {
+      .then((response) => response.json())
+      .then((messages) => {
         const tableBody = document.querySelector('table tbody');
         tableBody.innerHTML = '';
 
-        messages.forEach(activity => {
+        messages.forEach((activity) => {
           const row = document.createElement('div');
           row.innerHTML = `
             <div class="content">
@@ -26,46 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add event listeners to each post button
         const postButtons = document.querySelectorAll('.postButton');
-        postButtons.forEach(button => {
+        postButtons.forEach((button) => {
           button.addEventListener('click', () => {
             const activityID = button.dataset.activityId;
             postActivity(activityID);
           });
         });
-      });
-  }
-
-  // Function to post activity
-  function postActivity(activityID) {
-    const userID = 2; // Replace with the actual user ID
-    const Activity = { userID, activityID };
-
-    fetch('/message', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(Activity),
-    })
-      .then(response => {
-        if (response.ok) {
-          // Update the table by retrieving all messages again
-          alert("Successfully joined the activity!");
-          // fetchMessages();
-        } else if (response.status === 409) {
-          alert("You have already joined this activity!");
-          return;
-        } else {
-          throw new Error('An error occurred');
-        }
-      })
-      .then(errorMessage => {
-        if (errorMessage) {
-          alert(errorMessage);
-        }
-      })
-      .catch(error => {
-        console.error(error);
       });
   }
 
@@ -75,18 +75,18 @@ quitButton.forEach(function(button){
   button.addEventListener('click',function(event) {
     event.preventDefault();
 
-    var userID = 2;
+
     var clubID = button.getAttribute('data-club-id');
-    const quitClub = { userID, clubID };
+    const quitClub = { clubID };
 
     fetch('/quitClub', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(quitClub),
+      body: JSON.stringify(quitClub)
     })
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         // Update the table by retrieving all messages again
         alert("Successfully quit the club!");
@@ -95,7 +95,7 @@ quitButton.forEach(function(button){
         throw new Error('An error occurred');
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
       alert("An error occurred");
     });

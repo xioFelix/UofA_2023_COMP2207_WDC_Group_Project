@@ -86,6 +86,14 @@ video {
     vertical-align: baseline;
 }
 
+h1 h2 h3 h4 {
+    font-family: "Sofia", sans-serif;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 article,
 aside,
 details,
@@ -249,7 +257,7 @@ h1 {
 .login-top input[type="email"]:hover::placeholder,
 .login-top input[type="password"]:hover::placeholder {
     font-weight: bold;
-    color: balck;
+    color: black;
     font-size: larger;
 }
 

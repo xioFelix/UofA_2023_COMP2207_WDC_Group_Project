@@ -8,6 +8,14 @@ body {
     background: #f1f1f1;
 }
 
+h1 h2 h3 h4 {
+    font-family: "Sofia", sans-serif;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
 div {
     word-break: break-word;
 }
@@ -76,7 +84,6 @@ img.Logorelative{
 .card {
     background-color: white;
     padding: 20px;
-    margin-top: 20px;
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
@@ -223,5 +230,15 @@ input[type="text"], textarea {
 .title {
     color: #5c8987;
     font-size: 1.2em;
+    font-weight: normal;
+}
+
+/* VIP club intruction  */
+.history {
+    word-wrap: break-word;
+    font-size: 1.2em;
+    text-align: left;
+    line-height: 1.4;
+    margin: 0% 0% 0% 0%;
     font-weight: normal;
 }
